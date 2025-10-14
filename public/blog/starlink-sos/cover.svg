@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">Satellite communication artwork</title>
+  <desc id="desc">Stylized night sky with satellites orbiting Earth</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    <radialGradient id="earth" cx="0.5" cy="1" r="1">
+      <stop offset="0%" stop-color="#22d3ee" />
+      <stop offset="100%" stop-color="#0e7490" />
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#sky)" />
+  <circle cx="600" cy="820" r="380" fill="url(#earth)" opacity="0.95" />
+  <g fill="none" stroke="#38bdf8" stroke-width="2" opacity="0.4">
+    <path d="M120 480 Q600 360 1080 480" />
+    <path d="M120 550 Q600 430 1080 550" />
+    <path d="M120 620 Q600 500 1080 620" />
+  </g>
+  <g fill="#f8fafc" opacity="0.85">
+    <circle cx="220" cy="220" r="6" />
+    <circle cx="380" cy="140" r="5" />
+    <circle cx="520" cy="260" r="5" />
+    <circle cx="720" cy="190" r="6" />
+    <circle cx="890" cy="240" r="5" />
+    <circle cx="1020" cy="120" r="4" />
+  </g>
+  <g fill="#dbeafe" stroke="#38bdf8" stroke-width="3">
+    <rect x="300" y="360" width="70" height="24" rx="4" />
+    <rect x="310" y="352" width="50" height="8" rx="4" />
+    <rect x="830" y="420" width="70" height="24" rx="4" />
+    <rect x="840" y="412" width="50" height="8" rx="4" />
+    <rect x="600" y="300" width="70" height="24" rx="4" />
+    <rect x="610" y="292" width="50" height="8" rx="4" />
+  </g>
+  <g stroke="#38bdf8" stroke-width="2" stroke-dasharray="8 6" opacity="0.5">
+    <path d="M335 348 Q400 320 465 360" />
+    <path d="M865 408 Q930 380 995 420" />
+    <path d="M635 288 Q700 260 765 300" />
+  </g>
+</svg>

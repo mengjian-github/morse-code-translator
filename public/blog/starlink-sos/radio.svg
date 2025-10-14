@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">Marine radio monitoring</title>
+  <desc id="desc">Radio operator listening for emergency signals</desc>
+  <defs>
+    <linearGradient id="room" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b1120" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#room)" />
+  <g fill="#1f2937" stroke="#38bdf8" stroke-width="3" opacity="0.9">
+    <rect x="200" y="340" width="340" height="220" rx="24" />
+    <rect x="680" y="360" width="320" height="160" rx="18" />
+  </g>
+  <rect x="220" y="360" width="300" height="140" rx="16" fill="#0ea5e9" opacity="0.25" />
+  <rect x="700" y="380" width="280" height="120" rx="14" fill="#0ea5e9" opacity="0.25" />
+  <g fill="#38bdf8">
+    <circle cx="250" cy="450" r="16" />
+    <circle cx="810" cy="440" r="12" />
+    <circle cx="930" cy="440" r="12" />
+  </g>
+  <g stroke="#38bdf8" stroke-width="4" stroke-linecap="round">
+    <path d="M560 440 Q620 360 680 420" fill="none" />
+    <path d="M200 560 Q600 640 1000 560" fill="none" opacity="0.4" />
+  </g>
+  <g stroke="#38bdf8" stroke-dasharray="12 8" stroke-width="3" opacity="0.6">
+    <path d="M560 440 Q620 320 740 360" fill="none" />
+    <path d="M680 420 Q780 320 880 380" fill="none" />
+  </g>
+</svg>
