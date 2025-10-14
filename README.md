@@ -2,6 +2,9 @@
 
 An all-in-one Morse code learning hub built with Next.js 15 (App Router + Turbopack). The site delivers a real-time text ↔ Morse translator, companion encoding utilities, and a content-rich blog for educators, radio operators, and history fans.
 
+### Preview
+![Morse Code Translator UI](./public/app-screenshot.png)
+
 ### Features
 - **Live Translator:** Bi-directional text/Morse conversion with audio playback, timing controls, download options, and practice helpers.
 - **Utility Suite:** Dedicated tools for binary, hexadecimal, picture decoding, and other code systems (`app/utils`).
