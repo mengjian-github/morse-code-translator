@@ -56,9 +56,12 @@ export default function IdentifierEncoderPage() {
               Identifier Encoder Highlights
             </h2>
             <div className="space-y-4 text-gray-700 dark:text-gray-300">
-              <p>
-                The identifier encoder simplifies CW compliance for modern networks, and the identifier encoder dashboard keeps multi-team projects aligned. By logging outputs and presets, the identifier encoder supports repeatable asset workflows from the field to the classroom.
-              </p>
+            <p>
+              The identifier encoder simplifies CW compliance for modern networks, and the identifier encoder dashboard keeps multi-team projects aligned. By logging outputs and presets, the identifier encoder supports repeatable asset workflows from the field to the classroom.
+            </p>
+            <p>
+              Field teams rely on the identifier encoder during site surveys, and the identifier encoder packages every ID with audio, text, and documentation so the identifier encoder never leaves crews guessing.
+            </p>
               <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <li className="p-4 bg-primary-50 dark:bg-primary-900/30 rounded-lg border border-primary-200 dark:border-primary-800">
                   <strong className="block text-gray-900 dark:text-white mb-2">Radio-ready exports</strong>
@@ -307,6 +310,8 @@ export default function IdentifierEncoderPage() {
             </div>
             <p className="mt-6 text-gray-700 dark:text-gray-300">
               Keep this identifier encoder FAQ bookmarked so new teammates can master the identifier encoder without slowing field operations. When policies change, the identifier encoder updates instantly so the identifier encoder continues to mirror your compliance checklist.
+            <p className="text-gray-700 dark:text-gray-300">Backup exports ensure the identifier encoder stays available offline, and the identifier encoder can sync once connectivity returns, keeping every identifier encoder audit trail intact.</p>
+            <p className="text-gray-700 dark:text-gray-300">Post-event reviews rely on the identifier encoder to replay transmissions, and the identifier encoder provides timestamps so the identifier encoder supports compliance narratives.</p>
             </p>
           </div>
         </section>

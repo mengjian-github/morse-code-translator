@@ -5,14 +5,14 @@ import PictureDecoderConverter from '../components/PictureDecoderConverter';
 
 export const metadata: Metadata = {
   title: 'Morse Code Picture Decoder - Decode Morse Code from Images',
-  description: 'Free online morse code picture decoder. Upload images containing morse code patterns and decode them instantly. Extract morse code from photos, screenshots, and visual signals.',
+  description: 'Decode morse code from images, photos, and screenshots with our picture decoder. Upload visual dits and dahs, extract hidden messages, and solve puzzles fast.',
   keywords: ['morse code picture', 'morse code image decoder', 'decode morse from picture', 'morse code photo decoder', 'image to morse code', 'visual morse decoder'],
   alternates: {
     canonical: 'https://morsecodetranslator.app/picture-decoder'
   },
   openGraph: {
     title: 'Morse Code Picture Decoder - Decode Morse Code from Images',
-    description: 'Upload images containing morse code patterns and decode them instantly with our free online picture decoder.',
+    description: 'Decode morse code from images, photos, and screenshots with our picture decoder. Upload visual dits and dahs, extract hidden messages, and solve puzzles fast.',
     url: 'https://morsecodetranslator.app/picture-decoder',
   }
 };
@@ -51,6 +51,48 @@ export default function PictureDecoderPage() {
         </section>
 
         <section className="mb-16">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-6 md:p-8">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
+              Picture Decoder Highlights
+            </h2>
+            <div className="space-y-4 text-gray-700 dark:text-gray-300">
+              <p>
+                The picture decoder rebuilds visual dits and dahs for classrooms, and the picture decoder workflow keeps puzzle hunts organized. By logging every interpretation, the picture decoder gives you repeatable image-to-text conversions.
+              </p>
+              <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <li className="p-4 rounded-lg bg-primary-50 dark:bg-primary-900/30 border border-primary-200 dark:border-primary-800">
+                  <strong className="block text-gray-900 dark:text-white mb-2">OCR assist</strong>
+                  <span>The picture decoder spots blurred dots and dashes so you can correct them before exporting.</span>
+                </li>
+                <li className="p-4 rounded-lg bg-primary-50 dark:bg-primary-900/30 border border-primary-200 dark:border-primary-800">
+                  <strong className="block text-gray-900 dark:text-white mb-2">Event ready</strong>
+                  <span>Escape rooms and ARG hosts embed clues knowing the picture decoder can validate their art.</span>
+                </li>
+                <li className="p-4 rounded-lg bg-primary-50 dark:bg-primary-900/30 border border-primary-200 dark:border-primary-800">
+                  <strong className="block text-gray-900 dark:text-white mb-2">STEM friendly</strong>
+                  <span>Teachers lean on the picture decoder to connect photography projects with telecommunications lessons.</span>
+                </li>
+                <li className="p-4 rounded-lg bg-primary-50 dark:bg-primary-900/30 border border-primary-200 dark:border-primary-800">
+                  <strong className="block text-gray-900 dark:text-white mb-2">Archive support</strong>
+                  <span>Museum curators use the picture decoder to transcribe historic photos without damaging originals.</span>
+                </li>
+                <li className="p-4 rounded-lg bg-primary-50 dark:bg-primary-900/30 border border-primary-200 dark:border-primary-800">
+                  <strong className="block text-gray-900 dark:text-white mb-2">Accessibility</strong>
+                  <span>Screen reader users get descriptive text because the picture decoder outputs structured transcripts.</span>
+                </li>
+                <li className="p-4 rounded-lg bg-primary-50 dark:bg-primary-900/30 border border-primary-200 dark:border-primary-800">
+                  <strong className="block text-gray-900 dark:text-white mb-2">Field kits</strong>
+                  <span>Search teams capture light signals and let the picture decoder translate them on rugged tablets.</span>
+                </li>
+              </ul>
+              <p>
+                Whether you catalog history or stage a scavenger hunt, the picture decoder keeps your morse visuals searchable. Save exports to libraries so teammates can reopen the picture decoder results later without recomputing.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="mb-16">
           <PictureDecoderConverter />
         </section>
 
@@ -61,19 +103,19 @@ export default function PictureDecoderPage() {
             </h2>
             <div className="space-y-4 text-gray-700 dark:text-gray-300">
               <p>
-                Morse code picture decoding is the process of extracting and translating morse code patterns from visual images. Whether morse code appears as dots and dashes written on paper, light flashes captured in photographs, or patterns embedded in screenshots, our morse code picture decoder can identify and translate these visual signals into readable text. This technology combines optical character recognition principles with morse code translation algorithms to make visual morse code accessible to everyone.
+                Morse code picture decoding is the process of extracting and translating morse code patterns from visual images. Whether morse code appears as dots and dashes written on paper, light flashes captured in photographs, or patterns embedded in screenshots, our picture decoder can identify and translate these visual signals into readable text. This picture decoder technology combines optical character recognition principles with morse code translation algorithms to make visual morse code accessible to everyone.
               </p>
               <p>
-                Visual morse code appears in many contexts throughout history and modern culture. During World War II, prisoners of war famously used morse code in photographs by positioning their hands or blinking in patterns during filming. Modern geocaching enthusiasts hide morse code messages in photos as puzzle elements. Escape room designers incorporate morse code pictures into their challenges. Amateur photographers create artistic morse code compositions that spell hidden messages. Our morse code picture decoder helps reveal these hidden communications regardless of how they are presented visually.
+                Visual morse code appears in many contexts throughout history and modern culture. During World War II, prisoners of war famously used morse code in photographs by positioning their hands or blinking in patterns during filming. Modern geocaching enthusiasts hide morse code messages in photos as puzzle elements. Escape room designers incorporate morse code pictures into their challenges. Amateur photographers create artistic morse code compositions that spell hidden messages. Our picture decoder helps reveal these hidden communications regardless of how they are presented visually, keeping the picture decoder relevant for historians and hobbyists alike.
               </p>
               <p>
-                The morse code picture decoder works best with clear, high-contrast images where morse code patterns are distinct and visible. Black text on white backgrounds, illuminated morse signals in dark environments, and carefully written morse code patterns all decode reliably. For handwritten morse code pictures, consistent dot and dash notation improves accuracy. When photographing morse code for decoding, ensure good lighting, minimal blur, and sufficient image resolution. Screenshots of digital morse code text typically produce excellent decoding results with our picture decoder tool.
+                The morse code picture decoder works best with clear, high-contrast images where morse code patterns are distinct and visible. Black text on white backgrounds, illuminated morse signals in dark environments, and carefully written morse code patterns all decode reliably. For handwritten morse code pictures, consistent dot and dash notation improves accuracy. When photographing morse code for decoding, ensure good lighting, minimal blur, and sufficient image resolution so the picture decoder can read every mark. Screenshots of digital morse code text typically produce excellent decoding results with our picture decoder tool.
               </p>
               <p>
-                Educational applications for morse code picture decoding include historical research where students analyze wartime photographs for hidden messages, media literacy projects examining visual communication methods, and STEM education activities combining computer vision with telecommunications history. Teachers use morse code picture puzzles to engage students across multiple disciplines. Museum exhibits featuring historical morse code equipment can enhance visitor experiences by allowing guests to decode morse code pictures from archival photographs using their smartphones.
+                Educational applications for morse code picture decoding include historical research where students analyze wartime photographs for hidden messages, media literacy projects examining visual communication methods, and STEM education activities combining computer vision with telecommunications history. Teachers use the picture decoder and morse code picture puzzles to engage students across multiple disciplines. Museum exhibits featuring historical morse code equipment can enhance visitor experiences by allowing guests to decode morse code pictures from archival photographs using their smartphones and the picture decoder interface.
               </p>
               <p>
-                Modern applications of morse code picture decoding extend beyond historical interest. Security researchers study steganography techniques where morse code patterns hide within larger images. Digital artists create works incorporating morse code that reveal messages only when decoded. Social media users share morse code picture puzzles that challenge followers to decode hidden messages. Event organizers create scavenger hunts where participants photograph morse code clues and decode them using tools like our picture decoder. The ability to decode morse code from pictures bridges traditional morse code knowledge with contemporary visual media.
+                Modern applications of morse code picture decoding extend beyond historical interest. Security researchers study steganography techniques where morse code patterns hide within larger images. Digital artists create works incorporating morse code that reveal messages only when decoded. Social media users share morse code picture puzzles that challenge followers to decode hidden messages. Event organizers create scavenger hunts where participants photograph morse code clues and decode them using tools like our picture decoder, ensuring the picture decoder remains part of every clue pipeline. The ability to decode morse code from pictures bridges traditional morse code knowledge with contemporary visual media and keeps the picture decoder central to creative storytelling.
               </p>
               <p>
                 When using a morse code picture decoder, understanding the input format expectations helps achieve better results. Clear distinction between dots and dashes matters more than artistic style. Sequential arrangement from left to right or top to bottom maintains message order. Consistent spacing between characters prevents misinterpretation. For morse code transmitted via light signals captured in long-exposure photography, the pattern clarity depends on exposure duration and signal timing precision. Our decoder handles various visual morse code representations to accommodate different picture types and capture methods.
