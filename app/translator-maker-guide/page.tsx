@@ -25,17 +25,59 @@ export default function TranslatorMakerGuidePage() {
       <section className="mb-16">
         <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-6 md:p-8">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
+            Translator Maker Highlights
+          </h2>
+          <div className="space-y-4 text-gray-700 dark:text-gray-300">
+            <p>
+              A translator maker project bridges code and hardware, and the translator maker roadmap here keeps every skill level engaged. Use the translator maker approach to align lesson plans, hackathon teams, and hobby builds around shared milestones.
+            </p>
+            <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <li className="p-4 bg-primary-50 dark:bg-primary-900/30 rounded-lg border border-primary-200 dark:border-primary-800">
+                <strong className="block text-gray-900 dark:text-white mb-2">Rapid prototypes</strong>
+                <span>The translator maker checklist helps you ship a working browser demo in under an hour.</span>
+              </li>
+              <li className="p-4 bg-primary-50 dark:bg-primary-900/30 rounded-lg border border-primary-200 dark:border-primary-800">
+                <strong className="block text-gray-900 dark:text-white mb-2">Hardware handoff</strong>
+                <span>Move from web mockups to microcontrollers by reusing translator maker conversion logic.</span>
+              </li>
+              <li className="p-4 bg-primary-50 dark:bg-primary-900/30 rounded-lg border border-primary-200 dark:border-primary-800">
+                <strong className="block text-gray-900 dark:text-white mb-2">Classroom friendly</strong>
+                <span>Teachers distribute translator maker worksheets so students tackle code, circuitry, and testing together.</span>
+              </li>
+              <li className="p-4 bg-primary-50 dark:bg-primary-900/30 rounded-lg border border-primary-200 dark:border-primary-800">
+                <strong className="block text-gray-900 dark:text-white mb-2">Contest ready</strong>
+                <span>Hackathon teams lean on translator maker templates to demo clear audio and LED outputs quickly.</span>
+              </li>
+              <li className="p-4 bg-primary-50 dark:bg-primary-900/30 rounded-lg border border-primary-200 dark:border-primary-800">
+                <strong className="block text-gray-900 dark:text-white mb-2">Scalable code</strong>
+                <span>Build reusable modules so your translator maker stack can power desktop, web, and embedded apps.</span>
+              </li>
+              <li className="p-4 bg-primary-50 dark:bg-primary-900/30 rounded-lg border border-primary-200 dark:border-primary-800">
+                <strong className="block text-gray-900 dark:text-white mb-2">Documentation</strong>
+                <span>Keep translator maker logs to track timing tweaks, component swaps, and lesson outcomes.</span>
+              </li>
+            </ul>
+            <p>
+              Formalize your translator maker repository with READMEs, wiring diagrams, and audio samples so collaborators can contribute. A polished translator maker kit doubles as a teaching artifact and a personal portfolio piece.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="mb-16">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-6 md:p-8">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
             Why Build a Morse Code Translator?
           </h2>
           <div className="space-y-4 text-gray-700 dark:text-gray-300">
             <p>
-              Building your own morse code translator maker project offers valuable learning opportunities across multiple technical domains. For programmers, creating a morse code translator teaches string manipulation, algorithm design, and user interface development. Hardware enthusiasts learn about audio generation, LED control, and sensor input through physical morse code devices. Students gain hands-on experience with encoding systems, signal processing, and communication protocols.
+              Building your own morse code translator maker project offers valuable learning opportunities across multiple technical domains. For programmers, creating a translator maker build teaches string manipulation, algorithm design, and user interface development. Hardware enthusiasts learn about audio generation, LED control, and sensor input through physical morse code devices. Students gain hands-on experience with encoding systems, signal processing, and communication protocols guided by the translator maker steps.
             </p>
             <p>
-              A translator maker project scales to any skill level. Beginners can start with simple text-to-morse converters using basic JavaScript. Intermediate makers add audio playback, visual morse displays, and real-time conversion. Advanced projects incorporate Arduino boards for physical morse key input, LED morse output, radio transmission integration, or machine learning for morse code recognition. The morse code translator maker journey grows with your skills.
+              A translator maker project scales to any skill level. Beginners can start with simple text-to-morse converters using basic JavaScript. Intermediate makers add audio playback, visual morse displays, and real-time conversion. Advanced projects incorporate Arduino boards for physical morse key input, LED morse output, radio transmission integration, or machine learning for morse code recognition. The translator maker journey grows with your skills and encourages iterative upgrades.
             </p>
             <p>
-              Beyond technical learning, building a morse code translator connects you with communications history. Understanding how morse code encoding works deepens appreciation for Samuel Morse&apos;s invention and its impact on global telecommunications. Creating a working translator makes abstract encoding concepts tangible, demonstrating how human language translates to electrical signals. This historical-technical connection makes translator maker projects uniquely educational and engaging.
+              Beyond technical learning, building a morse code translator connects you with communications history. Understanding how morse code encoding works deepens appreciation for Samuel Morse&apos;s invention and its impact on global telecommunications. Creating a working translator makes abstract encoding concepts tangible, demonstrating how human language translates to electrical signals. This historical-technical connection makes translator maker projects uniquely educational and engaging, especially when you archive each translator maker prototype for future classes.
             </p>
           </div>
         </div>
@@ -52,7 +94,7 @@ export default function TranslatorMakerGuidePage() {
               JavaScript Web Translator
             </h3>
             <p className="text-gray-700 dark:text-gray-300 mb-4">
-              Build a browser-based morse code translator using vanilla JavaScript, HTML5, and CSS3. Perfect for web developers and beginners.
+              Build a browser-based morse code translator using vanilla JavaScript, HTML5, and CSS3. Perfect for web developers and beginners. This translator maker starter kit introduces core conversion logic.
             </p>
             <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
               <span className="px-2 py-1 bg-blue-200 dark:bg-blue-800 rounded">Beginner</span>
@@ -66,7 +108,7 @@ export default function TranslatorMakerGuidePage() {
               Arduino Morse Device
             </h3>
             <p className="text-gray-700 dark:text-gray-300 mb-4">
-              Create a physical morse code translator with LED output and buzzer sounds using Arduino Uno or compatible boards.
+              Create a physical morse code translator with LED output and buzzer sounds using Arduino Uno or compatible boards. This hardware translator maker path builds on your web prototype for tactile learning.
             </p>
             <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
               <span className="px-2 py-1 bg-green-200 dark:bg-green-800 rounded">Intermediate</span>
@@ -80,7 +122,7 @@ export default function TranslatorMakerGuidePage() {
               Raspberry Pi Station
             </h3>
             <p className="text-gray-700 dark:text-gray-300 mb-4">
-              Build an advanced morse code station with radio transmission, recording capabilities, and network features using Raspberry Pi.
+              Build an advanced morse code station with radio transmission, recording capabilities, and network features using Raspberry Pi. This translator maker finale adds networking and data logging to your toolkit.
             </p>
             <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
               <span className="px-2 py-1 bg-purple-200 dark:bg-purple-800 rounded">Advanced</span>
@@ -99,7 +141,7 @@ export default function TranslatorMakerGuidePage() {
             <div>
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">Step 1: Create the Morse Code Map</h3>
               <p className="text-gray-700 dark:text-gray-300 mb-3">
-                First, define the morse code character mappings. This object converts letters and numbers to their morse code equivalents:
+                First, define the morse code character mappings. This object converts letters and numbers to their morse code equivalents: This translator maker foundation ensures every platform shares identical data.
               </p>
               <div className="bg-gray-900 dark:bg-black rounded-lg p-4 overflow-x-auto">
                 <pre className="text-green-400 text-sm">
@@ -123,7 +165,7 @@ export default function TranslatorMakerGuidePage() {
             <div>
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">Step 2: Build the Translation Function</h3>
               <p className="text-gray-700 dark:text-gray-300 mb-3">
-                Create a function that converts text to morse code:
+                Create a function that converts text to morse code: This translator maker utility feeds both web and hardware interfaces.
               </p>
               <div className="bg-gray-900 dark:bg-black rounded-lg p-4 overflow-x-auto">
                 <pre className="text-green-400 text-sm">
@@ -145,7 +187,7 @@ console.log(textToMorse('HELLO'));
             <div>
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">Step 3: Add Audio Playback</h3>
               <p className="text-gray-700 dark:text-gray-300 mb-3">
-                Use the Web Audio API to play morse code beeps:
+                Use the Web Audio API to play morse code beeps: Layer this translator maker audio step onto your UI to reinforce timing.
               </p>
               <div className="bg-gray-900 dark:bg-black rounded-lg p-4 overflow-x-auto">
                 <pre className="text-green-400 text-sm">

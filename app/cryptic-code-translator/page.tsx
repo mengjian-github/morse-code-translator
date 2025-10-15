@@ -58,7 +58,7 @@ export default function CrypticCodePage() {
               </li>
             </ul>
             <p>
-              Whether you are auditing spycraft or prepping lesson plans, the cryptic code translator keeps every substitution trail organized. The cryptic code translator even stores practice scripts so clubs can revisit challenge drills whenever they meet.
+              Whether you are auditing spycraft or prepping lesson plans, the cryptic code translator keeps every substitution trail organized. The cryptic code translator even stores practice scripts so clubs can revisit challenge drills whenever they meet. Keeping notes inside the cryptic code translator accelerates future solves.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="p-4 bg-gray-100 dark:bg-slate-900 rounded-lg">
@@ -85,16 +85,16 @@ export default function CrypticCodePage() {
           </h2>
           <div className="space-y-4 text-gray-700 dark:text-gray-300">
             <p>
-              Cryptic codes and morse code serve different purposes in communication. Morse code is a character encoding system that represents letters, numbers, and punctuation using standardized patterns of dots and dashes. It&apos;s a transparent encoding method - anyone knowing morse code can decode the message. Cryptic codes, however, are encryption methods designed to hide message content from unauthorized readers.
+              Cryptic codes and morse code serve different purposes in communication. The cryptic code translator compares both approaches side by side so learners see the contrast immediately. Morse code is a character encoding system that represents letters, numbers, and punctuation using standardized patterns of dots and dashes. It&apos;s a transparent encoding method - anyone knowing morse code can decode the message. Cryptic codes, however, are encryption methods designed to hide message content from unauthorized readers, which is why the cryptic code translator emphasizes key differences.
             </p>
             <p>
-              Our cryptic code translator helps you understand various cipher types used throughout history. Substitution ciphers replace each letter with another letter or symbol, like the Caesar cipher that shifts the alphabet by a fixed number. The ROT13 cipher, a special case of Caesar cipher with a 13-position shift, remains popular for hiding puzzle solutions and forum spoilers. More complex substitution ciphers use random letter mappings, requiring frequency analysis to crack.
+              Our cryptic code translator helps you understand various cipher types used throughout history. Substitution ciphers replace each letter with another letter or symbol, like the Caesar cipher that shifts the alphabet by a fixed number. The ROT13 cipher, a special case of Caesar cipher with a 13-position shift, remains popular for hiding puzzle solutions and forum spoilers. More complex substitution ciphers use random letter mappings, requiring frequency analysis to crack. Interactive charts inside the cryptic code translator let you visualise these mappings instantly.
             </p>
             <p>
-              While morse code translation is straightforward (each character has one morse pattern), cryptic code decryption often requires key knowledge or cryptanalysis techniques. Simple substitution ciphers can be broken through letter frequency analysis - "E" appears most frequently in English, followed by "T", "A", "O", and "I". Our cryptic code decoder tools help you practice these analysis techniques, understanding both historical encryption methods and modern cryptography basics.
+              While morse code translation is straightforward (each character has one morse pattern), cryptic code decryption often requires key knowledge or cryptanalysis techniques. Simple substitution ciphers can be broken through letter frequency analysis - "E" appears most frequently in English, followed by "T", "A", "O", and "I". Our cryptic code decoder tools help you practice these analysis techniques, understanding both historical encryption methods and modern cryptography basics, and the cryptic code translator bundles them into repeatable workflows.
             </p>
             <p>
-              The combination of morse code and cryptic codes creates layered encoding. Some messages are first encrypted using a cipher, then encoded in morse code for transmission. This approach, used by military and intelligence services, provides both message secrecy (encryption) and reliable transmission (morse code). Understanding both encoding systems helps decode complex historical communications and appreciate how modern encryption evolved from classical cipher methods.
+              The combination of morse code and cryptic codes creates layered encoding. Some messages are first encrypted using a cipher, then encoded in morse code for transmission. This approach, used by military and intelligence services, provides both message secrecy (encryption) and reliable transmission (morse code). Understanding both encoding systems helps decode complex historical communications and appreciate how modern encryption evolved from classical cipher methods, and the cryptic code translator guides you through each stage.
             </p>
           </div>
         </div>
@@ -215,6 +215,14 @@ export default function CrypticCodePage() {
               </p>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="mb-16">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-6 md:p-8">
+          <p className="text-gray-700 dark:text-gray-300">
+            Keep a practice log inside the cryptic code translator after every puzzle. Reviewing past runs teaches you which cryptic code translator strategies work best, and sharing exports lets teammates replay the cryptic code translator steps without repeating mistakes.
+          </p>
         </div>
       </section>
 

@@ -312,6 +312,7 @@ export default function IdentifierEncoderPage() {
               Keep this identifier encoder FAQ bookmarked so new teammates can master the identifier encoder without slowing field operations. When policies change, the identifier encoder updates instantly so the identifier encoder continues to mirror your compliance checklist.
             <p className="text-gray-700 dark:text-gray-300">Backup exports ensure the identifier encoder stays available offline, and the identifier encoder can sync once connectivity returns, keeping every identifier encoder audit trail intact.</p>
             <p className="text-gray-700 dark:text-gray-300">Post-event reviews rely on the identifier encoder to replay transmissions, and the identifier encoder provides timestamps so the identifier encoder supports compliance narratives.</p>
+            <p className="text-gray-700 dark:text-gray-300">A shared knowledge base listing identifier encoder scenarios keeps the identifier encoder aligned with every agency policy.</p>
             </p>
           </div>
         </section>

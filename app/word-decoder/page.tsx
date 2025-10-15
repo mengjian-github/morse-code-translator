@@ -4,15 +4,15 @@ import WordDecoderConverter from '../components/WordDecoderConverter';
 import ScrollToTopButton from '../components/ScrollToTopButton';
 
 export const metadata: Metadata = {
-  title: 'Word Decoder & Cryptogram Solver - Caesar Cipher, Substitution Cipher & Morse',
-  description: 'Free online word decoder and cryptogram solver. Decode Caesar cipher, substitution cipher, and morse code puzzles. Solve cryptograms and encrypted word puzzles with our alphabet code solver.',
+  title: 'Word Decoder & Cipher Solver for Morse Puzzles',
+  description: 'Decode cryptograms, Caesar shifts, substitution ciphers, and morse puzzles with our word decoder. Check letter frequency, test shifts, and crack hidden clues.',
   keywords: ['word decoder', 'cryptogram alphabet code solver', 'caesar cipher decoder', 'substitution cipher solver', 'cryptogram solver', 'decode cipher', 'puzzle decoder'],
   alternates: {
     canonical: 'https://morsecodetranslator.app/word-decoder'
   },
   openGraph: {
-    title: 'Word Decoder & Cryptogram Solver - Decode Ciphers and Morse Code',
-    description: 'Solve cryptograms, Caesar ciphers, and morse code puzzles with our free word decoder tool.',
+    title: 'Word Decoder & Cipher Solver for Morse Puzzles',
+    description: 'Decode cryptograms, Caesar shifts, substitution ciphers, and morse puzzles with our word decoder. Check letter frequency, test shifts, and crack hidden clues.',
     url: 'https://morsecodetranslator.app/word-decoder',
   }
 };
@@ -51,6 +51,48 @@ export default function WordDecoderPage() {
         </section>
 
         <section className="mb-16">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-6 md:p-8">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
+              Word Decoder Highlights
+            </h2>
+            <div className="space-y-4 text-gray-700 dark:text-gray-300">
+              <p>
+                The word decoder centralizes frequency charts, shift analysis, and morse translation. Power users pin saved puzzles inside the word decoder so groups can collaborate asynchronously on every cipher.
+              </p>
+              <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <li className="p-4 bg-primary-50 dark:bg-primary-900/30 rounded-lg border border-primary-200 dark:border-primary-800">
+                  <strong className="block text-gray-900 dark:text-white mb-2">Live statistics</strong>
+                  <span>The word decoder updates letter frequencies and digram counts as you type clues.</span>
+                </li>
+                <li className="p-4 bg-primary-50 dark:bg-primary-900/30 rounded-lg border border-primary-200 dark:border-primary-800">
+                  <strong className="block text-gray-900 dark:text-white mb-2">Multi-cipher support</strong>
+                  <span>Jump between substitution grids and morse playback without leaving the word decoder workspace.</span>
+                </li>
+                <li className="p-4 bg-primary-50 dark:bg-primary-900/30 rounded-lg border border-primary-200 dark:border-primary-800">
+                  <strong className="block text-gray-900 dark:text-white mb-2">Puzzle archiving</strong>
+                  <span>Save solved stories so the word decoder becomes your searchable clue library.</span>
+                </li>
+                <li className="p-4 bg-primary-50 dark:bg-primary-900/30 rounded-lg border border-primary-200 dark:border-primary-800">
+                  <strong className="block text-gray-900 dark:text-white mb-2">Classroom ready</strong>
+                  <span>Teachers distribute assignments through the word decoder to practice vocabulary and logic simultaneously.</span>
+                </li>
+                <li className="p-4 bg-primary-50 dark:bg-primary-900/30 rounded-lg border border-primary-200 dark:border-primary-800">
+                  <strong className="block text-gray-900 dark:text-white mb-2">Team mode</strong>
+                  <span>Collaborators leave notes directly in the word decoder panel to compare hypotheses.</span>
+                </li>
+                <li className="p-4 bg-primary-50 dark:bg-primary-900/30 rounded-lg border border-primary-200 dark:border-primary-800">
+                  <strong className="block text-gray-900 dark:text-white mb-2">Accessibility</strong>
+                  <span>Screen-reader hints and high-contrast views keep the word decoder inclusive for every solver.</span>
+                </li>
+              </ul>
+              <p>
+                Keep your word decoder results synced across devices by exporting JSON snapshots. The word decoder can re-import those files later so you resume work mid-puzzle without losing context.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="mb-16">
           <WordDecoderConverter />
         </section>
 
@@ -61,22 +103,22 @@ export default function WordDecoderPage() {
             </h2>
             <div className="space-y-4 text-gray-700 dark:text-gray-300">
               <p>
-                Word decoding and cryptogram solving represent foundational skills in cryptography and puzzle-solving. A cryptogram is a type of puzzle where text has been encrypted using a substitution cipher, replacing each letter with another letter, number, or symbol. The word decoder challenge lies in determining which substitutions were made and reversing them to reveal the original message. Cryptogram alphabet code solvers use pattern recognition, letter frequency analysis, and linguistic knowledge to crack these encrypted messages without needing the original cipher key.
+                Word decoding and cryptogram solving represent foundational skills in cryptography and puzzle-solving. A cryptogram is a type of puzzle where text has been encrypted using a substitution cipher, replacing each letter with another letter, number, or symbol. The word decoder challenge lies in determining which substitutions were made and reversing them to reveal the original message. Cryptogram alphabet code solvers use pattern recognition, letter frequency analysis, and linguistic knowledge to crack these encrypted messages without needing the original cipher key, and the word decoder interface bundles all those tools together.
               </p>
               <p>
-                Caesar cipher decoding represents the simplest form of substitution cipher where the entire alphabet shifts by a fixed number of positions. Named after Julius Caesar who reportedly used this technique for military communications, a Caesar cipher with shift 3 converts A to D, B to E, C to F, and so forth. Our word decoder includes Caesar cipher tools that can test all 25 possible shift values instantly, revealing which shift produces readable English text. This brute-force approach works because there are only limited Caesar cipher possibilities, making it an excellent introduction to cryptography for students and puzzle beginners.
+                Caesar cipher decoding represents the simplest form of substitution cipher where the entire alphabet shifts by a fixed number of positions. Named after Julius Caesar who reportedly used this technique for military communications, a Caesar cipher with shift 3 converts A to D, B to E, C to F, and so forth. Our word decoder includes Caesar cipher tools that can test all 25 possible shift values instantly, revealing which shift produces readable English text. This brute-force approach works because there are only limited Caesar cipher possibilities, making it an excellent introduction to cryptography for students and puzzle beginners who rely on the word decoder dashboard.
               </p>
               <p>
-                Substitution cipher solving requires more sophisticated techniques than simple Caesar cipher decoding because each letter can map to any other letter, creating 26 factorial possible combinations. Cryptogram alphabet code solvers succeed by analyzing letter frequency patterns in the encrypted text. In English, letters E, T, A, O, I, N appear most frequently, while Q, X, Z occur rarely. By identifying which encrypted symbols appear most often and comparing against known English letter frequencies, skilled cryptogram solvers can deduce likely letter mappings. Our word decoder tool helps visualize these frequency patterns to accelerate cryptogram solving.
+                Substitution cipher solving requires more sophisticated techniques than simple Caesar cipher decoding because each letter can map to any other letter, creating 26 factorial possible combinations. Cryptogram alphabet code solvers succeed by analyzing letter frequency patterns in the encrypted text. In English, letters E, T, A, O, I, N appear most frequently, while Q, X, Z occur rarely. By identifying which encrypted symbols appear most often and comparing against known English letter frequencies, skilled cryptogram solvers can deduce likely letter mappings. Our word decoder tool helps visualize these frequency patterns to accelerate cryptogram solving and lets the word decoder export annotated results.
               </p>
               <p>
-                Morse code decoding connects with traditional cryptography through its historical use in secret communications and modern puzzle applications. While morse code technically represents encoding rather than encryption, cryptogram creators often combine morse code with other cipher techniques for layered puzzles. A message might first undergo Caesar cipher encryption, then convert to morse code, requiring solvers to decode morse code first and then apply cryptogram solving techniques. Our integrated word decoder handles these multi-step decoding challenges by providing tools for morse translation alongside cipher solving capabilities.
+                Morse code decoding connects with traditional cryptography through its historical use in secret communications and modern puzzle applications. While morse code technically represents encoding rather than encryption, cryptogram creators often combine morse code with other cipher techniques for layered puzzles. A message might first undergo Caesar cipher encryption, then convert to morse code, requiring solvers to decode morse code first and then apply cryptogram solving techniques. Our integrated word decoder handles these multi-step decoding challenges by providing tools for morse translation alongside cipher solving capabilities, keeping the word decoder relevant for radio clubs and puzzle hunts alike.
               </p>
               <p>
-                Educational applications of word decoding and cryptogram solving extend across multiple subjects. Mathematics teachers use cryptograms to teach probability and statistics through frequency analysis. Language arts educators employ code-breaking exercises to reinforce spelling, vocabulary, and pattern recognition skills. History classes explore how cryptography influenced warfare and diplomacy throughout history. Computer science students learn fundamental encryption concepts by manually solving cryptograms before studying modern algorithmic approaches. Puzzle clubs and escape room enthusiasts develop word decoder skills for recreational challenges that combine logic with linguistic knowledge.
+                Educational applications of word decoding and cryptogram solving extend across multiple subjects. Mathematics teachers use cryptograms to teach probability and statistics through frequency analysis. Language arts educators employ code-breaking exercises to reinforce spelling, vocabulary, and pattern recognition skills. History classes explore how cryptography influenced warfare and diplomacy throughout history. Computer science students learn fundamental encryption concepts by manually solving cryptograms before studying modern algorithmic approaches. Puzzle clubs and escape room enthusiasts develop word decoder skills for recreational challenges that combine logic with linguistic knowledge, and the word decoder platform keeps lesson plans organized.
               </p>
               <p>
-                Modern cryptogram solvers and word decoders serve practical purposes beyond puzzles. Linguists studying ancient texts use cryptanalysis techniques when encountering unknown writing systems. Genealogists decoding historical letters may encounter simple ciphers in personal correspondence. Geocaching enthusiasts regularly solve cryptogram-based cache puzzles requiring word decoder skills. Security professionals learn vulnerability assessment by understanding how easily basic substitution ciphers break under systematic analysis. The word decoder and cryptogram solver tools we provide offer both educational value for learners and practical utility for puzzle solvers across diverse applications.
+                Modern cryptogram solvers and word decoders serve practical purposes beyond puzzles. Linguists studying ancient texts use cryptanalysis techniques when encountering unknown writing systems. Genealogists decoding historical letters may encounter simple ciphers in personal correspondence. Geocaching enthusiasts regularly solve cryptogram-based cache puzzles requiring word decoder skills. Security professionals learn vulnerability assessment by understanding how easily basic substitution ciphers break under systematic analysis. The word decoder and cryptogram solver tools we provide offer both educational value for learners and practical utility for puzzle solvers across diverse applications, making the word decoder a staple in research toolkits.
               </p>
             </div>
           </div>
@@ -97,7 +139,7 @@ export default function WordDecoderPage() {
                     Select Decoder Type
                   </h3>
                   <p className="text-gray-700 dark:text-gray-300">
-                    Choose which type of code you want to decode: morse code to text, Caesar cipher with shift value, or substitution cipher cryptogram. Each decoder type uses different algorithms optimized for that specific encoding method.
+                    Choose which type of code you want to decode: morse code to text, Caesar cipher with shift value, or substitution cipher cryptogram. Each decoder type uses different algorithms optimized for that specific encoding method. The word decoder labels each option so new solvers pick the right workflow.
                   </p>
                 </div>
               </div>
@@ -111,7 +153,7 @@ export default function WordDecoderPage() {
                     Enter Encoded Text
                   </h3>
                   <p className="text-gray-700 dark:text-gray-300">
-                    Paste or type your encrypted message, morse code pattern, or cryptogram puzzle into the input field. The word decoder automatically detects patterns and begins analysis as you type.
+                    Paste or type your encrypted message, morse code pattern, or cryptogram puzzle into the input field. The word decoder automatically detects patterns and begins analysis as you type. Contextual hints inside the word decoder sidebar suggest common words based on your progress.
                   </p>
                 </div>
               </div>
@@ -125,7 +167,7 @@ export default function WordDecoderPage() {
                     Adjust Settings and Solve
                   </h3>
                   <p className="text-gray-700 dark:text-gray-300">
-                    For Caesar cipher, adjust the shift value to find the correct decoding. For substitution ciphers, use the frequency analysis hints to map letters. The cryptogram alphabet code solver updates results in real-time as you make changes.
+                    For Caesar cipher, adjust the shift value to find the correct decoding. For substitution ciphers, use the frequency analysis hints to map letters. The cryptogram alphabet code solver updates results in real-time as you make changes. Track every tweak inside the word decoder log so teams can review decisions.
                   </p>
                 </div>
               </div>
@@ -139,7 +181,7 @@ export default function WordDecoderPage() {
                     Copy Decoded Message
                   </h3>
                   <p className="text-gray-700 dark:text-gray-300">
-                    Once the word decoder reveals the original message, use the copy button to save your decoded text. Perfect for puzzle competitions, escape rooms, geocaching, or educational exercises where you need to submit answers.
+                    Once the word decoder reveals the original message, use the copy button to save your decoded text. Perfect for puzzle competitions, escape rooms, geocaching, or educational exercises where you need to submit answers. Exporting ensures the word decoder can reopen the puzzle with your final annotations later.
                   </p>
                 </div>
               </div>
@@ -158,7 +200,7 @@ export default function WordDecoderPage() {
                   Letter Frequency Analysis
                 </h3>
                 <p className="text-gray-700 dark:text-gray-300 text-sm">
-                  Count how often each encrypted letter appears. The most common encrypted letters likely represent E, T, A, O, I, or N in English. Single-letter words are usually A or I. This statistical approach forms the foundation of cryptogram alphabet code solving.
+                  Count how often each encrypted letter appears. The most common encrypted letters likely represent E, T, A, O, I, or N in English. Single-letter words are usually A or I. This statistical approach forms the foundation of cryptogram alphabet code solving, and the word decoder graphs these counts instantly.
                 </p>
               </div>
 
@@ -167,7 +209,7 @@ export default function WordDecoderPage() {
                   Pattern Recognition
                 </h3>
                 <p className="text-gray-700 dark:text-gray-300 text-sm">
-                  Look for repeated letter patterns. Three-letter words ending in the same letter might be THE or AND. Double letters often represent LL, EE, OO, or SS. Common word patterns help word decoders identify likely substitutions quickly.
+                  Look for repeated letter patterns. Three-letter words ending in the same letter might be THE or AND. Double letters often represent LL, EE, OO, or SS. Common word patterns help word decoders identify likely substitutions quickly, and the word decoder suggests candidate replacements in the sidebar.
                 </p>
               </div>
 
@@ -176,7 +218,7 @@ export default function WordDecoderPage() {
                   Word Structure Clues
                 </h3>
                 <p className="text-gray-700 dark:text-gray-300 text-sm">
-                  Apostrophes often indicate contractions like IT&apos;S, DON&apos;T, or I&apos;M. Words ending in -ING, -TION, or -LY provide multiple letter confirmations at once. These structural hints accelerate cryptogram solving significantly.
+                  Apostrophes often indicate contractions like IT&apos;S, DON&apos;T, or I&apos;M. Words ending in -ING, -TION, or -LY provide multiple letter confirmations at once. These structural hints accelerate cryptogram solving significantly, and the word decoder flags them as you type.
                 </p>
               </div>
 
@@ -185,7 +227,7 @@ export default function WordDecoderPage() {
                   Context and Common Sense
                 </h3>
                 <p className="text-gray-700 dark:text-gray-300 text-sm">
-                  After making initial letter substitutions, read the partially decoded text and use context to guess remaining letters. Common phrases and logical sentence structure guide final word decoder decisions when statistical methods alone are insufficient.
+                  After making initial letter substitutions, read the partially decoded text and use context to guess remaining letters. Common phrases and logical sentence structure guide final word decoder decisions when statistical methods alone are insufficient, and the word decoder lets you pin notes on uncertain words.
                 </p>
               </div>
             </div>
@@ -203,7 +245,7 @@ export default function WordDecoderPage() {
                   Caesar Cipher (Shift Cipher)
                 </h3>
                 <p>
-                  The simplest substitution cipher where each letter shifts by a fixed number of positions in the alphabet. With only 25 possible shifts, Caesar cipher decoding is straightforward using brute force testing. Historical yet still popular in puzzles and educational settings for teaching basic cryptography concepts.
+                  The simplest substitution cipher where each letter shifts by a fixed number of positions in the alphabet. With only 25 possible shifts, Caesar cipher decoding is straightforward using brute force testing. Historical yet still popular in puzzles and educational settings for teaching basic cryptography concepts. The word decoder automates the brute force cycle and ranks the likeliest shifts.
                 </p>
               </div>
 
@@ -212,7 +254,7 @@ export default function WordDecoderPage() {
                   Substitution Cipher (Cryptogram)
                 </h3>
                 <p>
-                  More complex than Caesar cipher, substitution ciphers map each letter to any other letter without a simple pattern. Cryptogram alphabet code solvers must use frequency analysis and pattern recognition. Newspaper puzzle sections often feature daily cryptograms that challenge word decoder skills while providing entertainment and mental exercise.
+                  More complex than Caesar cipher, substitution ciphers map each letter to any other letter without a simple pattern. Cryptogram alphabet code solvers must use frequency analysis and pattern recognition. Newspaper puzzle sections often feature daily cryptograms that challenge word decoder skills while providing entertainment and mental exercise. The word decoder pairs these techniques with instant letter locking.
                 </p>
               </div>
 
@@ -221,7 +263,7 @@ export default function WordDecoderPage() {
                   Morse Code
                 </h3>
                 <p>
-                  While technically encoding rather than encryption, morse code translates letters to dot-dash patterns. Morse code decoding requires knowing the international morse alphabet. Often combined with traditional ciphers in puzzle contexts, requiring multi-step word decoder approaches for complete message revelation.
+                  While technically encoding rather than encryption, morse code translates letters to dot-dash patterns. Morse code decoding requires knowing the international morse alphabet. Often combined with traditional ciphers in puzzle contexts, requiring multi-step word decoder approaches for complete message revelation. The word decoder plays audio and text simultaneously so you can confirm timing.
                 </p>
               </div>
 
@@ -230,7 +272,7 @@ export default function WordDecoderPage() {
                   ROT13 Cipher
                 </h3>
                 <p>
-                  A special case of Caesar cipher with 13-position shift. ROT13 is self-inverse, meaning encoding and decoding use the same operation. Popular in online forums for hiding spoilers and puzzle solutions. Simple enough for manual word decoder application, yet effective for casual obfuscation purposes.
+                  A special case of Caesar cipher with 13-position shift. ROT13 is self-inverse, meaning encoding and decoding use the same operation. Popular in online forums for hiding spoilers and puzzle solutions. Simple enough for manual word decoder application, yet effective for casual obfuscation purposes. The word decoder toggles ROT13 with a single click for quick reveals.
                 </p>
               </div>
             </div>
@@ -248,7 +290,7 @@ export default function WordDecoderPage() {
                   Puzzle Games & Entertainment
                 </h3>
                 <p className="text-gray-700 dark:text-gray-300 text-sm">
-                  Newspaper cryptogram puzzles, mobile puzzle apps, escape room challenges, and mystery games all feature coded messages. Word decoder skills turn cryptograms from frustrating obstacles into enjoyable brain teasers that provide satisfaction when solved.
+                  Newspaper cryptogram puzzles, mobile puzzle apps, escape room challenges, and mystery games all feature coded messages. Word decoder skills turn cryptograms from frustrating obstacles into enjoyable brain teasers that provide satisfaction when solved. Clubs often project the word decoder on big screens to collaborate live.
                 </p>
               </div>
 
@@ -257,7 +299,7 @@ export default function WordDecoderPage() {
                   Educational Cryptography
                 </h3>
                 <p className="text-gray-700 dark:text-gray-300 text-sm">
-                  Schools teach cryptography fundamentals through cryptogram solving exercises. Students learn about frequency analysis, pattern recognition, and basic encryption concepts. Cryptogram alphabet code solver experience provides foundation for understanding modern cybersecurity.
+                  Schools teach cryptography fundamentals through cryptogram solving exercises. Students learn about frequency analysis, pattern recognition, and basic encryption concepts. Cryptogram alphabet code solver experience provides foundation for understanding modern cybersecurity. Instructors distribute word decoder templates so students document reasoning.
                 </p>
               </div>
 
@@ -266,7 +308,7 @@ export default function WordDecoderPage() {
                   Geocaching & Treasure Hunts
                 </h3>
                 <p className="text-gray-700 dark:text-gray-300 text-sm">
-                  Geocache coordinates and treasure hunt clues frequently use ciphers requiring word decoder tools. Puzzle caches combine GPS technology with cryptography, creating intellectual challenges beyond simple navigation. Successful cachers develop strong cryptogram solving abilities.
+                  Geocache coordinates and treasure hunt clues frequently use ciphers requiring word decoder tools. Puzzle caches combine GPS technology with cryptography, creating intellectual challenges beyond simple navigation. Successful cachers develop strong cryptogram solving abilities. Many teams store solved routes inside the word decoder for future events.
                 </p>
               </div>
             </div>

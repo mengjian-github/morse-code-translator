@@ -22,9 +22,11 @@ export default function BlogPage() {
           Morse Code <span className="text-primary-600 dark:text-primary-400">Blog</span>
         </h1>
         <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-          Explore morse code history, tutorials, projects, and modern applications. Expert articles for learners, radio operators, and technology enthusiasts.
+          Explore morse code history, tutorials, projects, and modern applications. Expert articles for learners, radio operators, and technology enthusiasts. Our morse code blog curates deep dives and news for every CW fan.
         </p>
       </div>
+
+      <p className="text-center text-base text-gray-600 dark:text-gray-400 mb-8">Browse the morse code blog archive for tutorials, history timelines, and field reports updated weekly.</p>
 
       {/* Category Filter */}
       <section className="mb-12">

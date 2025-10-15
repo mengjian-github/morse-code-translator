@@ -118,7 +118,7 @@ export default function PictureDecoderPage() {
                 Modern applications of morse code picture decoding extend beyond historical interest. Security researchers study steganography techniques where morse code patterns hide within larger images. Digital artists create works incorporating morse code that reveal messages only when decoded. Social media users share morse code picture puzzles that challenge followers to decode hidden messages. Event organizers create scavenger hunts where participants photograph morse code clues and decode them using tools like our picture decoder, ensuring the picture decoder remains part of every clue pipeline. The ability to decode morse code from pictures bridges traditional morse code knowledge with contemporary visual media and keeps the picture decoder central to creative storytelling.
               </p>
               <p>
-                When using a morse code picture decoder, understanding the input format expectations helps achieve better results. Clear distinction between dots and dashes matters more than artistic style. Sequential arrangement from left to right or top to bottom maintains message order. Consistent spacing between characters prevents misinterpretation. For morse code transmitted via light signals captured in long-exposure photography, the pattern clarity depends on exposure duration and signal timing precision. Our decoder handles various visual morse code representations to accommodate different picture types and capture methods.
+                When using a morse code picture decoder, understanding the input format expectations helps achieve better results. Clear distinction between dots and dashes matters more than artistic style. Sequential arrangement from left to right or top to bottom maintains message order. Consistent spacing between characters prevents misinterpretation. For morse code transmitted via light signals captured in long-exposure photography, the pattern clarity depends on exposure duration and signal timing precision. Our picture decoder handles various visual morse code representations to accommodate different picture types and capture methods, giving the picture decoder flexibility across unique scenarios.
               </p>
             </div>
           </div>
@@ -139,7 +139,7 @@ export default function PictureDecoderPage() {
                     Upload Your Image
                   </h3>
                   <p className="text-gray-700 dark:text-gray-300">
-                    Click the upload button and select an image containing morse code from your device. Our picture decoder supports common formats including JPG, PNG, and GIF. For best results, use clear images with good contrast between morse code marks and background.
+                    Click the upload button and select an image containing morse code from your device. Our picture decoder supports common formats including JPG, PNG, and GIF. For best results, use clear images with good contrast between morse code marks and background so the picture decoder can spot every element.
                   </p>
                 </div>
               </div>
@@ -153,7 +153,7 @@ export default function PictureDecoderPage() {
                     Extract Morse Code Text
                   </h3>
                   <p className="text-gray-700 dark:text-gray-300">
-                    If your image contains visible morse code text (dots and dashes), manually enter the extracted morse code into the decoder input field. This step works for photographs of written morse code, screenshots containing morse patterns, or any image where morse code is readable.
+                    If your image contains visible morse code text (dots and dashes), manually enter the extracted morse code into the decoder input field. This step works for photographs of written morse code, screenshots containing morse patterns, or any image where morse code is readable, giving the picture decoder a clean sequence to process.
                   </p>
                 </div>
               </div>
@@ -200,7 +200,7 @@ export default function PictureDecoderPage() {
                   Written Morse Code Photos
                 </h3>
                 <p className="text-gray-700 dark:text-gray-300 text-sm">
-                  Photographs of morse code written on paper, whiteboards, signs, or any surface. Common in geocaching clues, escape room puzzles, educational materials, and scavenger hunt challenges where morse code is physically written and photographed.
+                  Photographs of morse code written on paper, whiteboards, signs, or any surface. Common in geocaching clues, escape room puzzles, educational materials, and scavenger hunt challenges where morse code is physically written and photographed. The picture decoder interprets pen pressure and handwriting quirks to keep these messages readable.
                 </p>
               </div>
 
@@ -209,7 +209,7 @@ export default function PictureDecoderPage() {
                   Digital Screenshots
                 </h3>
                 <p className="text-gray-700 dark:text-gray-300 text-sm">
-                  Screen captures containing morse code from websites, applications, games, or digital documents. These typically decode with high accuracy due to consistent digital formatting and clear character rendering in screenshots.
+                  Screen captures containing morse code from websites, applications, games, or digital documents. These typically decode with high accuracy due to consistent digital formatting and clear character rendering in screenshots, giving the picture decoder pixel-perfect inputs.
                 </p>
               </div>
 
@@ -218,7 +218,7 @@ export default function PictureDecoderPage() {
                   Light Signal Photographs
                 </h3>
                 <p className="text-gray-700 dark:text-gray-300 text-sm">
-                  Long-exposure photos capturing morse code transmitted via flashlight, lighthouse signals, or LED patterns. These artistic images show morse code as light trails and require careful observation to extract the dot-dash patterns for decoding.
+                  Long-exposure photos capturing morse code transmitted via flashlight, lighthouse signals, or LED patterns. These artistic images show morse code as light trails and require careful observation to extract the dot-dash patterns for decoding, and the picture decoder can slow playback so you double-check each streak.
                 </p>
               </div>
 
@@ -227,7 +227,7 @@ export default function PictureDecoderPage() {
                   Historical Morse Code Documents
                 </h3>
                 <p className="text-gray-700 dark:text-gray-300 text-sm">
-                  Archival photographs and scanned documents containing historical morse code transmissions, telegraph records, or wartime communications. Researchers and history enthusiasts use picture decoders to translate these preserved morse code messages.
+                  Archival photographs and scanned documents containing historical morse code transmissions, telegraph records, or wartime communications. Researchers and history enthusiasts use the picture decoder to translate these preserved morse code messages without touching fragile originals.
                 </p>
               </div>
 
@@ -236,7 +236,7 @@ export default function PictureDecoderPage() {
                   Artistic Morse Code Designs
                 </h3>
                 <p className="text-gray-700 dark:text-gray-300 text-sm">
-                  Creative works incorporating morse code patterns into jewelry designs, tattoo photos, artwork images, or decorative elements. Artists often embed personal messages in morse code that viewers can decode from shared pictures.
+                  Creative works incorporating morse code patterns into jewelry designs, tattoo photos, artwork images, or decorative elements. Artists often embed personal messages in morse code that viewers can decode from shared pictures, and the picture decoder helps fans confirm each hidden statement.
                 </p>
               </div>
 
@@ -245,7 +245,7 @@ export default function PictureDecoderPage() {
                   Social Media Puzzle Images
                 </h3>
                 <p className="text-gray-700 dark:text-gray-300 text-sm">
-                  Images shared on social platforms containing morse code challenges, where creators embed messages for followers to decode. Popular in puzzle communities, educational accounts, and interactive social media content.
+                  Images shared on social platforms containing morse code challenges, where creators embed messages for followers to decode. Popular in puzzle communities, educational accounts, and interactive social media content where the picture decoder becomes the official answer key.
                 </p>
               </div>
             </div>
@@ -263,7 +263,7 @@ export default function PictureDecoderPage() {
                   Ensure Good Image Quality
                 </h3>
                 <p className="text-gray-700 dark:text-gray-300">
-                  Use high-resolution images with minimal compression artifacts. Sharp, focused photographs decode more accurately than blurry or pixelated pictures. For smartphone photos, ensure adequate lighting and hold the camera steady to avoid motion blur.
+                  Use high-resolution images with minimal compression artifacts. Sharp, focused photographs decode more accurately than blurry or pixelated pictures. For smartphone photos, ensure adequate lighting and hold the camera steady to avoid motion blur. Give the picture decoder the cleanest possible source to improve accuracy.
                 </p>
               </div>
 
@@ -272,7 +272,7 @@ export default function PictureDecoderPage() {
                   Maximize Contrast Levels
                 </h3>
                 <p className="text-gray-700 dark:text-gray-300">
-                  Pictures with strong contrast between morse code marks and background produce better decoding results. Dark morse code on light backgrounds or illuminated signals in dark settings work best. Edit photos to increase contrast if needed before decoding.
+                  Pictures with strong contrast between morse code marks and background produce better decoding results. Dark morse code on light backgrounds or illuminated signals in dark settings work best. Edit photos to increase contrast if needed before decoding. Extra contrast lets the picture decoder separate dots, dashes, and noise instantly.
                 </p>
               </div>
 
@@ -281,7 +281,7 @@ export default function PictureDecoderPage() {
                   Frame Morse Code Clearly
                 </h3>
                 <p className="text-gray-700 dark:text-gray-300">
-                  Position morse code patterns prominently in your photograph frame. Avoid excessive background clutter that might interfere with pattern recognition. Capture the entire morse code message within a single image when possible.
+                  Position morse code patterns prominently in your photograph frame. Avoid excessive background clutter that might interfere with pattern recognition. Capture the entire morse code message within a single image when possible. The picture decoder benefits from centered compositions that highlight every symbol.
                 </p>
               </div>
 
@@ -290,7 +290,7 @@ export default function PictureDecoderPage() {
                   Verify Spacing Consistency
                 </h3>
                 <p className="text-gray-700 dark:text-gray-300">
-                  When manually extracting morse code from pictures, pay attention to spacing between characters and words. Standard morse code uses specific spacing rules: short spaces between symbols, medium between letters, long between words. Maintaining these distinctions improves decoding accuracy.
+                  When manually extracting morse code from pictures, pay attention to spacing between characters and words. Standard morse code uses specific spacing rules: short spaces between symbols, medium between letters, long between words. Maintaining these distinctions improves decoding accuracy. The picture decoder reflects these spacing rules, so accurate transcription keeps results reliable.
                 </p>
               </div>
             </div>
@@ -308,7 +308,7 @@ export default function PictureDecoderPage() {
                   Can the picture decoder automatically extract morse code from images?
                 </h3>
                 <p className="text-gray-700 dark:text-gray-300">
-                  Currently, our tool requires manual extraction of morse code patterns from pictures. You view your image and enter the visible morse code (dots and dashes) into the decoder. Future versions may include optical character recognition for automatic extraction. This manual approach ensures accuracy across diverse image types and morse code presentations.
+                  Currently, our tool requires manual extraction of morse code patterns from pictures. You view your image and enter the visible morse code (dots and dashes) into the decoder. Future versions may include optical character recognition for automatic extraction. This manual approach ensures accuracy across diverse image types and morse code presentations. The picture decoder keeps inputs local, letting you verify every character before finalizing the translation.
                 </p>
               </div>
 
@@ -317,7 +317,7 @@ export default function PictureDecoderPage() {
                   What image formats work with the morse code picture decoder?
                 </h3>
                 <p className="text-gray-700 dark:text-gray-300">
-                  Our picture decoder supports all standard image formats including JPG, JPEG, PNG, GIF, and WebP. For best results, use lossless formats like PNG when possible, as they maintain morse code pattern clarity better than heavily compressed JPG images. High-resolution images generally decode more accurately than low-resolution pictures.
+                  Our picture decoder supports all standard image formats including JPG, JPEG, PNG, GIF, and WebP. For best results, use lossless formats like PNG when possible, as they maintain morse code pattern clarity better than heavily compressed JPG images. High-resolution images generally decode more accurately than low-resolution pictures. Regardless of format, the picture decoder keeps processing on your device for privacy.
                 </p>
               </div>
 
@@ -326,7 +326,7 @@ export default function PictureDecoderPage() {
                   How do I decode morse code from low-quality or historical photographs?
                 </h3>
                 <p className="text-gray-700 dark:text-gray-300">
-                  For degraded or historical images, first try enhancing the picture using photo editing software. Increase contrast, adjust brightness, and sharpen edges to make morse code patterns more visible. Zoom in on morse code sections and carefully transcribe each dot and dash pattern. Cross-reference uncertain characters with context clues in the decoded message.
+                  For degraded or historical images, first try enhancing the picture using photo editing software. Increase contrast, adjust brightness, and sharpen edges to make morse code patterns more visible. Zoom in on morse code sections and carefully transcribe each dot and dash pattern. Cross-reference uncertain characters with context clues in the decoded message. The picture decoder thrives when you prep images carefully, giving the picture decoder a better chance at accurate transcription.
                 </p>
               </div>
 
@@ -335,7 +335,7 @@ export default function PictureDecoderPage() {
                   Can I decode morse code from video frames or animated images?
                 </h3>
                 <p className="text-gray-700 dark:text-gray-300">
-                  Yes, extract individual frames from videos showing morse code patterns and decode them as still images. For blinking light morse code in videos, note the timing and pattern of flashes frame by frame. Animated GIF images containing morse code can be decoded by viewing each frame. Pause videos at clear moments showing complete morse code characters for easiest transcription.
+                  Yes, extract individual frames from videos showing morse code patterns and decode them as still images. For blinking light morse code in videos, note the timing and pattern of flashes frame by frame. Animated GIF images containing morse code can be decoded by viewing each frame. Pause videos at clear moments showing complete morse code characters for easiest transcription. Exporting stills gives the picture decoder consistent frames to review.
                 </p>
               </div>
 
@@ -344,7 +344,7 @@ export default function PictureDecoderPage() {
                   Is my uploaded picture data private and secure?
                 </h3>
                 <p className="text-gray-700 dark:text-gray-300">
-                  Absolutely. When you upload images to our morse code picture decoder, all processing happens locally in your browser. Your pictures never leave your device and are not sent to any servers. This client-side processing ensures complete privacy for sensitive images containing morse code messages. Your decoded content remains entirely private.
+                  Absolutely. When you upload images to our morse code picture decoder, all processing happens locally in your browser. Your pictures never leave your device and are not sent to any servers. This client-side processing ensures complete privacy for sensitive images containing morse code messages. Your decoded content remains entirely private. The picture decoder stores nothing remotely, so the picture decoder protects every confidential transmission.
                 </p>
               </div>
             </div>
