@@ -101,6 +101,12 @@ export default function Footer() {
               © {currentYear} MorseCodeTranslator.app. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
+              <a
+                href="mailto:support@morsecodetranslator.app"
+                className="text-sm text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400"
+              >
+                Contact Support
+              </a>
               <Link href="/privacy" className="text-sm text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400">
                 Privacy Policy
               </Link>
