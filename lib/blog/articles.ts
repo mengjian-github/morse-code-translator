@@ -44,7 +44,7 @@ export const blogArticles: BlogArticle[] = [
       <p>The Koch method is one of the most effective approaches for learning to read morse code at high speeds from the beginning. Instead of learning morse code slowly and gradually increasing speed, this method teaches you to recognize characters at your target speed (typically 20 WPM) from day one.</p>
 
       <figure>
-        <img src="https://images.unsplash.com/photo-1478529942321-bd034d1f7d12?auto=format&fit=crop&w=1400&q=80" alt="Student using a laptop with morse code training software" loading="lazy" />
+        <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=1400&q=80" alt="Student using a laptop with morse code training software" loading="lazy" />
         <figcaption>Structured software drills help you hear characters at your target speed without counting dits and dahs.</figcaption>
       </figure>
 
