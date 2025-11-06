@@ -365,7 +365,7 @@ export const blogArticles: BlogArticle[] = [
       <p>As of 2025, morse code (CW) testing requirements vary significantly by country. Most nations have removed mandatory morse code testing, but proficiency remains valuable for amateur radio operators who want to access crowded HF bands efficiently.</p>
 
       <figure>
-        <img src="https://images.unsplash.com/photo-1555618568-9e64701db4d5?auto=format&fit=crop&w=1400&q=80" alt="Ham radio operator practicing CW copy" loading="lazy" />
+        <img src="https://images.unsplash.com/photo-1578402027014-8adededc0fac?auto=format&fit=crop&w=1400&q=80" alt="Radio operator wearing headphones copying Morse code" loading="lazy" />
         <figcaption>Clubs continue to offer CW practice sessions even in regions where licensing no longer mandates it.</figcaption>
       </figure>
 
@@ -386,7 +386,7 @@ export const blogArticles: BlogArticle[] = [
       </ul>
 
       <figure>
-        <img src="https://images.unsplash.com/photo-1529912801902-59eadd07ae7d?auto=format&fit=crop&w=1400&q=80" alt="Portable amateur radio station operating outdoors" loading="lazy" />
+        <img src="https://images.unsplash.com/photo-1552172904-faeb4b22ff9a?auto=format&fit=crop&w=1400&q=80" alt="Handheld emergency radio ready for field use" loading="lazy" />
         <figcaption>Field operations highlight why CW still excels in low-power, long-distance contacts.</figcaption>
       </figure>
 
@@ -429,7 +429,7 @@ export const blogArticles: BlogArticle[] = [
       <p>Start by mapping characters to dot-dash strings using a dictionary object. Use <code>tone()</code> for audio output and <code>digitalWrite()</code> for LED flashes, timed with <code>delay()</code> or <code>millis()</code> for non-blocking loops.</p>
 
       <figure>
-        <img src="https://images.unsplash.com/photo-1555618568-9e64701db4d5?auto=format&fit=crop&w=1400&q=80" alt="Maker testing morse code output with headphones" loading="lazy" />
+        <img src="https://images.unsplash.com/photo-1615427393402-8dec5c104760?auto=format&fit=crop&w=1400&q=80" alt="Portable HF transceiver and headphones staged for testing" loading="lazy" />
         <figcaption>Monitor output with headphones to fine-tune tone frequency and duty cycle.</figcaption>
       </figure>
 
