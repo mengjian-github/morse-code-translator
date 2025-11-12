@@ -1,21 +1,164 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import MorseTranslator from './components/MorseTranslator';
 import MorseCodeChart from './components/MorseCodeChart';
 import ScrollToTopButton from './components/ScrollToTopButton';
-import Link from 'next/link';
+import SignalVisualizer from './components/SignalVisualizer';
+
+const driverScenarios = [
+  {
+    title: 'Instant Translation & QA',
+    description:
+      'Paste, convert, and verify without modal windows or reloads so the Morse Code Translator feels as fast as a command palette. Perfect for quick classroom checks, contest prep, or troubleshooting on the fly.',
+    metrics: ['<1s first render', 'Bi-directional sync', 'Copy & WAV export'],
+  },
+  {
+    title: 'Learning & Education',
+    description:
+      'Lesson-ready prompts, example buttons, ear-training audio, and challenge decks inside the Morse Code Translator help instructors build 5–15 minute learning blocks.',
+    metrics: ['Exercise library', 'Projector-safe UI', 'FAQ + cheat sheets'],
+  },
+  {
+    title: 'HAM & Signal Simulation',
+    description:
+      'Fine-grained WPM, frequency, waveform, noise, and run-time feedback keep the Morse Code Translator behaving like a controllable signal lab for amateur radio drills.',
+    metrics: ['5–45 WPM', '300–1200 Hz', 'QRM/QRN modeling'],
+  },
+  {
+    title: 'Accessibility / AT',
+    description:
+      'Aligns with Google Morse AT guidance through large controls, dark mode, stable timing, and adjustable feedback so the Morse Code Translator remains comfortable for alternate input users.',
+    metrics: ['High contrast + keyboard first', 'Custom speed/tone', 'Exportable telemetry'],
+  },
+];
+
+const toolSuiteLinks = [
+  {
+    href: '/picture-decoder',
+    title: 'Morse Code Picture Decoder',
+    description: 'Upload a photo → OCR → Morse, complete with framing tips and clarity scoring.',
+  },
+  {
+    href: '/binary-to-morse',
+    title: 'Binary ↔ Morse Lab',
+    description: 'Batch convert 8-bit / 16-bit payloads with address tables and exports.',
+  },
+  {
+    href: '/identifier-encoder',
+    title: 'Identifier Encoder',
+    description: 'Turn call signs or IoT asset IDs into Morse with validation templates.',
+  },
+  {
+    href: '/word-decoder',
+    title: 'Word Decoder & Cryptogram Hub',
+    description: 'Lightweight substitution, Caesar, and Vigenère helpers that loop readers back to the main translator.',
+  },
+  {
+    href: '/cryptic-code-translator',
+    title: 'Cryptic Code Translator',
+    description: 'Explain common cipher families, contrast them with Morse, and provide compliant decode tooling.',
+  },
+  {
+    href: '/hexadecimal-cipher',
+    title: 'Hexadecimal Cipher Converter',
+    description: 'Hex ↔ ASCII ↔ Morse pipelines for firmware, CTF, and hacker demos.',
+  },
+  {
+    href: '/translator-maker-guide',
+    title: 'Translator Maker Guide',
+    description: 'Step-by-step builds for JS, Arduino, or Micro:bit Morse translators.',
+  },
+];
+
+const accessibilityPoints = [
+  '100% keyboard reach with Screen Reader landmarks and logical headings.',
+  '44px touch targets, responsive spacing, and auto dark mode for eye comfort.',
+  'Audio, vibration, and visual cues can be toggled independently for AT flows.',
+  'Speed and tone presets mirror the Google Morse Gboard implementation.',
+];
+
+const intlPoints = [
+  'Decoder engine spans Latin, Cyrillic, Greek, Hebrew, Arabic, Persian, Wabun (JP), Hangul, Thai, and more.',
+  'UI copy ships with EN / ES / DE / JA / KO seeds and is ready for further locales.',
+  'Structured data + multilingual meta strengthen SEO and fend off scraper clones.',
+  'Input pipeline supports RTL and IME compositions so characters are never dropped.',
+];
+
+const heroStats = [
+  { label: 'Dial speed', value: '5–45 WPM' },
+  { label: 'Frequency band', value: '300–1200 Hz' },
+  { label: 'Wave set', value: 'Sine · Square · Triangle · Saw' },
+];
+
+const cockpitPanels = [
+  {
+    title: 'Text Input',
+    accent: '#FFD800',
+    description: 'Real-time sync with copy, paste, and keyboard shortcuts keeps the Morse Code Translator primed for speed-focused QA.',
+  },
+  {
+    title: 'Morse Output',
+    accent: '#0058A3',
+    description: 'Bi-directional translation with punctuation, numerals, and multi-language alphabets proves the Morse Code Translator handles every script.',
+  },
+  {
+    title: 'Audio Controls',
+    accent: '#FF8C00',
+    description: 'Dial WPM, frequency, waveform, and export WAV in one lab-style panel.',
+  },
+  {
+    title: 'Accessibility',
+    accent: '#333333',
+    description: 'AT toggles, large targets, and telemetry export for therapists and educators.',
+  },
+];
+
+const serpFaqs = [
+  {
+    question: 'How does the Morse Code Translator convert text to CW so fast?',
+    answer:
+      'A streaming parser keeps everything in-memory so the Morse Code Translator responds as you type, and the Morse Code Translator pre-buffers audio envelopes for repeated practice runs.',
+  },
+  {
+    question: 'Can the Morse Code Translator generate audio I can download?',
+    answer:
+      'Yes—the Morse Code Translator exports clean WAV files with your tone, waveform, and WPM preferences so you can share drills or embed the Morse Code Translator output in lessons.',
+  },
+  {
+    question: 'Is the Morse Code Translator safe for classrooms and HAM exams?',
+    answer:
+      'There are no ads or trackers, the Morse Code Translator works offline after the first load, and teachers can pin presets so the Morse Code Translator matches exam rules.',
+  },
+  {
+    question: 'What accessibility support does the Morse Code Translator include?',
+    answer:
+      'Large targets, keyboard-first navigation, and independent audio/visual toggles make the Morse Code Translator align with Google Morse AT, while telemetry exports help therapists review Morse Code Translator sessions.',
+  },
+];
 
 export const metadata: Metadata = {
   title: 'Morse Code Translator - Free Online Morse Code Converter',
-  description: 'Instant morse code translator with audio playback, downloads, and two-way text conversion. Practice CW, share messages, and explore learning tools now.',
-  keywords: ['morse code translator', 'morse code converter', 'text to morse', 'morse to text', 'online morse translator', 'morse code audio', 'morse code decoder', 'morse code encoder'],
+  description:
+    'Morse Code Translator with live text↔CW, tone and noise sliders, WAV exports, and guided lessons built for HAM drills, STEM labs, and accessibility teams.',
+  keywords: [
+    'morse code translator',
+    'morse code converter',
+    'text to morse',
+    'morse to text',
+    'online morse translator',
+    'morse code audio',
+    'morse code decoder',
+    'morse code encoder',
+  ],
   alternates: {
-    canonical: 'https://morsecodetranslator.app/'
+    canonical: 'https://morsecodetranslator.app/',
   },
   openGraph: {
     title: 'Morse Code Translator - Free Online Morse Code Converter',
-    description: 'Instant morse code translator with audio playback, downloads, and two-way text conversion. Practice CW, share messages, and explore learning tools now.',
+    description:
+      'Morse Code Translator with live text↔CW, tone and noise sliders, WAV exports, and guided lessons built for HAM drills, STEM labs, and accessibility teams.',
     url: 'https://morsecodetranslator.app/',
-  }
+  },
 };
 
 export default function Home() {
@@ -28,11 +171,12 @@ export default function Home() {
     offers: {
       '@type': 'Offer',
       price: '0',
-      priceCurrency: 'USD'
+      priceCurrency: 'USD',
     },
-    description: 'Free online morse code translator with real-time conversion, audio playback, and download capabilities.',
-    url: 'https://morsecodetranslator.app/'
-  };
+    description:
+      'Free online morse code translator with real-time conversion, audio playback, and download capabilities.',
+    url: 'https://morsecodetranslator.app/',
+  } as const;
 
   return (
     <>
@@ -41,375 +185,345 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Hero Section */}
-        <section className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
-            Free Online <span className="text-primary-600 dark:text-primary-400">Morse Code Translator</span>
-          </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto mb-8">
-            Convert text to morse code and morse code to text instantly with our fast, free, and privacy-focused online morse code translator. Features real-time conversion, audio playback, and downloadable sound files.
-          </p>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+        {/* Hero */}
+        <section className="space-y-8">
+          <div className="grid gap-8 lg:grid-cols-2 items-start">
+            <div className="space-y-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-white/80 text-sm">
+                <span className="font-plex">· – ·</span>
+                From Morse Code Translator to signal simulator
+              </div>
+              <h1 className="text-4xl md:text-5xl font-bold text-white leading-tight">
+                Morse Code Translator for real-time CW control, pro-grade signal modeling, and collaborative learning.
+              </h1>
+              <p className="text-lg text-white/80 max-w-2xl">
+                morsecodetranslator.app hosts a Morse Code Translator that spans instant QA, learning cohorts, HAM drills, and accessibility input scenarios—turning a classic utility into a digital signal lab plus collaborative practice hub.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Link href="/#translator" className="btn-primary">
+                  Explore Pro Controls
+                </Link>
+                <Link href="/blog" className="btn-ghost">
+                  Read the latest guide
+                </Link>
+              </div>
+          
+            </div>
+            <div className="space-y-6">
+              <div className="glass-panel p-5 space-y-4">
+                <SignalVisualizer wpm={24} frequency={680} noiseLevel={0.18} caption="Signal preview" />
+                <div className="grid grid-cols-2 gap-3 text-sm text-white/80">
+                  <div className="rounded-xl border border-white/15 bg-white/5 p-3">
+                    <p className="text-white/60 text-xs uppercase tracking-[0.4em]">Latency</p>
+                    <p className="text-xl font-semibold text-white">&lt; 1s</p>
+                  </div>
+                  <div className="rounded-xl border border-white/15 bg-white/5 p-3">
+                    <p className="text-white/60 text-xs uppercase tracking-[0.4em]">Offline</p>
+                    <p className="text-xl font-semibold text-white">Local JS fallbacks</p>
+                  </div>
+                </div>
+              </div>
+              <div className="glass-panel p-4 flex flex-wrap items-center justify-between gap-3 text-sm text-white/80">
+                <div>
+                  <p className="font-semibold text-white">Feedback or AT support?</p>
+                  <p>Write to <a href="mailto:support@morsecodetranslator.app" className="underline decoration-dotted">support@morsecodetranslator.app</a></p>
+                </div>
+                <a href="mailto:support@morsecodetranslator.app" className="btn-ghost text-xs">
+                  Contact Support
+                </a>
+              </div>
+            </div>
+          </div>
         </section>
 
-        {/* Main Translator Tool */}
-        <section className="mb-16">
+     
+
+        {/* Control deck preview */}
+        <section className="grid gap-6 lg:grid-cols-4">
+          {cockpitPanels.map((panel) => (
+            <div
+              key={panel.title}
+              className="glass-panel p-5 flex flex-col gap-3"
+              style={{ borderColor: `${panel.accent}30` }}
+            >
+              <div className="flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full" style={{ backgroundColor: panel.accent }} />
+                <p className="text-sm uppercase tracking-[0.4em] text-white/60">{panel.title}</p>
+              </div>
+              <p className="text-base text-white/80">{panel.description}</p>
+            </div>
+          ))}
+        </section>
+
+        {/* Translator */}
+        <section id="translator" className="space-y-6">
           <MorseTranslator />
         </section>
 
-        {/* Key Features */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">
-            Why Choose Our Morse Code Translator?
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg">
-              <div className="w-12 h-12 bg-primary-100 dark:bg-primary-900 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                Instant Real-Time Translation
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                Our morse code translator converts your text instantly as you type. No waiting, no delays - get your morse code translation in real-time with our fast browser-based converter.
-              </p>
-            </div>
-
-            <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg">
-              <div className="w-12 h-12 bg-primary-100 dark:bg-primary-900 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-primary-600 dark:text-primary-400" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                Audio Playback & Download
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                Listen to your morse code with high-quality audio playback. Download WAV files for offline use, perfect for learning morse code or amateur radio practice.
-              </p>
-            </div>
-
-            <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg">
-              <div className="w-12 h-12 bg-primary-100 dark:bg-primary-900 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                100% Private & Secure
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                All morse code translation happens in your browser. Your text never leaves your device, ensuring complete privacy and security for sensitive messages.
-              </p>
-            </div>
-
-            <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg">
-              <div className="w-12 h-12 bg-primary-100 dark:bg-primary-900 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                Mobile-Friendly Design
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                Use our morse code translator on any device. Responsive design with large touch-friendly buttons makes encoding and decoding messages easy on phones and tablets.
-              </p>
-            </div>
-
-            <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg">
-              <div className="w-12 h-12 bg-primary-100 dark:bg-primary-900 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                Educational Resources
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                Learn morse code with our comprehensive reference chart, tutorials, and practice tools. Perfect for students, teachers, and amateur radio enthusiasts.
-              </p>
-            </div>
-
-            <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg">
-              <div className="w-12 h-12 bg-primary-100 dark:bg-primary-900 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                Multiple Conversion Tools
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                Beyond basic morse code translation, we offer binary to morse, hex to morse, picture decoder, and other specialized converters for advanced users.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Morse Code Chart */}
-        <section className="mb-16">
-          <MorseCodeChart />
-        </section>
-
-        {/* About Morse Code */}
-        <section className="mb-16">
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-6 md:p-8">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
-              What is Morse Code?
-            </h2>
-            <div className="space-y-4 text-gray-700 dark:text-gray-300">
-              <p>
-                Morse code is a character encoding method that represents letters, numbers, and punctuation marks using sequences of dots (short signals) and dashes (long signals). Developed in the 1830s and 1840s by Samuel Morse and Alfred Vail for use with the telegraph, this morse code translator system revolutionized long-distance communication.
-              </p>
-              <p>
-                Each character in morse code has a unique pattern. For example, the letter "A" is represented as ".-" (dot-dash), while "B" is "-..." (dash-dot-dot-dot). The most famous morse code sequence is "SOS" (... --- ...), the international distress signal. Our online morse code converter makes it easy to translate any text into these distinctive patterns.
-              </p>
-              <p>
-                Despite being developed nearly 200 years ago, morse code remains relevant today. Amateur radio operators use morse code for long-distance communication, especially in challenging conditions where voice transmission fails. The maritime industry still recognizes morse code distress signals. Military and aviation sectors continue training in morse code as a backup communication method. Our morse code translator helps modern users connect with this enduring communication standard.
-              </p>
-              <p>
-                Learning morse code offers cognitive benefits beyond communication. Studies show that morse code training improves memory, pattern recognition, and auditory processing skills. It&apos;s an engaging way for students to learn about telecommunications history while developing useful mental skills. Teachers use our free morse code translator as an educational tool to make lessons interactive and memorable.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Why Our Translator Leads */}
-        <section className="mb-16">
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-6 md:p-8">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 text-center">
-              Why Our Morse Code Translator Leads the Pack
-            </h2>
-            <div className="space-y-4 text-gray-700 dark:text-gray-300">
-              <p>
-                The morse code translator on this site delivers dependable performance, and the morse code translator workflow adapts to casual learners and serious radio operators alike. By focusing on accuracy and speed, our morse code translator eliminates extra steps so you can stay in the rhythm of dits and dahs.
-              </p>
-              <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <li className="p-4 rounded-lg bg-primary-50 dark:bg-primary-900/30 border border-primary-200 dark:border-primary-800">
-                  <strong className="block text-gray-900 dark:text-white mb-2">Real CW practice</strong>
-                  <span>The morse code translator mirrors on-air timing so your practice sessions feel authentic.</span>
-                </li>
-                <li className="p-4 rounded-lg bg-primary-50 dark:bg-primary-900/30 border border-primary-200 dark:border-primary-800">
-                  <strong className="block text-gray-900 dark:text-white mb-2">Classroom friendly</strong>
-                  <span>Teachers rely on the morse code translator for demonstrations that pair history with hands-on encoding.</span>
-                </li>
-                <li className="p-4 rounded-lg bg-primary-50 dark:bg-primary-900/30 border border-primary-200 dark:border-primary-800">
-                  <strong className="block text-gray-900 dark:text-white mb-2">Field ready</strong>
-                  <span>Operators testing antennas or field kits use the morse code translator to verify copy under pressure.</span>
-                </li>
-                <li className="p-4 rounded-lg bg-primary-50 dark:bg-primary-900/30 border border-primary-200 dark:border-primary-800">
-                  <strong className="block text-gray-900 dark:text-white mb-2">Accessible design</strong>
-                  <span>Screen reader support and keyboard shortcuts keep the morse code translator inclusive for every operator.</span>
-                </li>
-                <li className="p-4 rounded-lg bg-primary-50 dark:bg-primary-900/30 border border-primary-200 dark:border-primary-800">
-                  <strong className="block text-gray-900 dark:text-white mb-2">Project integration</strong>
-                  <span>Developers embed the morse code translator output into training dashboards, hackathon demos, and STEM showcases.</span>
-                </li>
-                <li className="p-4 rounded-lg bg-primary-50 dark:bg-primary-900/30 border border-primary-200 dark:border-primary-800">
-                  <strong className="block text-gray-900 dark:text-white mb-2">Global reach</strong>
-                  <span>Language-agnostic controls make the morse code translator effective for international teams learning CW together.</span>
-                </li>
+           {/* SEO + SERP primer */}
+        <section className="glass-panel p-6 space-y-4">
+          <h2 className="text-3xl font-bold text-white">Why This Morse Code Translator Wins Clicks</h2>
+          <p className="text-base text-white/80">
+            The Morse Code Translator on morsecodetranslator.app merges military-grade timing with approachable UI copy, signaling to searchers that the experience is purpose-built rather than a thin widget.
+          </p>
+          <p className="text-base text-white/80">
+            By pairing tone, waveform, and noise sliders, the Morse Code Translator anticipates what contest operators and STEM coaches expect from lab gear, and the Morse Code Translator copy clarifies that everything loads instantly in the browser.
+          </p>
+          <p className="text-base text-white/80">
+            Emergency planners and accessibility therapists get a Morse Code Translator that logs every session, while the same Morse Code Translator doubles as a learning pad with cheat sheets, downloadable WAVs, and bilingual UI seeds.
+          </p>
+          <p className="text-base text-white/80">
+            FAQ schema, sitelinks, and descriptive meta titles help the Morse Code Translator grab more of the SERP above the fold while promising practical outcomes—ham readiness, classroom confidence, and maker demos.
+          </p>
+          <p className="text-base text-white/80">
+            Start a practice sprint, export proof-of-learning, or embed quick challenges; the Morse Code Translator keeps the next click obvious with bright CTAs, review snippets, and transparent pricing (free).
+          </p>
+          <div className="grid gap-4 md:grid-cols-2 text-sm text-white/80">
+            <div className="rounded-2xl border border-white/15 bg-white/5 p-4 space-y-2">
+              <p className="text-white font-semibold">SERP snippet checklist</p>
+              <ul className="list-disc pl-5 space-y-2">
+                <li>Title tag should open with “Morse Code Translator” plus a proof point, then stay within 55–60 characters for full display.</li>
+                <li>Meta description uses “Morse Code Translator” again, hits 140–160 characters, and names the standout controls (audio, noise, logs).</li>
               </ul>
-              <p>
-                Whether you need a morse code translator for licensing exams or a morse code translator for quick classroom warmups, the tool stays responsive on every device. The morse code translator even caches previous sessions so you can revisit practice messages at any time.
-              </p>
+            </div>
+            <div className="rounded-2xl border border-white/15 bg-white/5 p-4 space-y-2">
+              <p className="text-white font-semibold">Rich result boosters</p>
+              <ul className="list-disc pl-5 space-y-2">
+                <li>Attach FAQ schema answering Morse Code Translator questions on privacy, latency, and WAV exports to win collapsible SERP panels.</li>
+                <li>Use Product or SoftwareApplication markup so reviews referencing the Morse Code Translator accuracy can surface star ratings.</li>
+                <li>Link deep sections like “Practice CW” or “Translator Maker Guide” to encourage sitelinks under the Morse Code Translator listing.</li>
+              </ul>
             </div>
           </div>
         </section>
 
-        {/* How to Use */}
-        <section className="mb-16">
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-6 md:p-8">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
-              How to Use Our Morse Code Translator
-            </h2>
-            <div className="space-y-6">
-              <div className="flex gap-4">
-                <div className="flex-shrink-0 w-8 h-8 bg-primary-600 dark:bg-primary-700 text-white rounded-full flex items-center justify-center font-bold">
-                  1
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                    Enter Your Text
-                  </h3>
-                  <p className="text-gray-700 dark:text-gray-300">
-                    Type or paste any text into the input box. Our morse code converter supports all letters (A-Z), numbers (0-9), and common punctuation marks. The translation happens instantly as you type.
-                  </p>
-                </div>
+        {/* Dual track */}
+        <section>
+          <div className="flex items-center gap-3 mb-6">
+            <span className="text-xs font-semibold tracking-[0.4em] text-white/60">MODEL</span>
+            <div className="h-px flex-1 bg-white/15" />
+          </div>
+          <h2 className="text-3xl font-bold text-white mb-8">Dual-Track Architecture: Signal Lab + Learning Loop</h2>
+          <p className="text-white/80 text-base mb-8 max-w-4xl">
+            The Morse Code Translator splits its experience into an engineer-grade signal lab and a collaborative learning loop so the same Morse Code Translator session can jump from contest prep to classroom mentoring without context switches.
+          </p>
+          <div className="grid gap-6 lg:grid-cols-2">
+            <article className="glass-panel p-6 space-y-4">
+              <div className="flex items-center justify-between">
+                <h3 className="text-2xl font-semibold text-white">Signal Lab · Web</h3>
+                <span className="signal-chip">Precision</span>
               </div>
+              <ul className="space-y-3 text-sm text-white/80">
+                <li>Four-dimensional control over WPM, frequency, waveform, and noise to mimic real CW paths—including QRM/QRN.</li>
+                <li>HUD exposes seconds, characters, and word counts with downloadable audio/logs for training records.</li>
+                <li>MorseCodeChart, cheat sheets, and FAQs act as instant classroom materials.</li>
+                <li>JSON-LD, SEO hygiene, and PWA caching keep first interaction under a second.</li>
+              </ul>
+            </article>
+            <article className="glass-panel p-6 space-y-4">
+              <div className="flex items-center justify-between">
+                <h3 className="text-2xl font-semibold text-white">Learning Loop · Community</h3>
+                <span className="signal-chip">Engagement</span>
+              </div>
+              <ul className="space-y-3 text-sm text-white/80">
+                <li>A challenge library powers global timelines, decoding games, and collaborative classroom prompts.</li>
+                <li>The Maker Guide links to hardware/JS builds, motivating STEM classes and hobbyists.</li>
+                <li>Blog series (How to Read Morse Fast, Top 10 STEM Projects, etc.) grow SEO and social reach.</li>
+                <li>Utility pages and FAQ modules interlink to protect the topical cluster.</li>
+              </ul>
+            </article>
+          </div>
+        </section>
 
-              <div className="flex gap-4">
-                <div className="flex-shrink-0 w-8 h-8 bg-primary-600 dark:bg-primary-700 text-white rounded-full flex items-center justify-center font-bold">
-                  2
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                    Get Instant Morse Code Translation
-                  </h3>
-                  <p className="text-gray-700 dark:text-gray-300">
-                    Watch as your text converts to morse code in real-time. Dots (.) represent short signals, dashes (-) represent long signals, and spaces separate letters. Use the copy button to save your morse code translation.
-                  </p>
+        {/* Driver scenarios */}
+        <section>
+          <div className="flex items-center gap-3 mb-6">
+            <span className="text-xs font-semibold tracking-[0.4em] text-white/60">SCENARIOS</span>
+            <div className="h-px flex-1 bg-white/15" />
+          </div>
+          <h2 className="text-3xl font-bold text-white mb-8">Four Demand Pillars, Four Focused Feature Sets</h2>
+          <div className="grid gap-6 md:grid-cols-2">
+            {driverScenarios.map((scenario) => (
+              <div key={scenario.title} className="glass-panel p-6">
+                <h3 className="text-xl font-semibold text-white mb-2">{scenario.title}</h3>
+                <p className="text-sm text-white/80 mb-4">{scenario.description}</p>
+                <div className="flex flex-wrap gap-2">
+                  {scenario.metrics.map((metric) => (
+                    <span key={metric} className="signal-chip">
+                      {metric}
+                    </span>
+                  ))}
                 </div>
               </div>
+            ))}
+          </div>
+        </section>
 
-              <div className="flex gap-4">
-                <div className="flex-shrink-0 w-8 h-8 bg-primary-600 dark:bg-primary-700 text-white rounded-full flex items-center justify-center font-bold">
-                  3
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                    Play or Download Audio
-                  </h3>
-                  <p className="text-gray-700 dark:text-gray-300">
-                    Click "Play Audio" to hear your morse code message with authentic beep tones. Use "Download Audio" to save a WAV file for offline practice or sharing. Perfect for morse code learning and radio communication training.
-                  </p>
-                </div>
-              </div>
+        {/* Telemetry */}
+        <section className="grid gap-10 lg:grid-cols-2 items-center">
+          <div>
+            <p className="text-xs font-semibold tracking-[0.4em] text-white/60 mb-4">TELEMETRY</p>
+            <h2 className="text-3xl font-bold text-white mb-4">Telemetry Turns a Translator Into a Trainer</h2>
+            <p className="text-white/80 mb-4">
+              Building on the Morse Code Translator benchmark at morsecodetranslator.com, this Morse Code Translator release doubles down on live feedback:
+            </p>
+            <ul className="space-y-3 text-sm text-white/80">
+              <li>Words, characters, symbols, and seconds refresh in sync so instructors can log outcomes instantly.</li>
+              <li>WPM ties directly to total duration, supporting lesson pacing and operator training plans.</li>
+              <li>Waveform presets plus frequency control cover every sidetone preference.</li>
+              <li>QRM/QRN noise sliders recreate contest, test, or long-distance interference.</li>
+            </ul>
+          </div>
+          <SignalVisualizer wpm={28} frequency={720} noiseLevel={0.25} caption="Instructor dashboard preview" variant="light" className="glass-panel--light" />
+        </section>
 
-              <div className="flex gap-4">
-                <div className="flex-shrink-0 w-8 h-8 bg-primary-600 dark:bg-primary-700 text-white rounded-full flex items-center justify-center font-bold">
-                  4
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                    Decode Morse Code to Text
-                  </h3>
-                  <p className="text-gray-700 dark:text-gray-300">
-                    Click the swap button to switch to morse code decoder mode. Enter morse code using dots and dashes with spaces between letters, and our translator will convert morse code back to readable text instantly.
-                  </p>
-                </div>
-              </div>
+        {/* Accessibility */}
+        <section>
+          <div className="flex items-center gap-3 mb-6">
+            <span className="text-xs font-semibold tracking-[0.4em] text-white/60">ACCESSIBILITY</span>
+            <div className="h-px flex-1 bg-white/15" />
+          </div>
+          <div className="grid gap-6 lg:grid-cols-2 items-center">
+            <div className="glass-panel p-6 space-y-4">
+              <h2 className="text-3xl font-bold text-white">Accessibility Is a Default, Not an Add-On</h2>
+              <p className="text-white/80">
+                Google treats Morse as an official accessibility input on Android and iOS, so this Morse Code Translator does the same. Every control is keyboard-friendly out of the box, and the Morse Code Translator lets audio or visual cues toggle independently.
+              </p>
+              <ul className="space-y-3 text-sm text-white/80">
+                {accessibilityPoints.map((point) => (
+                  <li key={point} className="flex gap-3">
+                    <span className="text-[#ffd800]">✔</span>
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="glass-panel p-6 space-y-4">
+              <h3 className="text-xl font-semibold text-white">AT Mode Quick Presets</h3>
+              <ul className="space-y-3 text-sm text-white/80">
+                <li>Toggle large buttons or high-contrast mode with a single tap.</li>
+                <li>Lock a safe-speed window (e.g., 25 WPM and below) for consistent therapy sessions.</li>
+                <li>Adjust audio and vibration feedback independently, then save as a preset.</li>
+                <li>Export CSV telemetry so therapists or teachers can track progress.</li>
+              </ul>
             </div>
           </div>
         </section>
 
-        {/* FAQ Section */}
-        <section className="mb-16">
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-6 md:p-8">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
-              Frequently Asked Questions About Morse Code
-            </h2>
-            <div className="space-y-6">
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                  Is your morse code translator free to use?
-                </h3>
-                <p className="text-gray-700 dark:text-gray-300">
-                  Yes! Our morse code translator is completely free with no registration required. All features including text to morse conversion, morse to text decoding, audio playback, and file downloads are available at no cost. We believe everyone should have access to quality morse code translation tools.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                  How accurate is this online morse code converter?
-                </h3>
-                <p className="text-gray-700 dark:text-gray-300">
-                  Our morse code translator uses the International Morse Code standard, ensuring 100% accuracy for all supported characters. The conversion algorithm follows official morse code specifications used by amateur radio operators, military communications, and maritime services worldwide.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                  Can I use this morse code translator offline?
-                </h3>
-                <p className="text-gray-700 dark:text-gray-300">
-                  Yes! Once you&apos;ve loaded our website, the morse code translator works entirely in your browser using JavaScript. Your data never leaves your device, making it possible to use with poor internet connections. For complete offline use, you can bookmark the page and use it when needed.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                  What&apos;s the difference between dots and dashes in morse code?
-                </h3>
-                <p className="text-gray-700 dark:text-gray-300">
-                  In morse code, a dot (.) is a short signal lasting one unit of time, while a dash (-) is a long signal lasting three units. The space between symbols within a character equals one dot duration, between characters equals three dots, and between words equals seven dots. Our morse code translator audio playback demonstrates these timing differences clearly.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                  Why should I learn morse code in 2025?
-                </h3>
-                <p className="text-gray-700 dark:text-gray-300">
-                  Morse code remains valuable for amateur radio licensing, emergency communications when modern systems fail, cognitive skill development, and as a fun encoding method for puzzles and games. It&apos;s also used in assistive technology for people with disabilities. Our morse code translator makes learning and practicing morse code accessible to everyone.
-                </p>
-              </div>
+        {/* Internationalization */}
+        <section>
+          <div className="flex items-center gap-3 mb-6">
+            <span className="text-xs font-semibold tracking-[0.4em] text-white/60">GLOBAL</span>
+            <div className="h-px flex-1 bg-white/15" />
+          </div>
+          <div className="grid gap-6 lg:grid-cols-2">
+            <p className="lg:col-span-2 text-base text-white/80 bg-white/5 border border-white/15 rounded-3xl p-6">
+              The Morse Code Translator understands Cyrillic, Kana, RTL scripts, and Wabun so multilingual classes do not need separate tools, and the Morse Code Translator metadata ships localized titles, descriptions, and schema.
+            </p>
+            <div className="glass-panel--light rounded-3xl p-6">
+              <h2 className="text-3xl font-bold text-[#0b1f3a] mb-4">Character Sets & Decoder Engine</h2>
+              <ul className="space-y-3 text-sm text-[#0b1f3a]">
+                {intlPoints.slice(0, 2).map((point) => (
+                  <li key={point} className="flex gap-3">
+                    <span className="text-[#0058a3]">🌐</span>
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="glass-panel--light rounded-3xl p-6">
+              <h2 className="text-3xl font-bold text-[#0b1f3a] mb-4">Multilingual Experience</h2>
+              <ul className="space-y-3 text-sm text-[#0b1f3a]">
+                {intlPoints.slice(2).map((point) => (
+                  <li key={point} className="flex gap-3">
+                    <span className="text-[#0058a3]">🔤</span>
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </section>
 
-        {/* Related Tools */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">
-            More Morse Code Tools & Converters
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <Link href="/binary-to-morse" className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                Binary to Morse Converter
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                Convert binary code to morse code and explore digital encoding methods.
-              </p>
-            </Link>
-
-            <Link href="/picture-decoder" className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                Morse Code Picture Decoder
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                Upload images containing morse code and decode them automatically.
-              </p>
-            </Link>
-
-            <Link href="/identifier-encoder" className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                Identifier Encoder
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                Encode call signs, device IDs, and asset tags into morse code.
-              </p>
-            </Link>
-
-            <Link href="/word-decoder" className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                Word Decoder & Cryptogram
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                Solve word puzzles, substitution ciphers, and cryptograms with morse code.
-              </p>
-            </Link>
-
-            <Link href="/beeper-code" className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                Beeper & Phone Keypad Code
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                Convert phone keypad codes and beeper messages to morse code.
-              </p>
-            </Link>
-
-            <Link href="/translator-maker-guide" className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                Build Your Own Translator
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                Learn how to create your own morse code translator with JavaScript or Arduino.
-              </p>
-            </Link>
+        {/* Tool suite */}
+        <section>
+          <div className="flex items-center gap-3 mb-6">
+            <span className="text-xs font-semibold tracking-[0.4em] text-white/60">SUITE</span>
+            <div className="h-px flex-1 bg-white/15" />
+          </div>
+          <h2 className="text-3xl font-bold text-white mb-8">Utility Cluster: Every Long-Tail Query Gets a Home</h2>
+          <p className="text-base text-white/80 mb-8 max-w-4xl">
+            Each supporting tool answers intent-specific questions but crosslinks back to the Morse Code Translator, reinforcing to search engines that the Morse Code Translator owns picture decoding, identifier encoding, and maker workflows.
+          </p>
+          <div className="grid gap-6 md:grid-cols-2">
+            {toolSuiteLinks.map((tool) => (
+              <Link
+                key={tool.href}
+                href={tool.href}
+                className="glass-panel p-6 hover:border-[#ffd800]/50 transition-all"
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="text-xl font-semibold text-white">{tool.title}</h3>
+                  <svg className="w-5 h-5 text-[#ffd800]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+                <p className="text-sm text-white/80">{tool.description}</p>
+              </Link>
+            ))}
           </div>
         </section>
 
-        {/* Final CTA */}
-        <section className="text-center bg-gradient-to-r from-primary-500 to-primary-600 dark:from-primary-700 dark:to-primary-800 rounded-2xl p-8 md:p-12">
-          <h2 className="text-3xl font-bold text-white mb-4">
-            Start Translating Morse Code Now
-          </h2>
-          <p className="text-xl text-primary-50 mb-6 max-w-2xl mx-auto">
-            Join thousands of users who trust our morse code translator for accurate, fast, and private morse code conversion. No sign-up required.
+        {/* FAQ */}
+        <section>
+          <div className="flex items-center gap-3 mb-6">
+            <span className="text-xs font-semibold tracking-[0.4em] text-white/60">FAQ</span>
+            <div className="h-px flex-1 bg-white/15" />
+          </div>
+          <h2 className="text-3xl font-bold text-white mb-6">Answering Top Morse Code Translator Questions</h2>
+          <div className="grid gap-6 md:grid-cols-2">
+            {serpFaqs.map((faq) => (
+              <article key={faq.question} className="glass-panel p-5 space-y-2">
+                <h3 className="text-xl font-semibold text-white">{faq.question}</h3>
+                <p className="text-sm text-white/80">{faq.answer}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* Learning */}
+        <section>
+          <div className="flex items-center gap-3 mb-6">
+            <span className="text-xs font-semibold tracking-[0.4em] text-white/60">LEARNING</span>
+            <div className="h-px flex-1 bg-white/15" />
+          </div>
+          <div className="grid gap-6 lg:grid-cols-2">
+            <article className="glass-panel p-6 space-y-4">
+              <h3 className="text-2xl font-semibold text-white">Lesson Templates & Training Games</h3>
+              <p className="text-sm text-white/80">
+                Articles such as “How to Read Morse Code Fast (2025 Guide),” “Top 10 Morse Code Projects for STEM Classrooms,” and “Starlink SOS: Understanding Emergency Morse Signals” pair with interactive drills and downloadable PDFs so teachers can drop them straight into class.
+              </p>
+              <Link href="/blog" className="btn-ghost text-sm">
+                Browse the blog
+              </Link>
+            </article>
+            <article className="glass-panel p-6 space-y-4">
+              <h3 className="text-2xl font-semibold text-white">Maker & Dev Hub</h3>
+              <p className="text-sm text-white/80">
+                The Translator Maker Guide breaks JS, Arduino, Micro:bit, and Web Audio API builds into reusable modules—drawing in tinkerers while generating backlinks and UGC. Forks and PRs are welcome for new code tables or lesson ideas.
+              </p>
+              <Link href="/translator-maker-guide" className="btn-ghost text-sm">
+                Explore the maker guide
+              </Link>
+            </article>
+          </div>
+        </section>
+
+        <section className="glass-panel p-8 text-center">
+          <h2 className="text-3xl font-bold text-white mb-4">Stay in the Signal</h2>
+          <p className="text-white/80 mb-6 max-w-2xl mx-auto">
+            Students, HAM operators, makers, and AT users can translate, train, and share from the same surface—no sign-up, no ads, just instant CW workflows.
           </p>
           <ScrollToTopButton />
         </section>

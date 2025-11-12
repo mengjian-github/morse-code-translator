@@ -8,9 +8,9 @@ export default function ScrollToTopButton() {
   return (
     <button
       onClick={handleScrollToTop}
-      className="px-8 py-3 bg-white text-gray-900 rounded-lg font-semibold hover:bg-gray-100 transition-colors shadow-lg"
+      className="btn-primary text-base"
     >
-      Try the Translator
+      Back to Top
     </button>
   );
 }

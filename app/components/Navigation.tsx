@@ -9,7 +9,7 @@ export default function Navigation() {
 
   const navLinks = [
     { href: '/', label: 'Translator' },
-    { href: '/binary-to-morse', label: 'Binary to Morse' },
+    { href: '/binary-to-morse', label: 'Binary Lab' },
     { href: '/picture-decoder', label: 'Picture Decoder' },
     { href: '/identifier-encoder', label: 'Identifier Encoder' },
     { href: '/word-decoder', label: 'Word Decoder' },
@@ -21,50 +21,48 @@ export default function Navigation() {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-slate-700 shadow-sm">
+    <nav className="sticky top-0 z-50 backdrop-blur-xl bg-[rgba(2,13,30,0.92)] border-b border-white/10 shadow-[0_20px_60px_rgba(3,22,50,0.45)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3 group">
+          <Link href="/" className="flex items-center gap-3">
             <Image
               src="/logo.png"
               alt="Morse Code Translator"
-              width={40}
-              height={40}
-              className="transition-transform group-hover:scale-110"
+              width={44}
+              height={44}
+              priority
+              className="rounded-lg shadow-lg"
             />
-            <span className="text-xl font-bold text-gray-900 dark:text-white hidden sm:block">
-              Morse Code Translator
-            </span>
+            <div className="hidden sm:block">
+              <p className="font-semibold text-white text-lg tracking-tight">Morse Translator</p>
+              <p className="text-xs uppercase tracking-[0.4em] text-white/60">Signal Lab</p>
+            </div>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-1">
+          <div className="hidden lg:flex items-center gap-2">
             {navLinks.slice(0, 5).map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-primary-200 dark:hover:bg-primary-900 hover:text-gray-900 dark:hover:text-white transition-colors"
+                className="px-3 py-2 text-sm font-medium text-white/70 hover:text-white transition-colors"
               >
                 {link.label}
               </Link>
             ))}
-
-            {/* More dropdown */}
             <div className="relative group">
-              <button className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-primary-200 dark:hover:bg-primary-900 hover:text-gray-900 dark:hover:text-white transition-colors flex items-center">
+              <button className="px-3 py-2 text-sm font-medium text-white/70 hover:text-white inline-flex items-center gap-1">
                 More
-                <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
-              <div className="absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white dark:bg-slate-800 ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                <div className="py-1">
+              <div className="absolute right-0 mt-2 w-60 rounded-2xl bg-[rgba(3,14,30,0.95)] border border-white/10 shadow-xl opacity-0 translate-y-3 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all">
+                <div className="py-2">
                   {navLinks.slice(5).map((link) => (
                     <Link
                       key={link.href}
                       href={link.href}
-                      className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-primary-100 dark:hover:bg-primary-900"
+                      className="block px-4 py-2 text-sm text-white/70 hover:text-white hover:bg-white/5"
                     >
                       {link.label}
                     </Link>
@@ -74,19 +72,27 @@ export default function Navigation() {
             </div>
           </div>
 
-          {/* Mobile menu button */}
+          <div className="hidden lg:flex items-center gap-3">
+            <Link href="/blog" className="btn-ghost text-sm">
+              Updates & Blog
+            </Link>
+            <Link href="/#translator" className="btn-primary text-sm">
+              Launch Translator
+            </Link>
+          </div>
+
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="lg:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-primary-200 dark:hover:bg-primary-900 focus:outline-none"
+            className="lg:hidden inline-flex items-center justify-center p-2 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#ffd800]/70"
             aria-expanded={isMenuOpen}
           >
             <span className="sr-only">Open main menu</span>
             {isMenuOpen ? (
-              <svg className="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             ) : (
-              <svg className="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             )}
@@ -94,20 +100,27 @@ export default function Navigation() {
         </div>
       </div>
 
-      {/* Mobile menu */}
       {isMenuOpen && (
-        <div className="lg:hidden border-t border-gray-200 dark:border-slate-700">
-          <div className="px-2 pt-2 pb-3 space-y-1">
+        <div className="lg:hidden border-t border-white/10 bg-[rgba(2,13,30,0.95)]">
+          <div className="px-4 pt-4 pb-6 space-y-1">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-primary-200 dark:hover:bg-primary-900 hover:text-gray-900 dark:hover:text-white"
+                className="block px-3 py-2 rounded-md text-base font-medium text-white/80 hover:bg-white/10"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {link.label}
               </Link>
             ))}
+            <div className="pt-4 flex flex-col gap-2">
+              <Link href="/blog" className="btn-ghost text-center">
+                Updates & Blog
+              </Link>
+              <Link href="/#translator" className="btn-primary text-center">
+                Launch Translator
+              </Link>
+            </div>
           </div>
         </div>
       )}

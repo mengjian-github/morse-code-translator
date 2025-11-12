@@ -1,41 +1,84 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { textToMorse, morseToText, isValidMorse } from '../utils/morseCode';
-import { playMorseCode, generateMorseAudio, downloadAudio } from '../utils/audioUtils';
+import { playMorseCode, generateMorseAudio, downloadAudio, calculateTransmissionDuration } from '../utils/audioUtils';
 import CopyButton from './CopyButton';
+import SignalVisualizer from './SignalVisualizer';
+
+const waveformOptions: { value: OscillatorType; label: string; description: string }[] = [
+  { value: 'sine', label: 'Sine', description: 'Classic sidetone, smooth on long practice blocks.' },
+  { value: 'square', label: 'Square', description: 'Sharper envelope that cuts through contest noise.' },
+  { value: 'triangle', label: 'Triangle', description: 'Soft ramp for accessibility or therapy sessions.' },
+  { value: 'sawtooth', label: 'Sawtooth', description: 'Retro radio feel for demos and classroom talks.' },
+];
 
 interface MorseTranslatorProps {
   defaultMode?: 'textToMorse' | 'morseToText';
   showAudio?: boolean;
   showDownload?: boolean;
   className?: string;
+  variant?: 'full' | 'compact';
 }
 
 export default function MorseTranslator({
   defaultMode = 'textToMorse',
   showAudio = true,
   showDownload = true,
-  className = ''
+  className = '',
+  variant = 'full',
 }: MorseTranslatorProps) {
   const [mode, setMode] = useState<'textToMorse' | 'morseToText'>(defaultMode);
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [isPlaying, setIsPlaying] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [wpm, setWpm] = useState(22);
+  const [frequency, setFrequency] = useState(640);
+  const [waveform, setWaveform] = useState<OscillatorType>('sine');
+  const [noiseLevel, setNoiseLevel] = useState(0.1);
+  const [validationMessage, setValidationMessage] = useState('');
+  const [activeExample, setActiveExample] = useState<string | null>(null);
+
+  const isCompact = variant === 'compact';
+  const sectionId = variant === 'full' ? 'translator' : undefined;
 
   useEffect(() => {
     if (mode === 'textToMorse') {
       setOutput(textToMorse(input));
+      setValidationMessage('');
     } else {
+      if (input && !isValidMorse(input)) {
+        setValidationMessage('Morse input only accepts dots, dashes, slashes, and spaces.');
+      } else {
+        setValidationMessage('');
+      }
       setOutput(morseToText(input));
     }
   }, [input, mode]);
 
+  const morseSignal = useMemo(() => (mode === 'textToMorse' ? output : input), [input, output, mode]);
+  const transmissionSeconds = useMemo(() => {
+    if (!morseSignal.trim()) return 0;
+    return Number((calculateTransmissionDuration(morseSignal, wpm) / 1000).toFixed(2));
+  }, [morseSignal, wpm]);
+
+  const inputWords = useMemo(() => {
+    if (!input.trim()) return 0;
+    return mode === 'textToMorse' ? input.trim().split(/\s+/).length : input.trim().split(' / ').length;
+  }, [input, mode]);
+
+  const signalSymbols = useMemo(() => {
+    if (!morseSignal.trim()) return 0;
+    return morseSignal.replace(/[^.\-]/g, '').length;
+  }, [morseSignal]);
+
+  const inputCharacters = input.length;
+  const outputCharacters = output.length;
+
   const handleModeToggle = () => {
     const newMode = mode === 'textToMorse' ? 'morseToText' : 'textToMorse';
     setMode(newMode);
-    // Swap input and output
     setInput(output);
     setOutput(input);
   };
@@ -51,7 +94,12 @@ export default function MorseTranslator({
     setIsPlaying(true);
     try {
       const morseCode = mode === 'textToMorse' ? output : input;
-      await playMorseCode(morseCode);
+      await playMorseCode(morseCode, {
+        wpm,
+        frequency,
+        waveform,
+        noiseLevel,
+      });
     } catch (error) {
       console.error('Error playing audio:', error);
     } finally {
@@ -65,7 +113,12 @@ export default function MorseTranslator({
     setIsGenerating(true);
     try {
       const morseCode = mode === 'textToMorse' ? output : input;
-      const audioBlob = await generateMorseAudio(morseCode);
+      const audioBlob = await generateMorseAudio(morseCode, {
+        wpm,
+        frequency,
+        waveform,
+        noiseLevel,
+      });
       downloadAudio(audioBlob, 'morse-code.wav');
     } catch (error) {
       console.error('Error generating audio:', error);
@@ -74,136 +127,243 @@ export default function MorseTranslator({
     }
   };
 
-  const handleExampleText = () => {
-    setMode('textToMorse');
-    setInput('HELLO WORLD');
-  };
+  const statCards = [
+    { label: mode === 'textToMorse' ? 'Input words' : 'Input groups', value: inputWords },
+    { label: 'Input characters', value: inputCharacters },
+    { label: 'Output characters', value: outputCharacters },
+    { label: 'Dits / Dahs', value: signalSymbols },
+    { label: 'Transmission time', value: `${transmissionSeconds}s` },
+  ];
 
-  const handleExampleMorse = () => {
-    setMode('morseToText');
-    setInput('... --- ...');
-  };
+  const quickExamples: { label: string; value: string; mode: 'textToMorse' | 'morseToText' }[] = [
+    { label: 'LEARN MORSE FASTER', value: 'LEARN MORSE FASTER', mode: 'textToMorse' },
+    { label: '.... .- -- / .- - / 23', value: '.... .- -- / .- - / 23', mode: 'morseToText' },
+  ];
 
-  return (
-    <div className={`bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-6 md:p-8 ${className}`}>
-      {/* Mode Toggle */}
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-          {mode === 'textToMorse' ? 'Text to Morse Code' : 'Morse Code to Text'}
-        </h2>
+  useEffect(() => {
+    const matchingExample = quickExamples.find(
+      (example) => example.value === input && example.mode === mode,
+    );
+    setActiveExample(matchingExample ? matchingExample.label : null);
+  }, [input, mode]);
+
+  const translatorPanel = (
+    <div className="glass-panel p-6 md:p-8 space-y-6">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <p className="text-xs uppercase tracking-[0.4em] text-white/60 mb-1">Live Translator</p>
+          <h2 className="text-2xl md:text-3xl font-bold text-white">Text ↔ Morse Cockpit</h2>
+        </div>
         <button
           onClick={handleModeToggle}
-          className="p-2 rounded-lg bg-primary-100 dark:bg-primary-900 hover:bg-primary-200 dark:hover:bg-primary-800 transition-colors"
-          title="Switch conversion mode"
+          className="btn-ghost text-sm"
+          type="button"
         >
-          <svg className="w-6 h-6 text-primary-700 dark:text-primary-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
-          </svg>
+          Swap Direction
         </button>
       </div>
 
-      {/* Input Area */}
-      <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-          {mode === 'textToMorse' ? 'Enter Text' : 'Enter Morse Code'}
-        </label>
-        <textarea
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder={mode === 'textToMorse' ? 'Type your text here...' : 'Type morse code here... (use . and - and spaces)'}
-          className="w-full h-32 p-4 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-slate-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
-        />
-      </div>
+      <div className="grid gap-6 md:grid-cols-2">
+        <div className="glass-panel--light p-4 rounded-2xl">
+          <div className="flex items-center justify-between mb-3">
+            <p className="text-sm font-semibold text-[#0b1f3a]">{mode === 'textToMorse' ? 'Text Input' : 'Morse Input'}</p>
+            <span className="metric-pill text-[#0b1f3a]">{inputCharacters} chars</span>
+          </div>
+          <textarea
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder={mode === 'textToMorse' ? 'Type or paste text...' : 'Type morse (., - and /)'}
+            className="w-full h-36 p-4 rounded-xl border border-[#e0e5ff] bg-white text-[#0b1f3a] focus:outline-none focus:ring-2 focus:ring-[#0058a3]"
+          />
+          {validationMessage && (
+            <p className="mt-2 text-xs text-[#ff8c00] flex items-center gap-2">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M4.93 19h14.14c1.54 0 2.5-1.67 1.73-3L13.73 5c-.77-1.33-2.69-1.33-3.46 0L3.2 16c-.77 1.33.19 3 1.73 3z" />
+              </svg>
+              {validationMessage}
+            </p>
+          )}
+        </div>
 
-      {/* Output Area */}
-      <div className="mb-6">
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-          {mode === 'textToMorse' ? 'Morse Code Output' : 'Text Output'}
-        </label>
-        <div className="w-full h-32 p-4 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-slate-900 text-gray-900 dark:text-white overflow-y-auto">
-          {output || <span className="text-gray-400">Translation will appear here...</span>}
+        <div className="glass-panel--light p-4 rounded-2xl flex flex-col gap-3">
+          <div className="flex items-center justify-between">
+            <p className="text-sm font-semibold text-[#0b1f3a]">{mode === 'textToMorse' ? 'Morse Output' : 'Text Output'}</p>
+            <span className="metric-pill text-[#0b1f3a]">{outputCharacters} chars</span>
+          </div>
+          <div className="flex-1 rounded-xl border border-[#e0e5ff] bg-[#f5f7ff] text-[#0b1f3a] p-4 overflow-y-auto min-h-[6rem]">
+            {output || <span className="text-[#8a94b7]">Translation will appear here…</span>}
+          </div>
+          <CopyButton text={output} label="Copy output" className="self-start" />
         </div>
       </div>
 
-      {/* Action Buttons */}
+      <div>
+        <p className="text-sm text-white/70 mb-3">Quick examples</p>
+        <div className="flex flex-wrap gap-3">
+          {quickExamples.map((example) => (
+            <button
+              key={example.label}
+              onClick={() => {
+                setMode(example.mode);
+                setInput(example.value);
+                setActiveExample(example.label);
+              }}
+              className={`signal-chip example-chip ${
+                activeExample === example.label ? 'example-chip--active' : ''
+              }`}
+              aria-pressed={activeExample === example.label}
+              type="button"
+            >
+              {example.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
       <div className="flex flex-wrap gap-3">
         <CopyButton text={output} label="Copy" />
-
         <button
           onClick={handleClear}
+          className="btn-ghost text-sm"
           disabled={!input && !output}
-          className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+          type="button"
         >
           Clear
         </button>
-
         {showAudio && (
           <button
             onClick={handlePlayAudio}
             disabled={!output || isPlaying}
-            className="px-4 py-2 bg-primary-600 dark:bg-primary-700 text-white rounded-lg hover:bg-primary-700 dark:hover:bg-primary-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center gap-2"
+            className="btn-primary text-sm"
+            type="button"
           >
-            {isPlaying ? (
-              <>
-                <svg className="w-4 h-4 animate-pulse" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
-                </svg>
-                Playing...
-              </>
-            ) : (
-              <>
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-                Play Audio
-              </>
-            )}
+            {isPlaying ? 'Playing…' : 'Play Audio'}
           </button>
         )}
-
         {showDownload && (
           <button
             onClick={handleDownloadAudio}
             disabled={!output || isGenerating}
-            className="px-4 py-2 bg-primary-600 dark:bg-primary-700 text-white rounded-lg hover:bg-primary-700 dark:hover:bg-primary-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center gap-2"
+            className="btn-primary text-sm bg-[#0058a3] text-white shadow-[#0058a3]/40 hover:bg-[#0a6fd0]"
+            type="button"
           >
-            {isGenerating ? (
-              <>
-                <svg className="w-4 h-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                </svg>
-                Generating...
-              </>
-            ) : (
-              <>
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                </svg>
-                Download Audio
-              </>
-            )}
+            {isGenerating ? 'Generating…' : 'Download WAV'}
           </button>
         )}
       </div>
+    </div>
+  );
 
-      {/* Example Buttons */}
-      <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
-        <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Try these examples:</p>
-        <div className="flex flex-wrap gap-2">
-          <button
-            onClick={handleExampleText}
-            className="px-3 py-1 text-sm bg-primary-100 dark:bg-primary-900 text-primary-900 dark:text-primary-100 rounded-md hover:bg-primary-200 dark:hover:bg-primary-800 transition-colors font-medium"
-          >
-            "HELLO WORLD"
-          </button>
-          <button
-            onClick={handleExampleMorse}
-            className="px-3 py-1 text-sm bg-primary-100 dark:bg-primary-900 text-primary-900 dark:text-primary-100 rounded-md hover:bg-primary-200 dark:hover:bg-primary-800 transition-colors font-medium"
-          >
-            "... --- ..." (SOS)
-          </button>
+  const telemetryPanel = (
+    <div className="glass-panel p-6 md:p-8 space-y-6">
+      <SignalVisualizer wpm={wpm} frequency={frequency} noiseLevel={noiseLevel} caption="Live signal forecast" />
+      <div className="grid grid-cols-2 gap-3 text-sm">
+        {statCards.slice(0, 4).map((stat) => (
+          <div key={stat.label} className="rounded-xl border border-white/15 bg-white/5 p-3">
+            <p className="text-white/60 text-xs uppercase tracking-[0.3em]">{stat.label}</p>
+            <p className="text-xl font-semibold text-white mt-1">{stat.value}</p>
+          </div>
+        ))}
+        <div className="col-span-2 rounded-xl border border-white/15 bg-white/5 p-3">
+          <p className="text-white/60 text-xs uppercase tracking-[0.3em]">Transmission Time</p>
+          <p className="text-2xl font-semibold text-white mt-1">{transmissionSeconds}s</p>
         </div>
       </div>
     </div>
+  );
+
+  return (
+    <section className={`${isCompact ? 'space-y-6' : 'space-y-8'} ${className}`} id={sectionId}>
+      {isCompact ? (
+        <div>{translatorPanel}</div>
+      ) : (
+        <div className="grid gap-6 lg:grid-cols-[2fr,1fr]">
+          {translatorPanel}
+          {telemetryPanel}
+        </div>
+      )}
+
+      {!isCompact && (
+        <>
+          <div className="grid gap-6 lg:grid-cols-3">
+            <div className="glass-panel p-6 space-y-4">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-semibold text-white">Speed (WPM)</h3>
+                <span className="metric-pill">{wpm} WPM</span>
+              </div>
+              <input
+                type="range"
+                min={5}
+                max={45}
+                step={1}
+                value={wpm}
+                onChange={(e) => setWpm(Number(e.target.value))}
+                className="w-full accent-[#ffd800]"
+              />
+              <p className="text-sm text-white/70">Match contest speeds or slow down for onboarding sessions.</p>
+            </div>
+
+            <div className="glass-panel p-6 space-y-4">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-semibold text-white">Carrier Frequency</h3>
+                <span className="metric-pill">{frequency} Hz</span>
+              </div>
+              <input
+                type="range"
+                min={300}
+                max={1200}
+                step={10}
+                value={frequency}
+                onChange={(e) => setFrequency(Number(e.target.value))}
+                className="w-full accent-[#ffd800]"
+              />
+              <p className="text-sm text-white/70">Align sidetone with radios, cochlear implants, or classroom speakers.</p>
+            </div>
+
+            <div className="glass-panel p-6 space-y-4">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-semibold text-white">Noise / QRM Simulation</h3>
+                <span className="metric-pill">{Math.round(noiseLevel * 100)}%</span>
+              </div>
+              <input
+                type="range"
+                min={0}
+                max={0.6}
+                step={0.05}
+                value={noiseLevel}
+                onChange={(e) => setNoiseLevel(Number(e.target.value))}
+                className="w-full accent-[#ffd800]"
+              />
+              <p className="text-sm text-white/70">Simulate contest chaos or therapy comfort levels with one slider.</p>
+            </div>
+          </div>
+
+          <div className="glass-panel p-6 md:p-8">
+            <div className="grid gap-4 md:grid-cols-2">
+              {waveformOptions.map((option) => (
+                <label
+                  key={option.value}
+                  className={`rounded-2xl border p-4 cursor-pointer transition-all ${waveform === option.value ? 'border-[#ffd800] bg-white/10' : 'border-white/10 bg-white/5 hover:border-white/30'}`}
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <p className="text-lg font-semibold text-white">{option.label}</p>
+                    <input
+                      type="radio"
+                      name="waveform"
+                      value={option.value}
+                      checked={waveform === option.value}
+                      onChange={() => setWaveform(option.value)}
+                      className="accent-[#ffd800]"
+                    />
+                  </div>
+                  <p className="text-sm text-white/70">{option.description}</p>
+                </label>
+              ))}
+            </div>
+          </div>
+
+        </>
+      )}
+    </section>
   );
 }

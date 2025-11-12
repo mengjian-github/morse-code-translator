@@ -1,18 +1,20 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { IBM_Plex_Mono, Source_Sans_3 } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const plexMono = IBM_Plex_Mono({
+  weight: ["400", "500", "600"],
   subsets: ["latin"],
+  variable: "--font-plex-mono",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const sourceSans = Source_Sans_3({
+  weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
+  variable: "--font-source-sans",
 });
 
 export const metadata: Metadata = {
@@ -25,9 +27,9 @@ export const metadata: Metadata = {
   keywords: ["morse code translator", "morse code converter", "text to morse", "morse to text", "morse code audio", "morse code decoder", "online morse translator"],
   authors: [{ name: "MorseCodeTranslator.app" }],
   icons: {
-    icon: '/ico.png',
-    shortcut: '/ico.png',
-    apple: '/ico.png',
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/favicon.ico',
   },
   openGraph: {
     type: 'website',
@@ -77,7 +79,7 @@ export default function RootLayout({
         `}
       </Script>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${sourceSans.variable} ${plexMono.variable} antialiased`}
       >
         <Navigation />
         <main className="min-h-screen">
