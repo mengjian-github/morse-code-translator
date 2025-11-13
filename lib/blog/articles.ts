@@ -12,9 +12,9 @@ export type BlogArticle = {
 
 export const blogArticles: BlogArticle[] = [
   {
-    title: 'How to Read Morse Code Fast: 2025 Complete Guide',
+    title: 'How to Read Morse Code Fast in 2025',
     excerpt:
-      'Master morse code reading with proven techniques used by professional operators. Learn the secrets of fast morse code recognition, training methods, and practice strategies that work.',
+      'Speed up your copying with daily drills, Farnsworth timing charts, and trainer apps recommended for 2025 license prep.',
     category: 'Tutorial',
     readTime: '8 min read',
     date: 'March 15, 2025',
@@ -84,7 +84,7 @@ export const blogArticles: BlogArticle[] = [
   {
     title: 'Top 10 Morse Code Projects for STEM Classrooms',
     excerpt:
-      'Engage students with hands-on morse code projects. From Arduino morse translators to laser communication systems, discover projects that teach encoding, electronics, and communication history.',
+      'Discover classroom-ready Morse builds with supply lists, lesson goals, and differentiation ideas for grades 5-12.',
     category: 'Education',
     readTime: '12 min read',
     date: 'March 10, 2025',
@@ -149,9 +149,9 @@ export const blogArticles: BlogArticle[] = [
     `,
   },
   {
-    title: 'Starlink SOS: Understanding Emergency Morse Signals',
+    title: 'Starlink SOS: Decoding Emergency Morse Signals',
     excerpt:
-      'Explore how Starlink satellites and modern technology integrate with traditional SOS morse code distress signals. Learn about emergency communication protocols and maritime safety.',
+      'Learn how Starlink crews embed Morse SOS patterns, what signal strengths to monitor, and how to stay compliant in emergencies.',
     category: 'Technology',
     readTime: '6 min read',
     date: 'March 5, 2025',
@@ -203,9 +203,9 @@ export const blogArticles: BlogArticle[] = [
     `,
   },
   {
-    title: 'The Complete History of Morse Code: From Telegraph to Digital',
+    title: 'History of Morse Code: Telegraph to Digital Era',
     excerpt:
-      "Journey through 180+ years of morse code history. Discover how Samuel Morse's invention revolutionized global communication and why it remains relevant in modern technology.",
+      'Trace key innovations from telegraph lines to satellites, with timelines, inventor bios, and modern-day use cases.',
     category: 'History',
     readTime: '15 min read',
     date: 'February 28, 2025',
@@ -263,9 +263,9 @@ export const blogArticles: BlogArticle[] = [
     `,
   },
   {
-    title: 'Morse Code vs Binary: Understanding Encoding Systems',
+    title: 'Morse Code vs Binary: Compare Encoding Systems',
     excerpt:
-      'Compare morse code and binary encoding methods. Learn how these fundamental communication systems work, their differences, and modern applications in computing and telecommunications.',
+      'Understand timing, bandwidth, and error rates with side-by-side charts to choose the right encoding for class or hobby builds.',
     category: 'Technical',
     readTime: '10 min read',
     date: 'February 20, 2025',
@@ -350,9 +350,9 @@ export const blogArticles: BlogArticle[] = [
     `,
   },
   {
-    title: 'Amateur Radio License: Morse Code Requirements in 2025',
+    title: 'Amateur Radio 2025: Morse Code License Requirements',
     excerpt:
-      'Current morse code requirements for ham radio licenses worldwide. Get updated regulations, CW testing information, and tips for passing your amateur radio morse code exam.',
+      'Get the 2025 CW policy by region, waiver paths, and practice resources to stay compliant before your exam session.',
     category: 'Amateur Radio',
     readTime: '7 min read',
     date: 'February 15, 2025',
@@ -397,7 +397,7 @@ export const blogArticles: BlogArticle[] = [
   {
     title: 'Building Your First Morse Code Arduino Project',
     excerpt:
-      'Step-by-step guide to creating a morse code translator with Arduino. Complete with circuit diagrams, code examples, and troubleshooting tips for beginners.',
+      'Wire LEDs, buzzers, and sketches that translate text to Morse, plus troubleshooting charts for timing and debounce issues.',
     category: 'DIY',
     readTime: '20 min read',
     date: 'February 10, 2025',
@@ -446,9 +446,9 @@ export const blogArticles: BlogArticle[] = [
     `,
   },
   {
-    title: 'Morse Code in Modern Cybersecurity and Steganography',
+    title: 'Morse Code in Modern Cybersecurity & Steganography',
     excerpt:
-      "Discover how morse code appears in modern cybersecurity, data exfiltration, and steganography techniques. Learn about security researchers' use of morse encoding in penetration testing.",
+      'See how infosec teams hide payloads with Morse patterns, plus defense tips and ethical use cases.',
     category: 'Security',
     readTime: '9 min read',
     date: 'February 5, 2025',
@@ -488,9 +488,9 @@ export const blogArticles: BlogArticle[] = [
     `,
   },
   {
-    title: 'Learning Morse Code: Best Apps, Tools & Resources 2025',
+    title: 'Best Morse Code Apps & Tools for 2025 Learning',
     excerpt:
-      'Comprehensive review of the best morse code learning apps, training tools, and online resources. Compare features, pricing, and effectiveness for different learning styles.',
+      'Compare the newest apps, hardware keys, and spaced-repetition drills to choose a learning stack that matches your goals.',
     category: 'Resources',
     readTime: '11 min read',
     date: 'January 30, 2025',

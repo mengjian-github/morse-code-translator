@@ -24,19 +24,22 @@ export async function generateMetadata({
     };
   }
 
-  const pageTitle = `${article.title} | Morse Code Translator Blog`;
+  const canonicalTitle = article.title;
+  const openGraphTitle = `${article.title} | Morse Code Translator Blog`;
   const canonicalUrl = absoluteUrl(`/blog/${article.slug}`);
   const coverImageUrl = absoluteUrl(article.coverImage);
 
   return {
-    title: pageTitle,
+    title: {
+      absolute: canonicalTitle,
+    },
     description: article.excerpt,
     keywords: [article.category.toLowerCase(), 'morse code', article.slug.replace(/-/g, ' ')],
     alternates: {
       canonical: canonicalUrl,
     },
     openGraph: buildOpenGraphMeta({
-      title: pageTitle,
+      title: openGraphTitle,
       description: article.excerpt,
       url: canonicalUrl,
       images: [

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     absolute: 'Cryptic Code Translator & Decoder | Morse Tools',
   },
   description:
-    'Break encrypted messages online with a free cryptic code translator that supports Morse, substitution, and custom alphabets—no signup required.',
+    'Break encrypted messages online with a free cryptic code translator that supports Morse, substitution, and custom alphabets - no signup required.',
   keywords: ['cryptic code translator', 'decrypt online', 'cipher decoder', 'substitution cipher', 'caesar cipher', 'code breaker'],
   alternates: {
     canonical: absoluteUrl('/cryptic-code-translator')
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   openGraph: buildOpenGraphMeta({
     title: 'Cryptic Code Translator & Decoder | Morse Tools',
     description:
-      'Break encrypted messages online with a free cryptic code translator that supports Morse, substitution, and custom alphabets—no signup required.',
+      'Break encrypted messages online with a free cryptic code translator that supports Morse, substitution, and custom alphabets - no signup required.',
     url: absoluteUrl('/cryptic-code-translator'),
   }),
 };
