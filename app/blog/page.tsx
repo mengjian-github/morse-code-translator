@@ -1,14 +1,24 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { blogArticles } from '@/lib/blog/articles';
+import { absoluteUrl, buildOpenGraphMeta } from '@/app/utils/seo';
 
 export const metadata: Metadata = {
-  title: 'Morse Code Blog - Tutorials, History & Learning Resources',
-  description: 'Learn about morse code history, tutorials, and practical applications. Expert articles on morse code translation, radio communication, and encoding systems.',
+  title: {
+    absolute: 'Morse Code Blog | Tutorials, History & Projects',
+  },
+  description:
+    'Browse guides, timelines, and maker tutorials that teach Morse code fundamentals, on-air etiquette, and modern encryption crossovers.',
   keywords: ['morse code blog', 'morse code history', 'learn morse code', 'morse code tutorials', 'amateur radio'],
   alternates: {
-    canonical: 'https://morsecodetranslator.app/blog'
-  }
+    canonical: absoluteUrl('/blog')
+  },
+  openGraph: buildOpenGraphMeta({
+    title: 'Morse Code Blog | Tutorials, History & Projects',
+    description:
+      'Browse guides, timelines, and maker tutorials that teach Morse code fundamentals, on-air etiquette, and modern encryption crossovers.',
+    url: absoluteUrl('/blog'),
+  }),
 };
 
 export default function BlogPage() {

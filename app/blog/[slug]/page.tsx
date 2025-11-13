@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { blogArticles } from '@/lib/blog/articles';
+import { absoluteUrl, buildOpenGraphMeta } from '@/app/utils/seo';
 
 export async function generateStaticParams() {
   return blogArticles.map((article) => ({
@@ -23,13 +24,30 @@ export async function generateMetadata({
     };
   }
 
+  const pageTitle = `${article.title} | Morse Code Translator Blog`;
+  const canonicalUrl = absoluteUrl(`/blog/${article.slug}`);
+  const coverImageUrl = absoluteUrl(article.coverImage);
+
   return {
-    title: `${article.title} | Morse Code Translator Blog`,
+    title: pageTitle,
     description: article.excerpt,
     keywords: [article.category.toLowerCase(), 'morse code', article.slug.replace(/-/g, ' ')],
     alternates: {
-      canonical: `https://morsecodetranslator.app/blog/${article.slug}`,
+      canonical: canonicalUrl,
     },
+    openGraph: buildOpenGraphMeta({
+      title: pageTitle,
+      description: article.excerpt,
+      url: canonicalUrl,
+      images: [
+        {
+          url: coverImageUrl,
+          width: 1200,
+          height: 630,
+          alt: article.coverImageAlt,
+        },
+      ],
+    }),
   };
 }
 

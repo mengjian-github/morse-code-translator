@@ -1,12 +1,18 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { absoluteUrl, buildOpenGraphMeta } from '@/app/utils/seo';
 
 export const metadata: Metadata = {
   title: 'Terms of Service | Morse Code Translator',
   description: 'Terms of service for MorseCodeTranslator.app. Read our terms and conditions for using our morse code translation tools.',
   alternates: {
-    canonical: 'https://morsecodetranslator.app/terms'
-  }
+    canonical: absoluteUrl('/terms')
+  },
+  openGraph: buildOpenGraphMeta({
+    title: 'Terms of Service | Morse Code Translator',
+    description: 'Terms of service for MorseCodeTranslator.app. Read our terms and conditions for using our morse code translation tools.',
+    url: absoluteUrl('/terms'),
+  })
 };
 
 export default function TermsPage() {

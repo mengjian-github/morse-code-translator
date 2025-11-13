@@ -4,6 +4,12 @@ import Script from "next/script";
 import "./globals.css";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
+import {
+  DEFAULT_OG_IMAGE_URL,
+  SITE_URL,
+  absoluteUrl,
+  buildOpenGraphMeta,
+} from "./utils/seo";
 
 const plexMono = IBM_Plex_Mono({
   weight: ["400", "500", "600"],
@@ -17,32 +23,42 @@ const sourceSans = Source_Sans_3({
   variable: "--font-source-sans",
 });
 
+const siteDescription =
+  "Instant morse code translator with live conversion, audio playback, downloads, and learning tools. Turn text into dits and dahs or decode CW back into words.";
+
 export const metadata: Metadata = {
-  metadataBase: new URL('https://morsecodetranslator.app'),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Morse Code Translator - Free Online Morse Code Converter",
-    template: "%s | Morse Code Translator"
+    template: "%s | Morse Code Translator",
   },
-  description: "Instant morse code translator with live conversion, audio playback, downloads, and learning tools. Turn text into dits and dahs or decode CW back into words.",
-  keywords: ["morse code translator", "morse code converter", "text to morse", "morse to text", "morse code audio", "morse code decoder", "online morse translator"],
+  description: siteDescription,
+  keywords: [
+    "morse code translator",
+    "morse code converter",
+    "text to morse",
+    "morse to text",
+    "morse code audio",
+    "morse code decoder",
+    "online morse translator",
+  ],
   authors: [{ name: "MorseCodeTranslator.app" }],
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
-    apple: '/favicon.ico',
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
   },
-  openGraph: {
-    type: 'website',
-    locale: 'en_US',
-    url: 'https://morsecodetranslator.app',
-    siteName: 'Morse Code Translator',
-    title: 'Morse Code Translator - Free Online Morse Code Converter',
-    description: 'Instant morse code translator with live conversion, audio playback, downloads, and learning tools. Turn text into dits and dahs or decode CW back into words.',
-  },
+  openGraph: buildOpenGraphMeta({
+    title: "Morse Code Translator - Free Online Morse Code Converter",
+    description: siteDescription,
+    url: absoluteUrl("/"),
+  }),
   twitter: {
-    card: 'summary_large_image',
-    title: 'Morse Code Translator - Free Online Morse Code Converter',
-    description: 'Instant morse code translator with live conversion, audio playback, downloads, and learning tools.',
+    card: "summary_large_image",
+    title: "Morse Code Translator - Free Online Morse Code Converter",
+    description:
+      "Instant morse code translator with live conversion, audio playback, downloads, and learning tools.",
+    images: [DEFAULT_OG_IMAGE_URL],
   },
   robots: {
     index: true,

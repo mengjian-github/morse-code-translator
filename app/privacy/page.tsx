@@ -1,12 +1,18 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { absoluteUrl, buildOpenGraphMeta } from '@/app/utils/seo';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy for Morse Code Translator',
   description: 'Review the privacy policy for MorseCodeTranslator.app to see how we collect analytics, process translations, manage cookies, and safeguard your data rights.',
   alternates: {
-    canonical: 'https://morsecodetranslator.app/privacy'
-  }
+    canonical: absoluteUrl('/privacy')
+  },
+  openGraph: buildOpenGraphMeta({
+    title: 'Privacy Policy for Morse Code Translator',
+    description: 'Review the privacy policy for MorseCodeTranslator.app to see how we collect analytics, process translations, manage cookies, and safeguard your data rights.',
+    url: absoluteUrl('/privacy'),
+  })
 };
 
 export default function PrivacyPage() {

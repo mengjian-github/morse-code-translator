@@ -1,14 +1,24 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import BinaryToMorseConverter from '../components/BinaryToMorseConverter';
+import { absoluteUrl, buildOpenGraphMeta } from '@/app/utils/seo';
 
 export const metadata: Metadata = {
-  title: 'Binary to Morse Code Converter - Convert Binary to Morse',
-  description: 'Use our binary to morse code converter to turn 0s and 1s into dits and dahs. Decode ASCII bytes, explore encoding theory, and test binary-morse projects.',
+  title: {
+    absolute: 'Binary to Morse Converter | Instant Binary Decoder',
+  },
+  description:
+    'Convert binary strings to Morse audio and text in one click, preview the tone, and copy clean output for homework, puzzles, or radio practice.',
   keywords: ['binary to morse', 'binary to morse code', 'convert binary to morse', 'binary code converter', 'morse code binary'],
   alternates: {
-    canonical: 'https://morsecodetranslator.app/binary-to-morse'
-  }
+    canonical: absoluteUrl('/binary-to-morse')
+  },
+  openGraph: buildOpenGraphMeta({
+    title: 'Binary to Morse Converter | Instant Binary Decoder',
+    description:
+      'Convert binary strings to Morse audio and text in one click, preview the tone, and copy clean output for homework, puzzles, or radio practice.',
+    url: absoluteUrl('/binary-to-morse'),
+  }),
 };
 
 export default function BinaryToMorsePage() {

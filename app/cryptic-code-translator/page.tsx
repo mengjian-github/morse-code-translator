@@ -1,13 +1,23 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { absoluteUrl, buildOpenGraphMeta } from '@/app/utils/seo';
 
 export const metadata: Metadata = {
-  title: 'Cryptic Code Translator - Decode Encrypted Messages Online',
-  description: 'Free cryptic code translator and decoder for substitution, Caesar, and ROT13 puzzles. Compare ciphers with morse code and practice cryptanalysis techniques.',
+  title: {
+    absolute: 'Cryptic Code Translator & Decoder | Morse Tools',
+  },
+  description:
+    'Break encrypted messages online with a free cryptic code translator that supports Morse, substitution, and custom alphabets—no signup required.',
   keywords: ['cryptic code translator', 'decrypt online', 'cipher decoder', 'substitution cipher', 'caesar cipher', 'code breaker'],
   alternates: {
-    canonical: 'https://morsecodetranslator.app/cryptic-code-translator'
-  }
+    canonical: absoluteUrl('/cryptic-code-translator')
+  },
+  openGraph: buildOpenGraphMeta({
+    title: 'Cryptic Code Translator & Decoder | Morse Tools',
+    description:
+      'Break encrypted messages online with a free cryptic code translator that supports Morse, substitution, and custom alphabets—no signup required.',
+    url: absoluteUrl('/cryptic-code-translator'),
+  }),
 };
 
 export default function CrypticCodePage() {

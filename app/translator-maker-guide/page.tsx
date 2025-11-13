@@ -1,13 +1,23 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { absoluteUrl, buildOpenGraphMeta } from '@/app/utils/seo';
 
 export const metadata: Metadata = {
-  title: 'Morse Code Translator Maker Guide - Build Your Own',
-  description: 'Learn how to build your own morse code translator using JavaScript, Arduino, or Raspberry Pi. Complete tutorial for DIY morse code projects.',
+  title: {
+    absolute: 'Morse Translator Maker Guide | Build a DIY Key',
+  },
+  description:
+    'Follow step-by-step plans to design, wire, and program your own Morse code translator with bill of materials, schematics, and testing tips.',
   keywords: ['translator maker', 'build morse translator', 'DIY morse code', 'Arduino morse', 'JavaScript morse code'],
   alternates: {
-    canonical: 'https://morsecodetranslator.app/translator-maker-guide'
-  }
+    canonical: absoluteUrl('/translator-maker-guide')
+  },
+  openGraph: buildOpenGraphMeta({
+    title: 'Morse Translator Maker Guide | Build a DIY Key',
+    description:
+      'Follow step-by-step plans to design, wire, and program your own Morse code translator with bill of materials, schematics, and testing tips.',
+    url: absoluteUrl('/translator-maker-guide'),
+  }),
 };
 
 export default function TranslatorMakerGuidePage() {

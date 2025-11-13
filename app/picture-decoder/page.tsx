@@ -7,17 +7,21 @@ import { absoluteUrl, buildOpenGraphMeta, buildSoftwareAppJsonLd } from '@/app/u
 const PICTURE_DECODER_URL = absoluteUrl('/picture-decoder');
 
 export const metadata: Metadata = {
-  title: 'Morse Code Picture Decoder - Decode Morse Code from Images',
-  description: 'Decode morse code from images, photos, and screenshots with our picture decoder. Upload visual dits and dahs, extract hidden messages, and solve puzzles fast.',
+  title: {
+    absolute: 'Morse Picture Decoder | Image-to-Morse Tool',
+  },
+  description:
+    'Upload an image, auto-detect light pulses, and export readable Morse code with adjustable thresholds for STEM demos and ARG puzzles.',
   keywords: ['morse code picture', 'morse code image decoder', 'decode morse from picture', 'morse code photo decoder', 'image to morse code', 'visual morse decoder'],
   alternates: {
     canonical: PICTURE_DECODER_URL
   },
   openGraph: buildOpenGraphMeta({
-    title: 'Morse Code Picture Decoder - Decode Morse Code from Images',
-    description: 'Decode morse code from images, photos, and screenshots with our picture decoder. Upload visual dits and dahs, extract hidden messages, and solve puzzles fast.',
+    title: 'Morse Picture Decoder | Image-to-Morse Tool',
+    description:
+      'Upload an image, auto-detect light pulses, and export readable Morse code with adjustable thresholds for STEM demos and ARG puzzles.',
     url: PICTURE_DECODER_URL,
-  })
+  }),
 };
 
 export default function PictureDecoderPage() {

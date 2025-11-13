@@ -1,13 +1,23 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { absoluteUrl, buildOpenGraphMeta } from '@/app/utils/seo';
 
 export const metadata: Metadata = {
-  title: 'Beeper Code & Phone Keypad Decoder - Convert Phone Codes',
-  description: 'Decode beeper codes and phone keypad messages with our retro pager translator. Convert numeric T9 sequences to text and explore classic communication culture.',
+  title: {
+    absolute: 'Beeper & Phone Keypad Decoder | Morse Converter',
+  },
+  description:
+    'Turn beeper or keypad number sequences into Morse or text, compare tone outputs, and share decoded messages instantly.',
   keywords: ['beeper code', 'phone keypad decoder', 'T9 decoder', 'pager code', 'numeric code decoder'],
   alternates: {
-    canonical: 'https://morsecodetranslator.app/beeper-code'
-  }
+    canonical: absoluteUrl('/beeper-code')
+  },
+  openGraph: buildOpenGraphMeta({
+    title: 'Beeper & Phone Keypad Decoder | Morse Converter',
+    description:
+      'Turn beeper or keypad number sequences into Morse or text, compare tone outputs, and share decoded messages instantly.',
+    url: absoluteUrl('/beeper-code'),
+  }),
 };
 
 export default function BeeperCodePage() {

@@ -1,14 +1,24 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import HexToMorseConverter from '../components/HexToMorseConverter';
+import { absoluteUrl, buildOpenGraphMeta } from '@/app/utils/seo';
 
 export const metadata: Metadata = {
-  title: 'Hexadecimal to Morse Code Converter - Hex Cipher Tool',
-  description: 'Convert hexadecimal strings to morse code with our hex cipher tool. Translate hex bytes to ASCII, send dits and dahs, and explore flexible encoding workflows.',
+  title: {
+    absolute: 'Hexadecimal to Morse Converter | Hex Cipher Tool',
+  },
+  description:
+    'Paste hexadecimal values and instantly hear, copy, or download the Morse translation with built-in error checking for crypto challenges.',
   keywords: ['hexadecimal cipher', 'hex to morse', 'hex code converter', 'hexadecimal to morse code'],
   alternates: {
-    canonical: 'https://morsecodetranslator.app/hexadecimal-cipher'
-  }
+    canonical: absoluteUrl('/hexadecimal-cipher')
+  },
+  openGraph: buildOpenGraphMeta({
+    title: 'Hexadecimal to Morse Converter | Hex Cipher Tool',
+    description:
+      'Paste hexadecimal values and instantly hear, copy, or download the Morse translation with built-in error checking for crypto challenges.',
+    url: absoluteUrl('/hexadecimal-cipher'),
+  }),
 };
 
 export default function HexadecimalCipherPage() {
