@@ -4,6 +4,7 @@ import MorseTranslator from './components/MorseTranslator';
 import MorseCodeChart from './components/MorseCodeChart';
 import ScrollToTopButton from './components/ScrollToTopButton';
 import SignalVisualizer from './components/SignalVisualizer';
+import { absoluteUrl, buildOpenGraphMeta, buildSoftwareAppJsonLd } from './utils/seo';
 
 const driverScenarios = [
   {
@@ -151,32 +152,30 @@ export const metadata: Metadata = {
     'morse code encoder',
   ],
   alternates: {
-    canonical: 'https://morsecodetranslator.app/',
+    canonical: absoluteUrl('/'),
   },
-  openGraph: {
+  openGraph: buildOpenGraphMeta({
     title: 'Morse Code Translator - Free Online Morse Code Converter',
     description:
       'Morse Code Translator with live text↔CW, tone and noise sliders, WAV exports, and guided lessons built for HAM drills, STEM labs, and accessibility teams.',
-    url: 'https://morsecodetranslator.app/',
-  },
+    url: absoluteUrl('/'),
+  }),
 };
 
 export default function Home() {
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
+  const jsonLd = buildSoftwareAppJsonLd({
     name: 'Morse Code Translator',
-    applicationCategory: 'UtilityApplication',
-    operatingSystem: 'Any',
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'USD',
-    },
     description:
       'Free online morse code translator with real-time conversion, audio playback, and download capabilities.',
-    url: 'https://morsecodetranslator.app/',
-  } as const;
+    url: absoluteUrl('/'),
+    applicationCategory: 'EducationalApplication',
+    applicationSubCategory: 'CommunicationApplication',
+    featureList: [
+      'Real-time text ↔ Morse conversion',
+      'Customizable tone, waveform, and speed controls',
+      'Audio export, waveform preview, and collaborative practice logs',
+    ],
+  });
 
   return (
     <>

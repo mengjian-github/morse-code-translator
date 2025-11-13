@@ -2,36 +2,36 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import WordDecoderConverter from '../components/WordDecoderConverter';
 import ScrollToTopButton from '../components/ScrollToTopButton';
+import { absoluteUrl, buildOpenGraphMeta, buildSoftwareAppJsonLd } from '@/app/utils/seo';
+
+const WORD_DECODER_URL = absoluteUrl('/word-decoder');
 
 export const metadata: Metadata = {
   title: 'Word Decoder & Cipher Solver for Morse Puzzles',
   description: 'Decode cryptograms, Caesar shifts, substitution ciphers, and morse puzzles with our word decoder. Check letter frequency, test shifts, and crack hidden clues.',
   keywords: ['word decoder', 'cryptogram alphabet code solver', 'caesar cipher decoder', 'substitution cipher solver', 'cryptogram solver', 'decode cipher', 'puzzle decoder'],
   alternates: {
-    canonical: 'https://morsecodetranslator.app/word-decoder'
+    canonical: WORD_DECODER_URL
   },
-  openGraph: {
+  openGraph: buildOpenGraphMeta({
     title: 'Word Decoder & Cipher Solver for Morse Puzzles',
     description: 'Decode cryptograms, Caesar shifts, substitution ciphers, and morse puzzles with our word decoder. Check letter frequency, test shifts, and crack hidden clues.',
-    url: 'https://morsecodetranslator.app/word-decoder',
-  }
+    url: WORD_DECODER_URL,
+  })
 };
 
 export default function WordDecoderPage() {
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
+  const jsonLd = buildSoftwareAppJsonLd({
     name: 'Word Decoder & Cryptogram Solver',
-    applicationCategory: 'UtilityApplication',
-    operatingSystem: 'Any',
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'USD'
-    },
     description: 'Free online tool to decode words, solve cryptograms, and translate various cipher types including morse code.',
-    url: 'https://morsecodetranslator.app/word-decoder'
-  };
+    url: WORD_DECODER_URL,
+    applicationCategory: 'EducationalApplication',
+    featureList: [
+      'Live letter frequency and digram analysis',
+      'Caesar, substitution, and Morse decoders inside one workspace',
+      'Collaboration notes and export-ready summaries',
+    ],
+  });
 
   return (
     <>

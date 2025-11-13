@@ -2,36 +2,36 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import IdentifierEncoderConverter from '../components/IdentifierEncoderConverter';
 import ScrollToTopButton from '../components/ScrollToTopButton';
+import { absoluteUrl, buildOpenGraphMeta, buildSoftwareAppJsonLd } from '@/app/utils/seo';
+
+const IDENTIFIER_ENCODER_URL = absoluteUrl('/identifier-encoder');
 
 export const metadata: Metadata = {
   title: 'Identifier Encoder for Morse Call Signs & IDs',
   description: 'Convert call signs, device IDs, and asset tags to morse code with this identifier encoder. Create CW IDs for radio ops, IoT tracking, and dependable asset logs.',
   keywords: ['encode identifier', 'call sign encoder', 'device ID morse', 'asset tag encoder', 'amateur radio call signs', 'IoT identifier', 'equipment ID morse code'],
   alternates: {
-    canonical: 'https://morsecodetranslator.app/identifier-encoder'
+    canonical: IDENTIFIER_ENCODER_URL
   },
-  openGraph: {
+  openGraph: buildOpenGraphMeta({
     title: 'Identifier Encoder for Morse Call Signs & IDs',
     description: 'Convert call signs, device IDs, and asset tags to morse code with this identifier encoder. Create CW IDs for radio ops, IoT tracking, and dependable asset logs.',
-    url: 'https://morsecodetranslator.app/identifier-encoder',
-  }
+    url: IDENTIFIER_ENCODER_URL,
+  })
 };
 
 export default function IdentifierEncoderPage() {
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
+  const jsonLd = buildSoftwareAppJsonLd({
     name: 'Identifier Encoder - Morse Code',
-    applicationCategory: 'UtilityApplication',
-    operatingSystem: 'Any',
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'USD'
-    },
     description: 'Free online tool to encode identifiers, call signs, device IDs, and asset tags into morse code.',
-    url: 'https://morsecodetranslator.app/identifier-encoder'
-  };
+    url: IDENTIFIER_ENCODER_URL,
+    applicationCategory: 'CommunicationApplication',
+    featureList: [
+      'Instant FCC-compliant call sign encoding',
+      'Exportable CW IDs for IoT and asset tracking',
+      'Audio + text packages for drills and documentation',
+    ],
+  });
 
   return (
     <>

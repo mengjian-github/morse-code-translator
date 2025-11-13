@@ -2,36 +2,36 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import ScrollToTopButton from '../components/ScrollToTopButton';
 import PictureDecoderConverter from '../components/PictureDecoderConverter';
+import { absoluteUrl, buildOpenGraphMeta, buildSoftwareAppJsonLd } from '@/app/utils/seo';
+
+const PICTURE_DECODER_URL = absoluteUrl('/picture-decoder');
 
 export const metadata: Metadata = {
   title: 'Morse Code Picture Decoder - Decode Morse Code from Images',
   description: 'Decode morse code from images, photos, and screenshots with our picture decoder. Upload visual dits and dahs, extract hidden messages, and solve puzzles fast.',
   keywords: ['morse code picture', 'morse code image decoder', 'decode morse from picture', 'morse code photo decoder', 'image to morse code', 'visual morse decoder'],
   alternates: {
-    canonical: 'https://morsecodetranslator.app/picture-decoder'
+    canonical: PICTURE_DECODER_URL
   },
-  openGraph: {
+  openGraph: buildOpenGraphMeta({
     title: 'Morse Code Picture Decoder - Decode Morse Code from Images',
     description: 'Decode morse code from images, photos, and screenshots with our picture decoder. Upload visual dits and dahs, extract hidden messages, and solve puzzles fast.',
-    url: 'https://morsecodetranslator.app/picture-decoder',
-  }
+    url: PICTURE_DECODER_URL,
+  })
 };
 
 export default function PictureDecoderPage() {
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
+  const jsonLd = buildSoftwareAppJsonLd({
     name: 'Morse Code Picture Decoder',
-    applicationCategory: 'UtilityApplication',
-    operatingSystem: 'Any',
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'USD'
-    },
     description: 'Free online tool to decode morse code from images, photos, and screenshots.',
-    url: 'https://morsecodetranslator.app/picture-decoder'
-  };
+    url: PICTURE_DECODER_URL,
+    applicationCategory: 'MultimediaApplication',
+    featureList: [
+      'Upload any image or screenshot to rebuild dits and dahs',
+      'Adjustable contrast and OCR assist for blurred signals',
+      'Export decoded text, audio, and session logs for puzzle teams',
+    ],
+  });
 
   return (
     <>
