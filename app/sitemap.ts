@@ -14,6 +14,7 @@ const staticPaths = [
   '/picture-decoder',
   '/translator-maker-guide',
   '/word-decoder',
+  '/terms',
   '/privacy',
 ];
 
@@ -35,4 +36,3 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [...staticEntries, ...blogEntries];
 }
-
