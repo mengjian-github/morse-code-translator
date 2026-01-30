@@ -94,6 +94,14 @@ export default function RootLayout({
           })(window, document, "clarity", "script", "tu21jyi47m");
         `}
       </Script>
+      {/* Plausible (self-hosted) */}
+      <Script
+        src="https://plausible.shipsolo.io/js/pa-T5dIMRh5dGt3Loy68UYz-.js"
+        strategy="afterInteractive"
+      />
+      <Script id="plausible-init" strategy="afterInteractive">
+        {`window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}}; plausible.init()`}
+      </Script>
       <body
         className={`${sourceSans.variable} ${plexMono.variable} antialiased`}
       >
