@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { textToMorse, morseToText, isValidMorse } from '../utils/morseCode';
 import { playMorseCode, generateMorseAudio, downloadAudio, calculateTransmissionDuration } from '../utils/audioUtils';
 import CopyButton from './CopyButton';
+import { trackEvent } from '@/lib/analytics';
 import SignalVisualizer from './SignalVisualizer';
 
 const waveformOptions: { value: OscillatorType; label: string; description: string }[] = [
@@ -45,7 +46,9 @@ export default function MorseTranslator({
 
   useEffect(() => {
     if (mode === 'textToMorse') {
-      setOutput(textToMorse(input));
+      const result = textToMorse(input);
+      setOutput(result);
+      if (input.length > 0) trackEvent('translate_click', { mode: 'text_to_morse', input_length: input.length });
       setValidationMessage('');
     } else {
       if (input && !isValidMorse(input)) {
@@ -53,7 +56,9 @@ export default function MorseTranslator({
       } else {
         setValidationMessage('');
       }
-      setOutput(morseToText(input));
+      const result = morseToText(input);
+      setOutput(result);
+      if (input.length > 0) trackEvent('translate_click', { mode: 'morse_to_text', input_length: input.length });
     }
   }, [input, mode]);
 
@@ -89,6 +94,7 @@ export default function MorseTranslator({
   };
 
   const handlePlayAudio = async () => {
+    trackEvent('play_audio', { mode });
     if (!output || isPlaying) return;
 
     setIsPlaying(true);
@@ -119,6 +125,7 @@ export default function MorseTranslator({
         waveform,
         noiseLevel,
       });
+      trackEvent('export_wav', { mode });
       downloadAudio(audioBlob, 'morse-code.wav');
     } catch (error) {
       console.error('Error generating audio:', error);
