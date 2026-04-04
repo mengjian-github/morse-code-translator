@@ -276,7 +276,7 @@ export default function Home() {
             FAQ schema, sitelinks, and descriptive meta titles help the Morse Code Translator grab more of the SERP above the fold while promising practical outcomes—ham readiness, classroom confidence, and maker demos.
           </p>
           <p className="text-base text-white/80">
-            Start a practice sprint, export proof-of-learning, or embed quick challenges; the Morse Code Translator keeps the next click obvious with bright CTAs, review snippets, and transparent pricing (free).
+            Start a practice sprint, export proof-of-learning, or embed quick challenges; the Morse Code Translator keeps the next click obvious with bright CTAs, review snippets, and transparent pricing (free). If your workflow extends beyond plain text, jump into our <Link href="/binary-to-morse" className="text-[#ffd800] underline underline-offset-4">Binary to Morse</Link>, <Link href="/picture-decoder" className="text-[#ffd800] underline underline-offset-4">Picture Decoder</Link>, or <Link href="/identifier-encoder" className="text-[#ffd800] underline underline-offset-4">Identifier Encoder</Link> tools for deeper practice contexts.
           </p>
           <div className="grid gap-4 md:grid-cols-2 text-sm text-white/80">
             <div className="rounded-2xl border border-white/15 bg-white/5 p-4 space-y-2">
