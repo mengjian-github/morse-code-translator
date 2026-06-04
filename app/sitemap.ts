@@ -3,6 +3,8 @@ import { articles } from './blog/articles';
 
 const siteUrl = 'https://morsecodetranslator.app';
 
+export const dynamic = 'force-static';
+
 const staticPaths = [
   '',
   '/beeper-code',
