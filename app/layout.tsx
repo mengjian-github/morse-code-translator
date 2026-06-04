@@ -4,6 +4,7 @@ import Script from "next/script";
 import "./globals.css";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
+import AnalyticsEvents from "./components/AnalyticsEvents";
 import {
   DEFAULT_OG_IMAGE_URL,
   SITE_URL,
@@ -105,6 +106,7 @@ export default function RootLayout({
       <body
         className={`${sourceSans.variable} ${plexMono.variable} antialiased`}
       >
+        <AnalyticsEvents />
         <Navigation />
         <main className="min-h-screen">
           {children}

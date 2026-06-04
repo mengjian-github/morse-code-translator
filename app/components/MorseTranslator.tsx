@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { textToMorse, morseToText, isValidMorse } from '../utils/morseCode';
 import { playMorseCode, generateMorseAudio, downloadAudio, calculateTransmissionDuration } from '../utils/audioUtils';
 import CopyButton from './CopyButton';
@@ -40,15 +40,37 @@ export default function MorseTranslator({
   const [noiseLevel, setNoiseLevel] = useState(0.1);
   const [validationMessage, setValidationMessage] = useState('');
   const [activeExample, setActiveExample] = useState<string | null>(null);
+  const toolStartKeys = useRef<Set<string>>(new Set());
+  const toolSuccessKeys = useRef<Set<string>>(new Set());
+
+  const inputDirection = mode === 'textToMorse' ? 'text_to_morse' : 'morse_to_text';
+  const toolEventProps = useMemo(() => ({
+    input_direction: inputDirection,
+    variant,
+  }), [inputDirection, variant]);
 
   const isCompact = variant === 'compact';
   const sectionId = variant === 'full' ? 'translator' : undefined;
 
   useEffect(() => {
+    if (!input.trim()) {
+      setOutput('');
+      setValidationMessage('');
+      return;
+    }
+
+    const startKey = `${mode}:${variant}`;
+    if (!toolStartKeys.current.has(startKey)) {
+      toolStartKeys.current.add(startKey);
+      trackEvent('tool_start', {
+        ...toolEventProps,
+        input_length: input.length,
+      });
+    }
+
     if (mode === 'textToMorse') {
       const result = textToMorse(input);
       setOutput(result);
-      if (input.length > 0) trackEvent('translate_click', { mode: 'text_to_morse', input_length: input.length });
       setValidationMessage('');
     } else {
       if (input && !isValidMorse(input)) {
@@ -58,9 +80,25 @@ export default function MorseTranslator({
       }
       const result = morseToText(input);
       setOutput(result);
-      if (input.length > 0) trackEvent('translate_click', { mode: 'morse_to_text', input_length: input.length });
     }
-  }, [input, mode]);
+  }, [input, mode, toolEventProps, variant]);
+
+  useEffect(() => {
+    if (!input.trim() || !output.trim() || validationMessage) return;
+
+    const successKey = `${mode}:${variant}:${input}:${output}`;
+    if (toolSuccessKeys.current.has(successKey)) return;
+
+    toolSuccessKeys.current.add(successKey);
+    const eventProps = {
+      ...toolEventProps,
+      input_length: input.length,
+      output_length: output.length,
+    };
+
+    trackEvent('tool_success', eventProps);
+    trackEvent('tool_result', eventProps);
+  }, [input, mode, output, toolEventProps, validationMessage, variant]);
 
   const morseSignal = useMemo(() => (mode === 'textToMorse' ? output : input), [input, output, mode]);
   const transmissionSeconds = useMemo(() => {
@@ -94,7 +132,12 @@ export default function MorseTranslator({
   };
 
   const handlePlayAudio = async () => {
-    trackEvent('play_audio', { mode });
+    trackEvent('audio_play', {
+      ...toolEventProps,
+      wpm,
+      frequency,
+      waveform,
+    });
     if (!output || isPlaying) return;
 
     setIsPlaying(true);
@@ -125,7 +168,13 @@ export default function MorseTranslator({
         waveform,
         noiseLevel,
       });
-      trackEvent('export_wav', { mode });
+      trackEvent('download_wav', {
+        ...toolEventProps,
+        wpm,
+        frequency,
+        waveform,
+        audio_bytes: audioBlob.size,
+      });
       downloadAudio(audioBlob, 'morse-code.wav');
     } catch (error) {
       console.error('Error generating audio:', error);
@@ -200,7 +249,12 @@ export default function MorseTranslator({
           <div className="flex-1 rounded-xl border border-[#e0e5ff] bg-[#f5f7ff] text-[#0b1f3a] p-4 overflow-y-auto min-h-[6rem]">
             {output || <span className="text-[#8a94b7]">Translation will appear here…</span>}
           </div>
-          <CopyButton text={output} label="Copy output" className="self-start" />
+          <CopyButton
+            text={output}
+            label="Copy output"
+            className="self-start"
+            eventProps={toolEventProps}
+          />
         </div>
       </div>
 
@@ -228,7 +282,7 @@ export default function MorseTranslator({
       </div>
 
       <div className="flex flex-wrap gap-3">
-        <CopyButton text={output} label="Copy" />
+        <CopyButton text={output} label="Copy" eventProps={toolEventProps} />
         <button
           onClick={handleClear}
           className="btn-ghost text-sm"

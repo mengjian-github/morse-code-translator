@@ -226,9 +226,14 @@ export default function Home() {
               <div className="glass-panel p-4 flex flex-wrap items-center justify-between gap-3 text-sm text-white/80">
                 <div>
                   <p className="font-semibold text-white">Feedback or AT support?</p>
-                  <p>Write to <a href="mailto:support@morsecodetranslator.app" className="underline decoration-dotted">support@morsecodetranslator.app</a></p>
+                  <p>Write to <a href="mailto:support@morsecodetranslator.app" className="underline decoration-dotted" data-analytics-event="contact_support_click" data-analytics-prop-location="accessibility_panel_email">support@morsecodetranslator.app</a></p>
                 </div>
-                <a href="mailto:support@morsecodetranslator.app" className="btn-ghost text-xs">
+                <a
+                  href="mailto:support@morsecodetranslator.app"
+                  className="btn-ghost text-xs"
+                  data-analytics-event="contact_support_click"
+                  data-analytics-prop-location="accessibility_panel_cta"
+                >
                   Contact Support
                 </a>
               </div>

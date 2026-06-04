@@ -1,19 +1,25 @@
 'use client';
 
 import { useState } from 'react';
+import { trackEvent } from '@/lib/analytics';
 
 interface CopyButtonProps {
   text: string;
   label?: string;
   className?: string;
+  eventProps?: Record<string, string | number | boolean>;
 }
 
-export default function CopyButton({ text, label = 'Copy', className = '' }: CopyButtonProps) {
+export default function CopyButton({ text, label = 'Copy', className = '', eventProps }: CopyButtonProps) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(text);
+      trackEvent('copy_output', {
+        output_length: text.length,
+        ...eventProps,
+      });
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {

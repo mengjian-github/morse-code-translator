@@ -76,7 +76,12 @@ export default function Footer() {
 
         <div className="mt-12 pt-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-xs uppercase tracking-[0.35em] text-white/40">
           <p>© {currentYear} MorseCodeTranslator.app</p>
-          <a href="mailto:support@morsecodetranslator.app" className="hover:text-white">support@morsecodetranslator.app</a>
+          <a
+            href="mailto:support@morsecodetranslator.app"
+            className="hover:text-white"
+            data-analytics-event="contact_support_click"
+            data-analytics-prop-location="footer_email"
+          >support@morsecodetranslator.app</a>
         </div>
       </div>
     </footer>
