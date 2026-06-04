@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { useState } from 'react';
 
 export default function Navigation() {
@@ -25,13 +24,12 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link href="/" className="flex items-center gap-3">
-            <Image
+            <img
               src="/logo.png"
               alt="Morse Code Translator"
-              width={44}
-              height={44}
-              priority
-              className="rounded-lg shadow-lg"
+              width="44"
+              height="44"
+              className="h-11 w-11 rounded-lg shadow-lg"
             />
             <div className="hidden sm:block">
               <p className="font-semibold text-white text-lg tracking-tight">Morse Translator</p>

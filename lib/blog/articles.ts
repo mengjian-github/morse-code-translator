@@ -96,7 +96,7 @@ export const blogArticles: BlogArticle[] = [
       <p>Morse code projects offer unique educational opportunities for STEM classrooms. They combine history, physics, electronics, programming, and communication theory in engaging, hands-on activities that students love. Integrating morse code activities encourages collaboration and storytelling, making abstract concepts tangible.</p>
 
       <figure>
-        <img src="https://images.unsplash.com/photo-1488371934083-75e0b23e7af9?auto=format&fit=crop&w=1400&q=80" alt="Students collaborating on an electronics breadboard project" loading="lazy" />
+        <img src="/blog/stem-circuit-build.svg" alt="Students collaborating on an electronics breadboard project" loading="lazy" />
         <figcaption>Team-based builds turn simple circuits into memorable lessons on signal encoding.</figcaption>
       </figure>
 
@@ -112,7 +112,7 @@ export const blogArticles: BlogArticle[] = [
       <p>Using inexpensive laser modules and light sensors, students transmit morse code across the classroom. The project reinforces alignment, modulation, and signal detection skills.</p>
 
       <figure>
-        <img src="https://images.unsplash.com/photo-1526378722443-4ae9c36b6438?auto=format&fit=crop&w=1400&q=80" alt="Close-up of a student adjusting a laser pointer for a classroom experiment" loading="lazy" />
+        <img src="/blog/stem-laser-link.svg" alt="Close-up of a student adjusting a laser pointer for a classroom experiment" loading="lazy" />
         <figcaption>Optical morse experiments spark discussions about line-of-sight communication and noise.</figcaption>
       </figure>
 

@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 
 export default function Footer() {
@@ -40,7 +39,7 @@ export default function Footer() {
         <div className="grid gap-10 lg:grid-cols-[2fr,3fr]">
           <div className="space-y-6">
             <div className="flex items-center gap-4">
-              <Image src="/logo.png" alt="Morse Translator logo" width={56} height={56} className="rounded-2xl" />
+              <img src="/logo.png" alt="Morse Translator logo" width="56" height="56" className="h-14 w-14 rounded-2xl" />
               <div>
                 <p className="text-lg font-semibold text-white">Morse Translator</p>
                 <p className="text-sm uppercase tracking-[0.4em] text-white/50">Signal Simulation Lab</p>
