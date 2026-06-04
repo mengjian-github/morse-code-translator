@@ -14,15 +14,20 @@ export default function CopyButton({ text, label = 'Copy', className = '', event
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
+    trackEvent('copy_output', {
+      output_length: text.length,
+      ...eventProps,
+    });
+
     try {
       await navigator.clipboard.writeText(text);
-      trackEvent('copy_output', {
-        output_length: text.length,
-        ...eventProps,
-      });
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
+      trackEvent('copy_output_error', {
+        output_length: text.length,
+        ...eventProps,
+      });
       console.error('Failed to copy:', err);
     }
   };
