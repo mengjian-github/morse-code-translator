@@ -40,6 +40,7 @@ export default function MorseTranslator({
   const [noiseLevel, setNoiseLevel] = useState(0.1);
   const [validationMessage, setValidationMessage] = useState('');
   const [activeExample, setActiveExample] = useState<string | null>(null);
+  const [actionHint, setActionHint] = useState<string | null>(null);
   const toolStartKeys = useRef<Set<string>>(new Set());
   const toolSuccessKeys = useRef<Set<string>>(new Set());
 
@@ -127,19 +128,29 @@ export default function MorseTranslator({
   };
 
   const handleClear = () => {
+    if (!input && !output) {
+      setActionHint('Enter text or pick a sample to get started');
+      setTimeout(() => setActionHint(null), 2500);
+      return;
+    }
     setInput('');
     setOutput('');
   };
 
   const handlePlayAudio = async () => {
+    if (!output || isPlaying) {
+      if (!output) {
+        setActionHint('Enter text first to play audio');
+        setTimeout(() => setActionHint(null), 2500);
+      }
+      return;
+    }
     trackEvent('audio_play', {
       ...toolEventProps,
       wpm,
       frequency,
       waveform,
     });
-    if (!output || isPlaying) return;
-
     setIsPlaying(true);
     try {
       const morseCode = mode === 'textToMorse' ? output : input;
@@ -157,8 +168,13 @@ export default function MorseTranslator({
   };
 
   const handleDownloadAudio = async () => {
-    if (!output || isGenerating) return;
-
+    if (!output || isGenerating) {
+      if (!output) {
+        setActionHint('Enter text first to download WAV');
+        setTimeout(() => setActionHint(null), 2500);
+      }
+      return;
+    }
     setIsGenerating(true);
     try {
       const morseCode = mode === 'textToMorse' ? output : input;
@@ -192,8 +208,8 @@ export default function MorseTranslator({
   ];
 
   const quickExamples: { label: string; value: string; mode: 'textToMorse' | 'morseToText' }[] = [
-    { label: 'LEARN MORSE FASTER', value: 'LEARN MORSE FASTER', mode: 'textToMorse' },
-    { label: '.... .- -- / .- - / 23', value: '.... .- -- / .- - / 23', mode: 'morseToText' },
+    { label: 'Try sample: LEARN MORSE FASTER', value: 'LEARN MORSE FASTER', mode: 'textToMorse' },
+    { label: 'Try HAM sample', value: '.... .- -- / .- - / 23', mode: 'morseToText' },
   ];
 
   useEffect(() => {
@@ -281,12 +297,11 @@ export default function MorseTranslator({
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap gap-3 items-center">
         <CopyButton text={output} label="Copy" eventProps={toolEventProps} />
         <button
           onClick={handleClear}
           className="btn-ghost text-sm"
-          disabled={!input && !output}
           type="button"
         >
           Clear
@@ -294,7 +309,6 @@ export default function MorseTranslator({
         {showAudio && (
           <button
             onClick={handlePlayAudio}
-            disabled={!output || isPlaying}
             className="btn-primary text-sm"
             type="button"
           >
@@ -304,14 +318,26 @@ export default function MorseTranslator({
         {showDownload && (
           <button
             onClick={handleDownloadAudio}
-            disabled={!output || isGenerating}
             className="btn-primary text-sm bg-[#0058a3] text-white shadow-[#0058a3]/40 hover:bg-[#0a6fd0]"
             type="button"
           >
             {isGenerating ? 'Generating…' : 'Download WAV'}
           </button>
         )}
+        {actionHint && (
+          <span className="text-xs text-[#ff8c00] flex items-center gap-1 animate-pulse">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            {actionHint}
+          </span>
+        )}
       </div>
+      {!input && !output && (
+        <p className="text-xs text-white/50 mt-2">
+          Enter text or pick a sample above to enable Copy, Play, and Download.
+        </p>
+      )}
     </div>
   );
 

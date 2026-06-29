@@ -19,6 +19,8 @@ export const metadata: Metadata = {
     url: absoluteUrl('/beeper-code'),
   }),
 };
+import BeeperCodeLookup from '../components/BeeperCodeLookup';
+
 
 export default function BeeperCodePage() {
   return (
@@ -92,7 +94,19 @@ export default function BeeperCodePage() {
         </div>
       </section>
 
-      <section className="mb-16">
+            <section className="mb-16">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-6 md:p-8">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
+            Beeper Code Lookup Tool
+          </h2>
+          <p className="text-gray-700 dark:text-gray-300 mb-4">
+            Enter a beeper code to see its meaning, or type a phrase to find common pager codes.
+          </p>
+          <BeeperCodeLookup />
+        </div>
+      </section>
+
+<section className="mb-16">
         <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-6 md:p-8">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
             Common Beeper Codes

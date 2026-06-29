@@ -51,50 +51,10 @@ export default function WordDecoderPage() {
         </section>
 
         <section className="mb-16">
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-6 md:p-8">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
-              Word Decoder Highlights
-            </h2>
-            <div className="space-y-4 text-gray-700 dark:text-gray-300">
-              <p>
-                The word decoder centralizes frequency charts, shift analysis, and morse translation. Power users pin saved puzzles inside the word decoder so groups can collaborate asynchronously on every cipher.
-              </p>
-              <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <li className="p-4 bg-primary-50 dark:bg-primary-900/30 rounded-lg border border-primary-200 dark:border-primary-800">
-                  <strong className="block text-gray-900 dark:text-white mb-2">Live statistics</strong>
-                  <span>The word decoder updates letter frequencies and digram counts as you type clues.</span>
-                </li>
-                <li className="p-4 bg-primary-50 dark:bg-primary-900/30 rounded-lg border border-primary-200 dark:border-primary-800">
-                  <strong className="block text-gray-900 dark:text-white mb-2">Multi-cipher support</strong>
-                  <span>Jump between substitution grids and morse playback without leaving the word decoder workspace.</span>
-                </li>
-                <li className="p-4 bg-primary-50 dark:bg-primary-900/30 rounded-lg border border-primary-200 dark:border-primary-800">
-                  <strong className="block text-gray-900 dark:text-white mb-2">Puzzle archiving</strong>
-                  <span>Save solved stories so the word decoder becomes your searchable clue library.</span>
-                </li>
-                <li className="p-4 bg-primary-50 dark:bg-primary-900/30 rounded-lg border border-primary-200 dark:border-primary-800">
-                  <strong className="block text-gray-900 dark:text-white mb-2">Classroom ready</strong>
-                  <span>Teachers distribute assignments through the word decoder to practice vocabulary and logic simultaneously.</span>
-                </li>
-                <li className="p-4 bg-primary-50 dark:bg-primary-900/30 rounded-lg border border-primary-200 dark:border-primary-800">
-                  <strong className="block text-gray-900 dark:text-white mb-2">Team mode</strong>
-                  <span>Collaborators leave notes directly in the word decoder panel to compare hypotheses.</span>
-                </li>
-                <li className="p-4 bg-primary-50 dark:bg-primary-900/30 rounded-lg border border-primary-200 dark:border-primary-800">
-                  <strong className="block text-gray-900 dark:text-white mb-2">Accessibility</strong>
-                  <span>Screen-reader hints and high-contrast views keep the word decoder inclusive for every solver.</span>
-                </li>
-              </ul>
-              <p>
-                Keep your word decoder results synced across devices by exporting JSON snapshots. The word decoder can re-import those files later so you resume work mid-puzzle without losing context.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section className="mb-16">
           <WordDecoderConverter />
         </section>
+
+
 
         <section className="mb-16">
           <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-6 md:p-8">

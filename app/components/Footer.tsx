@@ -1,7 +1,11 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const pathname = usePathname() || '/';
 
   const columns = [
     {
@@ -33,6 +37,11 @@ export default function Footer() {
     },
   ];
 
+  const isCurrent = (href: string) => {
+    if (href === '/') return pathname === '/';
+    return pathname === href || pathname.startsWith(href + '/');
+  };
+
   return (
     <footer className="mt-20 border-t border-white/10 bg-[rgba(2,12,26,0.95)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 text-white/80">
@@ -62,9 +71,15 @@ export default function Footer() {
                 <ul className="space-y-3 text-sm">
                   {col.links.map((link) => (
                     <li key={link.href}>
-                      <Link href={link.href} className="hover:text-white transition-colors">
-                        {link.label}
-                      </Link>
+                      {isCurrent(link.href) ? (
+                        <span className="text-white/40 cursor-default" aria-current="page">
+                          {link.label} <span className="text-[10px] uppercase tracking-wider opacity-60">· Current</span>
+                        </span>
+                      ) : (
+                        <Link href={link.href} className="hover:text-white transition-colors">
+                          {link.label}
+                        </Link>
+                      )}
                     </li>
                   ))}
                 </ul>

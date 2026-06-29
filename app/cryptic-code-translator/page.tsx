@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { absoluteUrl, buildOpenGraphMeta } from '@/app/utils/seo';
+import WordDecoderConverter from '../components/WordDecoderConverter';
+
 
 export const metadata: Metadata = {
   title: {
@@ -32,63 +34,19 @@ export default function CrypticCodePage() {
         </p>
       </div>
 
-      <section className="mb-16">
+            <section className="mb-16">
         <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-6 md:p-8">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
-            Cryptic Code Translator Highlights
+            Cryptic Code Decoder Tool
           </h2>
-          <div className="space-y-4 text-gray-700 dark:text-gray-300">
-            <p>
-              The cryptic code translator guides beginners through cipher basics, while the cryptic code translator dashboard gives experts quick access to deeper analysis. Every cryptic code translator workflow keeps morse code context close so you can compare encoding and encryption side-by-side.
-            </p>
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <li className="p-4 bg-primary-50 dark:bg-primary-900/30 rounded-lg border border-primary-200 dark:border-primary-800">
-                <strong className="block text-gray-900 dark:text-white mb-2">Frequency insights</strong>
-                <span>The cryptic code translator surfaces live frequency counts to accelerate substitution solving.</span>
-              </li>
-              <li className="p-4 bg-primary-50 dark:bg-primary-900/30 rounded-lg border border-primary-200 dark:border-primary-800">
-                <strong className="block text-gray-900 dark:text-white mb-2">Cipher comparisons</strong>
-                <span>Switch between Caesar, Vigenère, and Atbash inside the cryptic code translator without losing your place.</span>
-              </li>
-              <li className="p-4 bg-primary-50 dark:bg-primary-900/30 rounded-lg border border-primary-200 dark:border-primary-800">
-                <strong className="block text-gray-900 dark:text-white mb-2">Classroom ready</strong>
-                <span>Teachers use the cryptic code translator to demonstrate how encoding differs from encryption in real time.</span>
-              </li>
-              <li className="p-4 bg-primary-50 dark:bg-primary-900/30 rounded-lg border border-primary-200 dark:border-primary-800">
-                <strong className="block text-gray-900 dark:text-white mb-2">Puzzle support</strong>
-                <span>Escape rooms plug the cryptic code translator into clue stations for dynamic cipher reveals.</span>
-              </li>
-              <li className="p-4 bg-primary-50 dark:bg-primary-900/30 rounded-lg border border-primary-200 dark:border-primary-800">
-                <strong className="block text-gray-900 dark:text-white mb-2">Research ready</strong>
-                <span>Historians catalog intercepted telegrams with the cryptic code translator to cross-reference archival notes.</span>
-              </li>
-              <li className="p-4 bg-primary-50 dark:bg-primary-900/30 rounded-lg border border-primary-200 dark:border-primary-800">
-                <strong className="block text-gray-900 dark:text-white mb-2">Accessibility focus</strong>
-                <span>Keyboard shortcuts keep the cryptic code translator friendly for screen reader users decoding puzzles.</span>
-              </li>
-            </ul>
-            <p>
-              Whether you are auditing spycraft or prepping lesson plans, the cryptic code translator keeps every substitution trail organized. The cryptic code translator even stores practice scripts so clubs can revisit challenge drills whenever they meet. Keeping notes inside the cryptic code translator accelerates future solves.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="p-4 bg-gray-100 dark:bg-slate-900 rounded-lg">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">What can it decode?</h3>
-                <p>The cryptic code translator handles monoalphabetic, polyalphabetic, and mixed ciphers alongside morse layers.</p>
-              </div>
-              <div className="p-4 bg-gray-100 dark:bg-slate-900 rounded-lg">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">How fast is it?</h3>
-                <p>Batch processing lets the cryptic code translator analyze entire puzzle packets without manual copy-paste.</p>
-              </div>
-              <div className="p-4 bg-gray-100 dark:bg-slate-900 rounded-lg">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Who uses it?</h3>
-                <p>Educators, puzzle clubs, and cybersecurity students all lean on the cryptic code translator to visualize cipher structure.</p>
-              </div>
-            </div>
-          </div>
+          <p className="text-gray-700 dark:text-gray-300 mb-4">
+            Decode Caesar ciphers, substitution codes, and Morse puzzles. Select a decoder type and enter your encrypted text.
+          </p>
+          <WordDecoderConverter />
         </div>
       </section>
 
-      <section className="mb-16">
+<section className="mb-16">
         <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-6 md:p-8">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
             Understanding Cryptic Codes vs. Morse Code
