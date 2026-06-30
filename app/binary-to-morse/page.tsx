@@ -164,7 +164,7 @@ export default function BinaryToMorsePage() {
               <span className="text-primary-600 dark:text-primary-400 text-2xl">↔️</span>
               <div>
                 <h3 className="font-semibold text-gray-900 dark:text-white">Text to Morse Translator</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Convert regular text to morse code</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Use the main Morse Code Translator to decode Morse to English, play audio, and download WAV</p>
               </div>
             </Link>
             <Link href="/hexadecimal-cipher" className="flex items-center gap-3 p-4 bg-white dark:bg-slate-800 rounded-lg hover:shadow-lg transition-shadow">

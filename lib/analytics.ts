@@ -7,6 +7,9 @@ type Attribution = {
   campaign: string;
   term: string;
   content: string;
+  channel: string;
+  referrerHost: string;
+  landingPage: string;
 };
 
 declare global {
@@ -45,17 +48,28 @@ function readStoredAttribution(): Partial<Attribution> {
   }
 }
 
-function deriveReferrerAttribution(): Pick<Attribution, 'source' | 'medium'> {
-  if (typeof document === 'undefined') return { source: 'direct', medium: 'none' };
+function deriveChannel(source: string, medium: string): string {
+  if (medium === 'organic') return 'organic_search';
+  if (medium === 'cpc' || medium === 'paid' || medium === 'ppc') return 'paid';
+  if (medium === 'email' || medium === 'newsletter') return 'email';
+  if (medium === 'social') return 'social';
+  if (source === 'chatgpt' || source.includes('openai') || source.includes('perplexity')) return 'ai_referral';
+  if (medium === 'referral') return source === 'internal' ? 'internal' : 'referral';
+  if (source === 'direct') return 'direct';
+  return medium || 'unknown';
+}
+
+function deriveReferrerAttribution(): Pick<Attribution, 'source' | 'medium' | 'referrerHost'> {
+  if (typeof document === 'undefined') return { source: 'direct', medium: 'none', referrerHost: '' };
 
   const referrer = document.referrer;
-  if (!referrer) return { source: 'direct', medium: 'none' };
+  if (!referrer) return { source: 'direct', medium: 'none', referrerHost: '' };
 
   try {
     const referrerHost = new URL(referrer).hostname.replace(/^www\./, '');
     const currentHost = window.location.hostname.replace(/^www\./, '');
 
-    if (referrerHost === currentHost) return { source: 'internal', medium: 'referral' };
+    if (referrerHost === currentHost) return { source: 'internal', medium: 'referral', referrerHost };
 
     const searchSource = referrerHost.includes('google')
       ? 'google'
@@ -65,31 +79,53 @@ function deriveReferrerAttribution(): Pick<Attribution, 'source' | 'medium'> {
           ? 'duckduckgo'
           : referrerHost.includes('yahoo')
             ? 'yahoo'
-            : referrerHost;
+            : referrerHost.includes('yandex')
+              ? 'yandex'
+              : referrerHost.includes('chatgpt') || referrerHost.includes('openai')
+                ? 'chatgpt'
+                : referrerHost;
 
-    const medium = ['google', 'bing', 'duckduckgo', 'yahoo'].includes(searchSource) ? 'organic' : 'referral';
-    return { source: searchSource, medium };
+    const medium = ['google', 'bing', 'duckduckgo', 'yahoo', 'yandex'].includes(searchSource)
+      ? 'organic'
+      : searchSource === 'chatgpt'
+        ? 'referral'
+        : 'referral';
+    return { source: searchSource, medium, referrerHost };
   } catch {
-    return { source: 'referrer', medium: 'referral' };
+    return { source: 'referrer', medium: 'referral', referrerHost: '' };
   }
 }
 
 export function getAttribution(): Attribution {
   if (typeof window === 'undefined') {
-    return { source: 'server', medium: 'server', campaign: '', term: '', content: '' };
+    return {
+      source: 'server',
+      medium: 'server',
+      campaign: '',
+      term: '',
+      content: '',
+      channel: 'server',
+      referrerHost: '',
+      landingPage: '',
+    };
   }
 
   const params = new URLSearchParams(window.location.search);
   const stored = readStoredAttribution();
   const referrer = deriveReferrerAttribution();
   const hasUtm = UTM_KEYS.some((key) => params.has(key));
+  const source = params.get('utm_source') || stored.source || referrer.source;
+  const medium = params.get('utm_medium') || stored.medium || referrer.medium;
 
   const attribution: Attribution = {
-    source: params.get('utm_source') || stored.source || referrer.source,
-    medium: params.get('utm_medium') || stored.medium || referrer.medium,
+    source,
+    medium,
     campaign: params.get('utm_campaign') || stored.campaign || '',
     term: params.get('utm_term') || stored.term || '',
     content: params.get('utm_content') || stored.content || '',
+    channel: deriveChannel(source, medium),
+    referrerHost: stored.referrerHost || referrer.referrerHost,
+    landingPage: stored.landingPage || `${window.location.pathname}${window.location.search}`,
   };
 
   if (hasUtm || !stored.source) {
@@ -115,9 +151,12 @@ export function buildEventProps(properties: AnalyticsProperties = {}): Record<st
     tool_name: 'morse_code_translator',
     source: attribution.source,
     medium: attribution.medium,
+    channel: attribution.channel,
     campaign: attribution.campaign,
     term: attribution.term,
     content: attribution.content,
+    referrer_host: attribution.referrerHost,
+    landing_page: attribution.landingPage,
     ...Object.fromEntries(
       Object.entries(properties).map(([key, value]) => [key, normalizeValue(value)]),
     ),

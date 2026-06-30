@@ -42,7 +42,9 @@ export default function MorseTranslator({
   const [activeExample, setActiveExample] = useState<string | null>(null);
   const [actionHint, setActionHint] = useState<string | null>(null);
   const toolStartKeys = useRef<Set<string>>(new Set());
-  const toolSuccessKeys = useRef<Set<string>>(new Set());
+  const toolResultKeys = useRef<Set<string>>(new Set());
+  const resultUpdateTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const resultUpdateSequence = useRef(0);
 
   const inputDirection = mode === 'textToMorse' ? 'text_to_morse' : 'morse_to_text';
   const toolEventProps = useMemo(() => ({
@@ -87,18 +89,43 @@ export default function MorseTranslator({
   useEffect(() => {
     if (!input.trim() || !output.trim() || validationMessage) return;
 
-    const successKey = `${mode}:${variant}:${input}:${output}`;
-    if (toolSuccessKeys.current.has(successKey)) return;
-
-    toolSuccessKeys.current.add(successKey);
     const eventProps = {
       ...toolEventProps,
       input_length: input.length,
       output_length: output.length,
+      event_scope: 'task',
+      realtime_preview: false,
     };
 
-    trackEvent('tool_success', eventProps);
-    trackEvent('tool_result', eventProps);
+    const resultKey = `${mode}:${variant}`;
+    if (!toolResultKeys.current.has(resultKey)) {
+      toolResultKeys.current.add(resultKey);
+      trackEvent('tool_result', eventProps);
+      trackEvent('tool_success', eventProps);
+    }
+
+    if (resultUpdateTimer.current) {
+      clearTimeout(resultUpdateTimer.current);
+    }
+
+    resultUpdateTimer.current = setTimeout(() => {
+      resultUpdateSequence.current += 1;
+      trackEvent('result_update', {
+        ...toolEventProps,
+        input_length: input.length,
+        output_length: output.length,
+        event_scope: 'live_preview',
+        realtime_preview: true,
+        update_sequence: resultUpdateSequence.current,
+      });
+    }, 900);
+
+    return () => {
+      if (resultUpdateTimer.current) {
+        clearTimeout(resultUpdateTimer.current);
+        resultUpdateTimer.current = null;
+      }
+    };
   }, [input, mode, output, toolEventProps, validationMessage, variant]);
 
   const morseSignal = useMemo(() => (mode === 'textToMorse' ? output : input), [input, output, mode]);
@@ -208,8 +235,8 @@ export default function MorseTranslator({
   ];
 
   const quickExamples: { label: string; value: string; mode: 'textToMorse' | 'morseToText' }[] = [
-    { label: 'Try sample: LEARN MORSE FASTER', value: 'LEARN MORSE FASTER', mode: 'textToMorse' },
-    { label: 'Try HAM sample', value: '.... .- -- / .- - / 23', mode: 'morseToText' },
+    { label: 'Sample: SOS', value: 'SOS', mode: 'textToMorse' },
+    { label: 'Sample: HAM QSO', value: '.... .- -- / .- - / 23', mode: 'morseToText' },
   ];
 
   useEffect(() => {
@@ -228,10 +255,16 @@ export default function MorseTranslator({
         </div>
         <button
           onClick={handleModeToggle}
-          className="btn-ghost text-sm"
+          className="btn-ghost text-sm px-3 py-1.5"
           type="button"
+          title="Swap direction"
         >
-          Swap Direction
+          <span className="flex items-center gap-1.5">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+            </svg>
+            <span className="hidden sm:inline">Swap</span>
+          </span>
         </button>
       </div>
 
@@ -265,12 +298,17 @@ export default function MorseTranslator({
           <div className="flex-1 rounded-xl border border-[#e0e5ff] bg-[#f5f7ff] text-[#0b1f3a] p-4 overflow-y-auto min-h-[6rem]">
             {output || <span className="text-[#8a94b7]">Translation will appear here…</span>}
           </div>
-          <CopyButton
-            text={output}
-            label="Copy output"
-            className="self-start"
-            eventProps={toolEventProps}
-          />
+          <div className="flex items-center gap-2">
+            <CopyButton
+              text={output}
+              label="Copy"
+              className="self-start"
+              eventProps={toolEventProps}
+            />
+            {!output && (
+              <span className="text-xs text-[#8a94b7]">Enter text to enable</span>
+            )}
+          </div>
         </div>
       </div>
 
@@ -298,7 +336,6 @@ export default function MorseTranslator({
       </div>
 
       <div className="flex flex-wrap gap-3 items-center">
-        <CopyButton text={output} label="Copy" eventProps={toolEventProps} />
         <button
           onClick={handleClear}
           className="btn-ghost text-sm"
@@ -309,7 +346,8 @@ export default function MorseTranslator({
         {showAudio && (
           <button
             onClick={handlePlayAudio}
-            className="btn-primary text-sm"
+            disabled={!output || isPlaying}
+            className="btn-primary text-sm disabled:opacity-40 disabled:cursor-not-allowed"
             type="button"
           >
             {isPlaying ? 'Playing…' : 'Play Audio'}
@@ -318,7 +356,8 @@ export default function MorseTranslator({
         {showDownload && (
           <button
             onClick={handleDownloadAudio}
-            className="btn-primary text-sm bg-[#0058a3] text-white shadow-[#0058a3]/40 hover:bg-[#0a6fd0]"
+            disabled={!output || isGenerating}
+            className="btn-primary text-sm bg-[#0058a3] text-white shadow-[#0058a3]/40 hover:bg-[#0a6fd0] disabled:opacity-40 disabled:cursor-not-allowed"
             type="button"
           >
             {isGenerating ? 'Generating…' : 'Download WAV'}
@@ -366,16 +405,16 @@ export default function MorseTranslator({
       ) : (
         <div className="grid gap-6 lg:grid-cols-[2fr,1fr]">
           {translatorPanel}
-          {telemetryPanel}
+          <div className="hidden lg:block">{telemetryPanel}</div>
         </div>
       )}
 
       {!isCompact && (
         <>
           <div className="grid gap-6 lg:grid-cols-3">
-            <div className="glass-panel p-6 space-y-4">
+            <div className="glass-panel p-4 md:p-6 space-y-3">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-white">Speed (WPM)</h3>
+                <h3 className="text-base font-semibold text-white">Speed (WPM)</h3>
                 <span className="metric-pill">{wpm} WPM</span>
               </div>
               <input
@@ -387,12 +426,12 @@ export default function MorseTranslator({
                 onChange={(e) => setWpm(Number(e.target.value))}
                 className="w-full accent-[#ffd800]"
               />
-              <p className="text-sm text-white/70">Match contest speeds or slow down for onboarding sessions.</p>
+              <p className="text-xs text-white/60">Match contest speeds or slow down for onboarding.</p>
             </div>
 
-            <div className="glass-panel p-6 space-y-4">
+            <div className="glass-panel p-4 md:p-6 space-y-3">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-white">Carrier Frequency</h3>
+                <h3 className="text-base font-semibold text-white">Carrier Frequency</h3>
                 <span className="metric-pill">{frequency} Hz</span>
               </div>
               <input
@@ -404,12 +443,12 @@ export default function MorseTranslator({
                 onChange={(e) => setFrequency(Number(e.target.value))}
                 className="w-full accent-[#ffd800]"
               />
-              <p className="text-sm text-white/70">Align sidetone with radios, cochlear implants, or classroom speakers.</p>
+              <p className="text-xs text-white/60">Align sidetone with radios or speakers.</p>
             </div>
 
-            <div className="glass-panel p-6 space-y-4">
+            <div className="glass-panel p-4 md:p-6 space-y-3">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-white">Noise / QRM Simulation</h3>
+                <h3 className="text-base font-semibold text-white">Noise / QRM</h3>
                 <span className="metric-pill">{Math.round(noiseLevel * 100)}%</span>
               </div>
               <input
@@ -421,19 +460,19 @@ export default function MorseTranslator({
                 onChange={(e) => setNoiseLevel(Number(e.target.value))}
                 className="w-full accent-[#ffd800]"
               />
-              <p className="text-sm text-white/70">Simulate contest chaos or therapy comfort levels with one slider.</p>
+              <p className="text-xs text-white/60">Simulate contest chaos or therapy comfort.</p>
             </div>
           </div>
 
-          <div className="glass-panel p-6 md:p-8">
-            <div className="grid gap-4 md:grid-cols-2">
+          <div className="glass-panel p-4 md:p-6">
+            <div className="grid gap-3 md:grid-cols-2">
               {waveformOptions.map((option) => (
                 <label
                   key={option.value}
-                  className={`rounded-2xl border p-4 cursor-pointer transition-all ${waveform === option.value ? 'border-[#ffd800] bg-white/10' : 'border-white/10 bg-white/5 hover:border-white/30'}`}
+                  className={`rounded-2xl border p-3 md:p-4 cursor-pointer transition-all ${waveform === option.value ? 'border-[#ffd800] bg-white/10' : 'border-white/10 bg-white/5 hover:border-white/30'}`}
                 >
-                  <div className="flex items-center justify-between mb-2">
-                    <p className="text-lg font-semibold text-white">{option.label}</p>
+                  <div className="flex items-center justify-between mb-1">
+                    <p className="text-base font-semibold text-white">{option.label}</p>
                     <input
                       type="radio"
                       name="waveform"
@@ -443,7 +482,7 @@ export default function MorseTranslator({
                       className="accent-[#ffd800]"
                     />
                   </div>
-                  <p className="text-sm text-white/70">{option.description}</p>
+                  <p className="text-xs text-white/60">{option.description}</p>
                 </label>
               ))}
             </div>

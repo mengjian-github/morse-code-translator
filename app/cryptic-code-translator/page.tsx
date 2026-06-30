@@ -204,7 +204,7 @@ export default function CrypticCodePage() {
               <span className="text-primary-600 dark:text-primary-400 text-2xl">📡</span>
               <div>
                 <h3 className="font-semibold text-gray-900 dark:text-white">Morse Code Translator</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Transparent encoding system</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Decode dots and dashes to English, play Morse audio, and download WAV</p>
               </div>
             </Link>
             <Link href="/word-decoder" className="flex items-center gap-3 p-4 bg-white dark:bg-slate-800 rounded-lg hover:shadow-lg transition-shadow">
@@ -218,7 +218,7 @@ export default function CrypticCodePage() {
               <span className="text-primary-600 dark:text-primary-400 text-2xl">💻</span>
               <div>
                 <h3 className="font-semibold text-gray-900 dark:text-white">Binary Converter</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Digital encoding methods</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Route binary strings into Morse before checking layered cipher clues</p>
               </div>
             </Link>
           </div>

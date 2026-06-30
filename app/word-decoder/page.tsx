@@ -339,7 +339,7 @@ export default function WordDecoderPage() {
                 Morse Code Translator
               </h3>
               <p className="text-gray-600 dark:text-gray-400">
-                Decode morse code to text and encode text to morse with audio playback.
+                Decode Morse to English, convert text to Morse, play audio, and download WAV in the main translator.
               </p>
             </Link>
 
@@ -357,7 +357,7 @@ export default function WordDecoderPage() {
                 Binary to Morse Converter
               </h3>
               <p className="text-gray-600 dark:text-gray-400">
-                Decode binary code to morse for multi-layer encoding puzzle challenges.
+                Decode binary code to Morse for multi-layer encoding puzzles, then validate the result in the translator.
               </p>
             </Link>
 

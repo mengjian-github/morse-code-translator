@@ -4,7 +4,7 @@ import MorseTranslator from './components/MorseTranslator';
 import MorseCodeChart from './components/MorseCodeChart';
 import ScrollToTopButton from './components/ScrollToTopButton';
 import SignalVisualizer from './components/SignalVisualizer';
-import { absoluteUrl, buildOpenGraphMeta } from './utils/seo';
+import { SITE_NAME, absoluteUrl, buildOpenGraphMeta } from './utils/seo';
 
 const driverScenarios = [
   {
@@ -35,14 +35,19 @@ const driverScenarios = [
 
 const toolSuiteLinks = [
   {
+    href: '/beeper-code',
+    title: 'Beeper Code Translator',
+    description: 'Decode pager-style beeper numbers, compare them with Morse signals, and return to the main Morse code translator for audio practice.',
+  },
+  {
     href: '/picture-decoder',
     title: 'Morse Code Picture Decoder',
-    description: 'Upload a photo → OCR → Morse, complete with framing tips and clarity scoring.',
+    description: 'Upload a photo, extract Morse-like symbols with OCR guidance, then validate the decoded text in the browser Morse code translator.',
   },
   {
     href: '/binary-to-morse',
-    title: 'Binary ↔ Morse Lab',
-    description: 'Batch convert 8-bit / 16-bit payloads with address tables and exports.',
+    title: 'Binary to Morse Converter',
+    description: 'Convert binary payloads into Morse code, review 8-bit / 16-bit tables, and route signals back to the main text-to-Morse workflow.',
   },
   {
     href: '/identifier-encoder',
@@ -52,12 +57,12 @@ const toolSuiteLinks = [
   {
     href: '/word-decoder',
     title: 'Word Decoder & Cryptogram Hub',
-    description: 'Lightweight substitution, Caesar, and Vigenère helpers that loop readers back to the main translator.',
+    description: 'Decode hidden words with substitution, Caesar, and Vigenère helpers before checking plain text in the Morse Code Translator.',
   },
   {
     href: '/cryptic-code-translator',
     title: 'Cryptic Code Translator',
-    description: 'Explain common cipher families, contrast them with Morse, and provide compliant decode tooling.',
+    description: 'Compare cryptic ciphers with Morse, explain each decode path, and link users to the free Morse code converter when signals use dots and dashes.',
   },
   {
     href: '/hexadecimal-cipher',
@@ -155,7 +160,7 @@ const howToSteps = [
 export const metadata: Metadata = {
   title: 'Morse Code Translator - Free Online Morse Code Converter',
   description:
-    'Morse Code Translator with live text↔CW, tone and noise sliders, WAV exports, and guided lessons built for HAM drills, STEM labs, and accessibility teams.',
+    'Free Morse Code Translator to convert text to Morse, decode Morse to English, play audio, download WAV, and work privately in your browser with no signup.',
   keywords: [
     'morse code translator',
     'morse code converter',
@@ -172,7 +177,7 @@ export const metadata: Metadata = {
   openGraph: buildOpenGraphMeta({
     title: 'Morse Code Translator - Free Online Morse Code Converter',
     description:
-      'Morse Code Translator with live text↔CW, tone and noise sliders, WAV exports, and guided lessons built for HAM drills, STEM labs, and accessibility teams.',
+      'Free Morse Code Translator to convert text to Morse, decode Morse to English, play audio, download WAV, and work privately in your browser with no signup.',
     url: absoluteUrl('/'),
   }),
 };
@@ -182,11 +187,32 @@ export default function Home() {
     '@context': 'https://schema.org',
     '@graph': [
       {
+        '@type': 'Organization',
+        '@id': `${absoluteUrl('/')}#organization`,
+        name: SITE_NAME,
+        url: absoluteUrl('/'),
+        logo: {
+          '@type': 'ImageObject',
+          url: absoluteUrl('/logo.png'),
+          width: 512,
+          height: 512,
+        },
+      },
+      {
+        '@type': 'WebSite',
+        '@id': `${absoluteUrl('/')}#website`,
+        name: SITE_NAME,
+        url: absoluteUrl('/'),
+        inLanguage: 'en',
+        publisher: { '@id': `${absoluteUrl('/')}#organization` },
+      },
+      {
         '@type': 'WebApplication',
         '@id': `${absoluteUrl('/')}#webapplication`,
         name: 'Morse Code Translator',
         url: absoluteUrl('/'),
         description: 'Free bidirectional Morse code translator with local text-to-Morse and Morse-to-text conversion, audio playback, copy output, and WAV download.',
+        publisher: { '@id': `${absoluteUrl('/')}#organization` },
         applicationCategory: 'EducationalApplication',
         applicationSubCategory: 'CommunicationApplication',
         operatingSystem: 'Web',
@@ -266,10 +292,7 @@ export default function Home() {
               </div>
               <div className="flex flex-wrap gap-3">
                 <Link href="/#translator" className="btn-primary">
-                  Start translating
-                </Link>
-                <Link href="/blog" className="btn-ghost">
-                  Read guides
+                  Try it now
                 </Link>
               </div>
             </div>
@@ -313,7 +336,7 @@ export default function Home() {
             FAQ schema, sitelinks, and descriptive meta titles help the Morse Code Translator grab more of the SERP above the fold while promising practical outcomes—ham readiness, classroom confidence, and maker demos.
           </p>
           <p className="text-base text-white/80">
-            Start a practice sprint, copy the translated output, or download audio; the Morse Code Translator keeps the next action obvious with clear CTAs and transparent pricing (free). If your workflow extends beyond plain text, jump into our <Link href="/binary-to-morse" className="text-[#ffd800] underline underline-offset-4">Binary to Morse</Link>, <Link href="/picture-decoder" className="text-[#ffd800] underline underline-offset-4">Picture Decoder</Link>, or <Link href="/identifier-encoder" className="text-[#ffd800] underline underline-offset-4">Identifier Encoder</Link> tools for deeper practice contexts.
+            Start a practice sprint, copy the translated output, or download audio; the Morse Code Translator keeps the next action obvious with clear CTAs and transparent pricing (free). If your workflow extends beyond plain text, jump into the <Link href="/binary-to-morse" className="text-[#ffd800] underline underline-offset-4">binary to Morse converter</Link>, <Link href="/beeper-code" className="text-[#ffd800] underline underline-offset-4">beeper code translator</Link>, <Link href="/word-decoder" className="text-[#ffd800] underline underline-offset-4">word decoder</Link>, or <Link href="/cryptic-code-translator" className="text-[#ffd800] underline underline-offset-4">cryptic code translator</Link> for deeper practice contexts.
           </p>
           <div className="grid gap-4 md:grid-cols-2 text-sm text-white/80">
             <div className="rounded-2xl border border-white/15 bg-white/5 p-4 space-y-2">
