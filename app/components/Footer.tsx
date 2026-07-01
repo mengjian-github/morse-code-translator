@@ -12,6 +12,7 @@ export default function Footer() {
       title: 'Signal Tools',
       links: [
         { href: '/', label: 'Morse Translator' },
+        { href: '/morse-code-audio', label: 'Audio WAV' },
         { href: '/binary-to-morse', label: 'Binary Lab' },
         { href: '/picture-decoder', label: 'Picture Decoder' },
         { href: '/identifier-encoder', label: 'Identifier Encoder' },

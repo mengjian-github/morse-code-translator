@@ -7,6 +7,7 @@ export const dynamic = 'force-static';
 
 const staticPaths = [
   '',
+  '/morse-code-audio',
   '/beeper-code',
   '/binary-to-morse',
   '/blog',

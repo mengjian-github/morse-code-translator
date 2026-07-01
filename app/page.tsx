@@ -35,6 +35,11 @@ const driverScenarios = [
 
 const toolSuiteLinks = [
   {
+    href: '/morse-code-audio',
+    title: 'Morse Code Audio Translator',
+    description: 'Turn text or Morse into playable sidetone, copy the translation, download WAV, and share practice output from one focused task page.',
+  },
+  {
     href: '/beeper-code',
     title: 'Beeper Code Translator',
     description: 'Decode pager-style beeper numbers, compare them with Morse signals, and return to the main Morse code translator for audio practice.',
@@ -136,6 +141,11 @@ const serpFaqs = [
       'The conversion runs in your browser, the Morse Code Translator is free to use, and teachers can set speed and tone before playing practice audio.',
   },
   {
+    question: 'Can I share Morse Code Translator output with students or teammates?',
+    answer:
+      'Yes—the Morse Code Translator keeps Copy, Play Audio, Download WAV, and Share next to the translated result so you can move from translation to listening, saving, or sending without hunting for controls.',
+  },
+  {
     question: 'What accessibility support does the Morse Code Translator include?',
     answer:
       'Large targets, keyboard-first navigation, and adjustable audio controls make the Morse Code Translator easier to use for practice and accessibility workflows.',
@@ -211,14 +221,14 @@ export default function Home() {
         '@id': `${absoluteUrl('/')}#webapplication`,
         name: 'Morse Code Translator',
         url: absoluteUrl('/'),
-        description: 'Free bidirectional Morse code translator with local text-to-Morse and Morse-to-text conversion, audio playback, copy output, and WAV download.',
+        description: 'Free bidirectional Morse code translator with local text-to-Morse and Morse-to-text conversion, audio playback, copy output, WAV download, and share-ready results.',
         publisher: { '@id': `${absoluteUrl('/')}#organization` },
         applicationCategory: 'EducationalApplication',
         applicationSubCategory: 'CommunicationApplication',
         operatingSystem: 'Web',
         browserRequirements: 'Requires a modern browser with JavaScript and Web Audio support.',
         isAccessibleForFree: true,
-        featureList: ['Text to Morse conversion', 'Morse to text decoding', 'Audio playback', 'Copy output', 'Download WAV audio'],
+        featureList: ['Text to Morse conversion', 'Morse to text decoding', 'Audio playback', 'Copy output', 'Download WAV audio', 'Share translated output'],
         offers: { '@type': 'Offer', price: '0.00', priceCurrency: 'USD' },
       },
       {

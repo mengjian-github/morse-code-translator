@@ -8,6 +8,7 @@ export default function Navigation() {
 
   const navLinks = [
     { href: '/', label: 'Translator' },
+    { href: '/morse-code-audio', label: 'Audio WAV' },
     { href: '/binary-to-morse', label: 'Binary Lab' },
     { href: '/picture-decoder', label: 'Picture Decoder' },
     { href: '/identifier-encoder', label: 'Identifier Encoder' },

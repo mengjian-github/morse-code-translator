@@ -178,6 +178,10 @@ export default function MorseTranslator({
   const handlePlayAudio = async () => {
     if (!output || isPlaying) {
       if (!output) {
+        trackEvent('audio_play_blocked', {
+          ...toolEventProps,
+          reason: 'empty_output',
+        });
         setActionHint('Enter text first to play audio');
         setTimeout(() => setActionHint(null), 2500);
       }
@@ -221,6 +225,10 @@ export default function MorseTranslator({
   const handleDownloadAudio = async () => {
     if (!output || isGenerating) {
       if (!output) {
+        trackEvent('download_wav_blocked', {
+          ...toolEventProps,
+          reason: 'empty_output',
+        });
         setActionHint('Enter text first to download WAV');
         setTimeout(() => setActionHint(null), 2500);
       }
@@ -267,6 +275,47 @@ export default function MorseTranslator({
       console.error('Error generating audio:', error);
     } finally {
       setIsGenerating(false);
+    }
+  };
+
+  const handleShareOutput = async () => {
+    if (!output) {
+      trackEvent('share_output_blocked', {
+        ...toolEventProps,
+        reason: 'empty_output',
+      });
+      setActionHint('Enter text first to share output');
+      setTimeout(() => setActionHint(null), 2500);
+      return;
+    }
+
+    const shareText = `${mode === 'textToMorse' ? 'Morse' : 'Text'} output: ${output}`;
+    trackEvent('share_output', {
+      ...toolEventProps,
+      output_length: output.length,
+      share_surface: typeof navigator !== 'undefined' && 'share' in navigator ? 'native' : 'clipboard',
+    });
+
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: 'Morse Code Translator output',
+          text: shareText,
+          url: window.location.href,
+        });
+      } else {
+        await navigator.clipboard.writeText(`${shareText}\n${window.location.href}`);
+      }
+      setActionHint('Output ready to share');
+    } catch (error) {
+      trackEvent('share_output_error', {
+        ...toolEventProps,
+        output_length: output.length,
+        error_name: error instanceof Error ? error.name : 'unknown',
+      });
+      setActionHint('Share was canceled or blocked');
+    } finally {
+      setTimeout(() => setActionHint(null), 2500);
     }
   };
 
@@ -355,8 +404,8 @@ export default function MorseTranslator({
             {showAudio && (
               <button
                 onClick={handlePlayAudio}
-                disabled={!output || isPlaying}
-                className="btn-primary text-sm px-4 py-2 disabled:opacity-40 disabled:cursor-not-allowed"
+                aria-disabled={!output || isPlaying}
+                className="btn-primary text-sm px-4 py-2 aria-disabled:opacity-60"
                 type="button"
               >
                 {isPlaying ? 'Playing…' : 'Play Audio'}
@@ -365,13 +414,26 @@ export default function MorseTranslator({
             {showDownload && (
               <button
                 onClick={handleDownloadAudio}
-                disabled={!output || isGenerating}
-                className="btn-primary text-sm px-4 py-2 bg-[#0058a3] text-white shadow-[#0058a3]/40 hover:bg-[#0a6fd0] disabled:opacity-40 disabled:cursor-not-allowed"
+                aria-disabled={!output || isGenerating}
+                className="btn-primary text-sm px-4 py-2 bg-[#0058a3] text-white shadow-[#0058a3]/40 hover:bg-[#0a6fd0] aria-disabled:opacity-60"
                 type="button"
               >
                 {isGenerating ? 'Generating…' : 'Download WAV'}
               </button>
             )}
+            <button
+              onClick={handleShareOutput}
+              aria-disabled={!output}
+              className="btn-ghost text-sm px-4 py-2 aria-disabled:opacity-60"
+              type="button"
+            >
+              Share
+            </button>
+          </div>
+          <div className="grid grid-cols-3 gap-2 rounded-xl border border-[#d9e1f7] bg-white/70 p-2 text-[11px] font-semibold text-[#0b1f3a]">
+            <span>1 Translate</span>
+            <span>2 Listen</span>
+            <span>3 Copy / WAV / Share</span>
           </div>
         </div>
       </div>

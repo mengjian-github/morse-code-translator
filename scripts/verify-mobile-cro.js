@@ -7,7 +7,8 @@ const { chromium } = require('playwright');
   await page.addInitScript(() => {
     window.__mctEvents = [];
   });
-  await page.goto('http://127.0.0.1:4174/', { waitUntil: 'networkidle' });
+  const baseUrl = process.env.MCT_VERIFY_BASE_URL || 'http://127.0.0.1:4174';
+  await page.goto(baseUrl, { waitUntil: 'networkidle' });
   await page.evaluate(() => {
     window.__mctEvents = [];
     window.plausible = (name, payload) => window.__mctEvents.push({ sink: 'plausible', name, payload });
@@ -24,6 +25,7 @@ const { chromium } = require('playwright');
     copy: 'button:has-text("Copy")',
     play: 'button:has-text("Play Audio")',
     download: 'button:has-text("Download WAV")',
+    share: 'button:has-text("Share")',
     clear: 'button:has-text("Clear")',
     sample: 'button:has-text("Sample: SOS")',
     swap: 'button[title="Swap direction"]',
@@ -37,6 +39,7 @@ const { chromium } = require('playwright');
   }
 
   await page.locator(selectors.copy).first().click();
+  await page.locator(selectors.share).first().click();
   await page.locator(selectors.sample).first().click();
   await page.locator(selectors.swap).first().click();
   await page.locator(selectors.clear).first().click();
