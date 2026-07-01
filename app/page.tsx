@@ -274,10 +274,10 @@ export default function Home() {
                 <span className="font-plex">· – ·</span>
                 Free browser-based Morse translator
               </div>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight">
+              <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-white leading-tight">
                 Free bidirectional Morse Code Translator with audio playback, copy, and WAV download.
               </h1>
-              <p className="text-base md:text-lg text-white/80 max-w-2xl">
+              <p className="hidden sm:block text-base md:text-lg text-white/80 max-w-2xl">
                 Translate text to Morse or decode Morse back to text in your browser. Use the local converter, play audio, copy the output, or download a WAV for practice and lessons.
               </p>
               <div className="hidden sm:grid grid-cols-2 gap-2 text-xs sm:text-sm text-white/80">
@@ -290,7 +290,7 @@ export default function Home() {
                   <p className="font-semibold text-white">Conversion runs locally</p>
                 </div>
               </div>
-              <div className="flex flex-wrap gap-3">
+              <div className="hidden sm:flex flex-wrap gap-3">
                 <Link href="/#translator" className="btn-primary">
                   Try it now
                 </Link>

@@ -149,12 +149,23 @@ export default function MorseTranslator({
 
   const handleModeToggle = () => {
     const newMode = mode === 'textToMorse' ? 'morseToText' : 'textToMorse';
+    trackEvent('swap_direction', {
+      ...toolEventProps,
+      input_length: input.length,
+      output_length: output.length,
+      new_direction: newMode === 'textToMorse' ? 'text_to_morse' : 'morse_to_text',
+    });
     setMode(newMode);
     setInput(output);
     setOutput(input);
   };
 
   const handleClear = () => {
+    trackEvent('clear_click', {
+      ...toolEventProps,
+      had_input: Boolean(input),
+      had_output: Boolean(output),
+    });
     if (!input && !output) {
       setActionHint('Enter text or pick a sample to get started');
       setTimeout(() => setActionHint(null), 2500);
@@ -187,7 +198,20 @@ export default function MorseTranslator({
         waveform,
         noiseLevel,
       });
+      trackEvent('audio_play_success', {
+        ...toolEventProps,
+        wpm,
+        frequency,
+        waveform,
+      });
     } catch (error) {
+      trackEvent('audio_play_error', {
+        ...toolEventProps,
+        wpm,
+        frequency,
+        waveform,
+        error_name: error instanceof Error ? error.name : 'unknown',
+      });
       console.error('Error playing audio:', error);
     } finally {
       setIsPlaying(false);
@@ -203,6 +227,12 @@ export default function MorseTranslator({
       return;
     }
     setIsGenerating(true);
+    trackEvent('download_wav_start', {
+      ...toolEventProps,
+      wpm,
+      frequency,
+      waveform,
+    });
     try {
       const morseCode = mode === 'textToMorse' ? output : input;
       const audioBlob = await generateMorseAudio(morseCode, {
@@ -219,7 +249,21 @@ export default function MorseTranslator({
         audio_bytes: audioBlob.size,
       });
       downloadAudio(audioBlob, 'morse-code.wav');
+      trackEvent('download_wav_success', {
+        ...toolEventProps,
+        wpm,
+        frequency,
+        waveform,
+        audio_bytes: audioBlob.size,
+      });
     } catch (error) {
+      trackEvent('download_wav_error', {
+        ...toolEventProps,
+        wpm,
+        frequency,
+        waveform,
+        error_name: error instanceof Error ? error.name : 'unknown',
+      });
       console.error('Error generating audio:', error);
     } finally {
       setIsGenerating(false);
@@ -247,11 +291,11 @@ export default function MorseTranslator({
   }, [input, mode]);
 
   const translatorPanel = (
-    <div className="glass-panel p-6 md:p-8 space-y-6">
+    <div className="glass-panel p-4 md:p-8 space-y-4 md:space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <p className="text-xs uppercase tracking-[0.4em] text-white/60 mb-1">Live Translator</p>
-          <h2 className="text-2xl md:text-3xl font-bold text-white">Text ↔ Morse Cockpit</h2>
+          <h2 className="text-xl md:text-3xl font-bold text-white">Text ↔ Morse Cockpit</h2>
         </div>
         <button
           onClick={handleModeToggle}
@@ -268,7 +312,7 @@ export default function MorseTranslator({
         </button>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="grid gap-4 md:gap-6 md:grid-cols-2">
         <div className="glass-panel--light p-4 rounded-2xl">
           <div className="flex items-center justify-between mb-3">
             <p className="text-sm font-semibold text-[#0b1f3a]">{mode === 'textToMorse' ? 'Text Input' : 'Morse Input'}</p>
@@ -278,7 +322,7 @@ export default function MorseTranslator({
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder={mode === 'textToMorse' ? 'Type or paste text...' : 'Type morse (., - and /)'}
-            className="w-full h-36 p-4 rounded-xl border border-[#e0e5ff] bg-white text-[#0b1f3a] focus:outline-none focus:ring-2 focus:ring-[#0058a3]"
+            className="w-full h-24 md:h-36 p-4 rounded-xl border border-[#e0e5ff] bg-white text-[#0b1f3a] focus:outline-none focus:ring-2 focus:ring-[#0058a3]"
           />
           {validationMessage && (
             <p className="mt-2 text-xs text-[#ff8c00] flex items-center gap-2">
@@ -295,10 +339,10 @@ export default function MorseTranslator({
             <p className="text-sm font-semibold text-[#0b1f3a]">{mode === 'textToMorse' ? 'Morse Output' : 'Text Output'}</p>
             <span className="metric-pill text-[#0b1f3a]">{outputCharacters} chars</span>
           </div>
-          <div className="flex-1 rounded-xl border border-[#e0e5ff] bg-[#f5f7ff] text-[#0b1f3a] p-4 overflow-y-auto min-h-[6rem]">
+          <div className="flex-1 rounded-xl border border-[#e0e5ff] bg-[#f5f7ff] text-[#0b1f3a] p-4 overflow-y-auto min-h-[5rem] md:min-h-[6rem]">
             {output || <span className="text-[#8a94b7]">Translation will appear here…</span>}
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <CopyButton
               text={output}
               label="Copy"
@@ -307,6 +351,26 @@ export default function MorseTranslator({
             />
             {!output && (
               <span className="text-xs text-[#8a94b7]">Enter text to enable</span>
+            )}
+            {showAudio && (
+              <button
+                onClick={handlePlayAudio}
+                disabled={!output || isPlaying}
+                className="btn-primary text-sm px-4 py-2 disabled:opacity-40 disabled:cursor-not-allowed"
+                type="button"
+              >
+                {isPlaying ? 'Playing…' : 'Play Audio'}
+              </button>
+            )}
+            {showDownload && (
+              <button
+                onClick={handleDownloadAudio}
+                disabled={!output || isGenerating}
+                className="btn-primary text-sm px-4 py-2 bg-[#0058a3] text-white shadow-[#0058a3]/40 hover:bg-[#0a6fd0] disabled:opacity-40 disabled:cursor-not-allowed"
+                type="button"
+              >
+                {isGenerating ? 'Generating…' : 'Download WAV'}
+              </button>
             )}
           </div>
         </div>
@@ -319,6 +383,11 @@ export default function MorseTranslator({
             <button
               key={example.label}
               onClick={() => {
+                trackEvent('sample_click', {
+                  ...toolEventProps,
+                  sample_label: example.label,
+                  sample_direction: example.mode === 'textToMorse' ? 'text_to_morse' : 'morse_to_text',
+                });
                 setMode(example.mode);
                 setInput(example.value);
                 setActiveExample(example.label);
@@ -343,26 +412,6 @@ export default function MorseTranslator({
         >
           Clear
         </button>
-        {showAudio && (
-          <button
-            onClick={handlePlayAudio}
-            disabled={!output || isPlaying}
-            className="btn-primary text-sm disabled:opacity-40 disabled:cursor-not-allowed"
-            type="button"
-          >
-            {isPlaying ? 'Playing…' : 'Play Audio'}
-          </button>
-        )}
-        {showDownload && (
-          <button
-            onClick={handleDownloadAudio}
-            disabled={!output || isGenerating}
-            className="btn-primary text-sm bg-[#0058a3] text-white shadow-[#0058a3]/40 hover:bg-[#0a6fd0] disabled:opacity-40 disabled:cursor-not-allowed"
-            type="button"
-          >
-            {isGenerating ? 'Generating…' : 'Download WAV'}
-          </button>
-        )}
         {actionHint && (
           <span className="text-xs text-[#ff8c00] flex items-center gap-1 animate-pulse">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
