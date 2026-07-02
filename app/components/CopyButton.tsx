@@ -42,8 +42,10 @@ export default function CopyButton({ text, label = 'Copy', className = '', event
   return (
     <button
       onClick={handleCopy}
+      disabled={!text}
       aria-disabled={!text}
-      className={`px-4 py-2 rounded-xl bg-[#0058a3] text-white font-semibold shadow-lg shadow-[#0058a3]/30 hover:bg-[#0a6fd0] aria-disabled:opacity-40 aria-disabled:cursor-not-allowed transition-all ${className}`}
+      title={!text ? 'Enter text first to enable copy' : undefined}
+      className={`px-4 py-2 rounded-xl bg-[#0058a3] text-white font-semibold shadow-lg shadow-[#0058a3]/30 hover:bg-[#0a6fd0] disabled:opacity-40 disabled:cursor-not-allowed transition-all ${className}`}
     >
       {hint ? (
         <span className="flex items-center gap-2">

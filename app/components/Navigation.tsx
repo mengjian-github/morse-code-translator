@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMoreOpen, setIsMoreOpen] = useState(false);
 
   const navLinks = [
     { href: '/', label: 'Translator' },
@@ -48,20 +49,39 @@ export default function Navigation() {
                 {link.label}
               </Link>
             ))}
-            <div className="relative group">
-              <button className="px-3 py-2 text-sm font-medium text-white/70 hover:text-white inline-flex items-center gap-1">
+            <div
+              className="relative group"
+              onMouseEnter={() => setIsMoreOpen(true)}
+              onMouseLeave={() => setIsMoreOpen(false)}
+            >
+              <button
+                className="px-3 py-2 text-sm font-medium text-white/70 hover:text-white inline-flex items-center gap-1"
+                type="button"
+                aria-expanded={isMoreOpen}
+                aria-controls="more-navigation-menu"
+                onClick={() => setIsMoreOpen((open) => !open)}
+                data-analytics-event="nav_more_click"
+              >
                 More
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
-              <div className="absolute right-0 mt-2 w-60 rounded-2xl bg-[rgba(3,14,30,0.95)] border border-white/10 shadow-xl opacity-0 translate-y-3 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all">
+              <div
+                id="more-navigation-menu"
+                className={`absolute right-0 mt-2 w-60 rounded-2xl bg-[rgba(3,14,30,0.95)] border border-white/10 shadow-xl transition-all ${
+                  isMoreOpen
+                    ? 'opacity-100 translate-y-0 pointer-events-auto'
+                    : 'opacity-0 translate-y-3 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto'
+                }`}
+              >
                 <div className="py-2">
                   {navLinks.slice(5).map((link) => (
                     <Link
                       key={link.href}
                       href={link.href}
                       className="block px-4 py-2 text-sm text-white/70 hover:text-white hover:bg-white/5"
+                      onClick={() => setIsMoreOpen(false)}
                     >
                       {link.label}
                     </Link>
@@ -72,10 +92,10 @@ export default function Navigation() {
           </div>
 
           <div className="hidden lg:flex items-center gap-3">
-            <Link href="/blog" className="btn-ghost text-sm">
+            <Link href="/blog" className="btn-ghost text-sm" data-analytics-event="nav_blog_click">
               Updates & Blog
             </Link>
-            <Link href="/#translator" className="btn-primary text-sm">
+            <Link href="/#translator" className="btn-primary text-sm" data-analytics-event="nav_launch_translator_click">
               Launch Translator
             </Link>
           </div>
@@ -113,10 +133,10 @@ export default function Navigation() {
               </Link>
             ))}
             <div className="pt-4 flex flex-col gap-2">
-              <Link href="/blog" className="btn-ghost text-center">
+              <Link href="/blog" className="btn-ghost text-center" data-analytics-event="mobile_nav_blog_click">
                 Updates & Blog
               </Link>
-              <Link href="/#translator" className="btn-primary text-center">
+              <Link href="/#translator" className="btn-primary text-center" data-analytics-event="mobile_nav_launch_translator_click">
                 Launch Translator
               </Link>
             </div>

@@ -24,6 +24,7 @@ export const metadata: Metadata = {
 export default function BlogPage() {
   const categories = ['All', ...Array.from(new Set(blogArticles.map((article) => article.category)))];
   const featuredArticle = blogArticles[0];
+  const slugifyCategory = (category: string) => category.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -42,12 +43,15 @@ export default function BlogPage() {
       <section className="mb-12">
         <div className="flex flex-wrap justify-center gap-3">
           {categories.map((category) => (
-            <button
+            <a
               key={category}
+              href={category === 'All' ? '#latest-articles' : `#category-${slugifyCategory(category)}`}
               className="px-4 py-2 rounded-lg bg-white dark:bg-slate-800 border-2 border-gray-200 dark:border-gray-700 hover:border-primary-500 dark:hover:border-primary-500 transition-colors text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
+              data-analytics-event="blog_category_chip_click"
+              data-analytics-prop-category={category}
             >
               {category}
-            </button>
+            </a>
           ))}
         </div>
       </section>
@@ -80,15 +84,19 @@ export default function BlogPage() {
       </section>
 
       {/* Article Grid */}
-      <section className="mb-16">
+      <section className="mb-16" id="latest-articles">
         <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
           Latest Articles
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {blogArticles.map((article) => (
+          {blogArticles.map((article, index) => {
+            const isFirstInCategory = blogArticles.findIndex((item) => item.category === article.category) === index;
+            return (
             <article
               key={article.slug}
+              id={isFirstInCategory ? `category-${slugifyCategory(article.category)}` : undefined}
               className="bg-white dark:bg-slate-800 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+              data-category={article.category}
             >
               <img
                 src={article.coverImage}
@@ -122,7 +130,8 @@ export default function BlogPage() {
                 </div>
               </div>
             </article>
-          ))}
+            );
+          })}
         </div>
       </section>
 

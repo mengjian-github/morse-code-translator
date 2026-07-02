@@ -301,7 +301,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="hidden sm:flex flex-wrap gap-3">
-                <Link href="/#translator" className="btn-primary">
+                <Link href="/#translator" className="btn-primary" data-analytics-event="hero_try_now_click">
                   Try it now
                 </Link>
               </div>
@@ -591,7 +591,7 @@ export default function Home() {
               <p className="text-sm text-white/80">
                 Articles such as “How to Read Morse Code Fast (2025 Guide),” “Top 10 Morse Code Projects for STEM Classrooms,” and “Starlink SOS: Understanding Emergency Morse Signals” pair with interactive drills and downloadable PDFs so teachers can drop them straight into class.
               </p>
-              <Link href="/blog" className="btn-ghost text-sm">
+              <Link href="/blog" className="btn-ghost text-sm" data-analytics-event="learning_blog_click">
                 Browse the blog
               </Link>
             </article>
@@ -600,7 +600,7 @@ export default function Home() {
               <p className="text-sm text-white/80">
                 The Translator Maker Guide breaks JS, Arduino, Micro:bit, and Web Audio API builds into reusable modules—drawing in tinkerers while generating backlinks and UGC. Forks and PRs are welcome for new code tables or lesson ideas.
               </p>
-              <Link href="/translator-maker-guide" className="btn-ghost text-sm">
+              <Link href="/translator-maker-guide" className="btn-ghost text-sm" data-analytics-event="learning_maker_guide_click">
                 Explore the maker guide
               </Link>
             </article>
