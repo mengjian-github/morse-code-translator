@@ -1,0 +1,5 @@
+# Legacy SEO path redirects (301)
+/morse-code-picture-decoder /picture-decoder 301
+/morse-code-picture-decoder/ /picture-decoder 301
+/binary-code-translator /binary-to-morse 301
+/binary-code-translator/ /binary-to-morse 301
