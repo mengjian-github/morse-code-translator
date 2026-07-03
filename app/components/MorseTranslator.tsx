@@ -404,10 +404,10 @@ export default function MorseTranslator({
             {showAudio && (
               <button
                 onClick={handlePlayAudio}
-                disabled={!output || isPlaying}
-                aria-disabled={!output || isPlaying}
-                className="btn-primary text-sm px-4 py-2 disabled:opacity-60 disabled:cursor-not-allowed"
+                data-action-unavailable={!output || isPlaying}
+                className="btn-primary text-sm px-4 py-2"
                 type="button"
+                title={!output ? 'Enter text first to play audio' : undefined}
               >
                 {isPlaying ? 'Playing…' : 'Play Audio'}
               </button>
@@ -415,20 +415,20 @@ export default function MorseTranslator({
             {showDownload && (
               <button
                 onClick={handleDownloadAudio}
-                disabled={!output || isGenerating}
-                aria-disabled={!output || isGenerating}
-                className="btn-primary text-sm px-4 py-2 bg-[#0058a3] text-white shadow-[#0058a3]/40 hover:bg-[#0a6fd0] disabled:opacity-60 disabled:cursor-not-allowed"
+                data-action-unavailable={!output || isGenerating}
+                className="btn-primary text-sm px-4 py-2 bg-[#0058a3] text-white shadow-[#0058a3]/40 hover:bg-[#0a6fd0]"
                 type="button"
+                title={!output ? 'Enter text first to download WAV' : undefined}
               >
                 {isGenerating ? 'Generating…' : 'Download WAV'}
               </button>
             )}
             <button
               onClick={handleShareOutput}
-              disabled={!output}
-              aria-disabled={!output}
-              className="btn-ghost text-sm px-4 py-2 disabled:opacity-60 disabled:cursor-not-allowed"
+              data-action-unavailable={!output}
+              className="btn-ghost text-sm px-4 py-2"
               type="button"
+              title={!output ? 'Enter text first to share output' : undefined}
             >
               Share
             </button>

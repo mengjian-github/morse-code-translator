@@ -15,6 +15,14 @@ const { chromium } = require('playwright');
     window.gtag = (...args) => window.__mctEvents.push({ sink: 'gtag', args });
     window.clarity = (...args) => window.__mctEvents.push({ sink: 'clarity', args });
   });
+  await page.locator('button:has-text("Copy")').first().click();
+  await page.locator('button:has-text("Play Audio")').first().click();
+  await page.locator('button:has-text("Download WAV")').first().click();
+  await page.locator('button:has-text("Share")').first().click();
+  const emptyActionEvents = await page.evaluate(() => window.__mctEvents || []);
+  await page.evaluate(() => {
+    window.__mctEvents = [];
+  });
   await page.locator('textarea').first().fill('SOS help');
   await page.waitForTimeout(1100);
 
@@ -67,13 +75,32 @@ const { chromium } = require('playwright');
   await browser.close();
 
   const eventName = (e) => e.name || e.args?.[1];
+  const emptyActionEventNames = emptyActionEvents.map(eventName).filter(Boolean);
+  const requiredEmptyEvents = [
+    'copy_output_blocked',
+    'audio_play_blocked',
+    'download_wav_blocked',
+    'share_output_blocked',
+  ];
+  const missingEmptyEvents = requiredEmptyEvents.filter((name) => !emptyActionEventNames.includes(name));
   console.log(JSON.stringify({
     viewport: '390x844',
     boxes,
     pageMetrics,
+    emptyActionEventNames,
+    missingEmptyEvents,
     interactionEventNames: interactionEvents.map(eventName).filter(Boolean),
     mediaEventNames: recorded.map(eventName).filter(Boolean),
+    emptyActionEventCount: emptyActionEvents.length,
     interactionEventCount: interactionEvents.length,
     mediaEventCount: recorded.length,
   }, null, 2));
+
+  if (missingEmptyEvents.length > 0) {
+    throw new Error(`Missing empty-action telemetry: ${missingEmptyEvents.join(', ')}`);
+  }
+
+  if (pageMetrics.scrollWidth > pageMetrics.clientWidth) {
+    throw new Error(`Mobile horizontal overflow: ${pageMetrics.scrollWidth} > ${pageMetrics.clientWidth}`);
+  }
 })();

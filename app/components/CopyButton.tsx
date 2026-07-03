@@ -16,6 +16,10 @@ export default function CopyButton({ text, label = 'Copy', className = '', event
 
   const handleCopy = async () => {
     if (!text) {
+      trackEvent('copy_output_blocked', {
+        reason: 'empty_output',
+        ...eventProps,
+      });
       setHint(true);
       setTimeout(() => setHint(false), 2500);
       return;
@@ -42,10 +46,10 @@ export default function CopyButton({ text, label = 'Copy', className = '', event
   return (
     <button
       onClick={handleCopy}
-      disabled={!text}
-      aria-disabled={!text}
+      data-action-unavailable={!text}
       title={!text ? 'Enter text first to enable copy' : undefined}
-      className={`px-4 py-2 rounded-xl bg-[#0058a3] text-white font-semibold shadow-lg shadow-[#0058a3]/30 hover:bg-[#0a6fd0] disabled:opacity-40 disabled:cursor-not-allowed transition-all ${className}`}
+      className={`px-4 py-2 rounded-xl bg-[#0058a3] text-white font-semibold shadow-lg shadow-[#0058a3]/30 hover:bg-[#0a6fd0] data-[action-unavailable=true]:opacity-60 data-[action-unavailable=true]:cursor-help transition-all ${className}`}
+      type="button"
     >
       {hint ? (
         <span className="flex items-center gap-2">

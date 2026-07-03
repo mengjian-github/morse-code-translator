@@ -106,9 +106,10 @@ main {
 }
 
 .btn-primary[aria-disabled="true"],
+.btn-primary[data-action-unavailable="true"],
 .btn-primary:disabled {
   opacity: 0.4;
-  cursor: not-allowed;
+  cursor: help;
   transform: none;
   box-shadow: none;
 }
@@ -128,9 +129,10 @@ main {
 }
 
 .btn-ghost[aria-disabled="true"],
+.btn-ghost[data-action-unavailable="true"],
 .btn-ghost:disabled {
   opacity: 0.4;
-  cursor: not-allowed;
+  cursor: help;
 }
 
 .signal-visualizer {
