@@ -15,10 +15,8 @@ const { chromium } = require('playwright');
     window.gtag = (...args) => window.__mctEvents.push({ sink: 'gtag', args });
     window.clarity = (...args) => window.__mctEvents.push({ sink: 'clarity', args });
   });
-  await page.locator('button:has-text("Copy")').first().click();
-  await page.locator('button:has-text("Play Audio")').first().click();
-  await page.locator('button:has-text("Download WAV")').first().click();
-  await page.locator('button:has-text("Share")').first().click();
+  const emptyActionButtons = await page.locator('button:has-text("Copy"), button:has-text("Play audio"), button:has-text("Download WAV"), button:has-text("Share output")').count();
+  await page.locator('button:has-text("Sample: SOS")').first().click();
   const emptyActionEvents = await page.evaluate(() => window.__mctEvents || []);
   await page.evaluate(() => {
     window.__mctEvents = [];
@@ -31,7 +29,7 @@ const { chromium } = require('playwright');
     textarea: 'textarea',
     outputPanel: 'text=... --- ...',
     copy: 'button:has-text("Copy")',
-    play: 'button:has-text("Play Audio")',
+    play: 'button:has-text("Play audio")',
     download: 'button:has-text("Download WAV")',
     share: 'button:has-text("Share")',
     clear: 'button:has-text("Clear")',
@@ -76,17 +74,13 @@ const { chromium } = require('playwright');
 
   const eventName = (e) => e.name || e.args?.[1];
   const emptyActionEventNames = emptyActionEvents.map(eventName).filter(Boolean);
-  const requiredEmptyEvents = [
-    'copy_output_blocked',
-    'audio_play_blocked',
-    'download_wav_blocked',
-    'share_output_blocked',
-  ];
+  const requiredEmptyEvents = ['empty_state_sample_click'];
   const missingEmptyEvents = requiredEmptyEvents.filter((name) => !emptyActionEventNames.includes(name));
   console.log(JSON.stringify({
     viewport: '390x844',
     boxes,
     pageMetrics,
+    emptyActionButtons,
     emptyActionEventNames,
     missingEmptyEvents,
     interactionEventNames: interactionEvents.map(eventName).filter(Boolean),
@@ -97,7 +91,11 @@ const { chromium } = require('playwright');
   }, null, 2));
 
   if (missingEmptyEvents.length > 0) {
-    throw new Error(`Missing empty-action telemetry: ${missingEmptyEvents.join(', ')}`);
+    throw new Error(`Missing guided empty-state telemetry: ${missingEmptyEvents.join(', ')}`);
+  }
+
+  if (emptyActionButtons > 0) {
+    throw new Error(`Empty result should show guided samples instead of unavailable action buttons; found ${emptyActionButtons}`);
   }
 
   if (pageMetrics.scrollWidth > pageMetrics.clientWidth) {

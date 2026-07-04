@@ -319,6 +319,23 @@ export default function MorseTranslator({
     }
   };
 
+  const handleGuidedSample = (
+    example: { label: string; value: string; mode: 'textToMorse' | 'morseToText' },
+    location: string,
+  ) => {
+    trackEvent('empty_state_sample_click', {
+      ...toolEventProps,
+      sample_label: example.label,
+      sample_direction: example.mode === 'textToMorse' ? 'text_to_morse' : 'morse_to_text',
+      location,
+    });
+    setMode(example.mode);
+    setInput(example.value);
+    setActiveExample(example.label);
+    setActionHint('Sample loaded. Copy, play, download, or share the result.');
+    setTimeout(() => setActionHint(null), 2500);
+  };
+
   const statCards = [
     { label: mode === 'textToMorse' ? 'Input words' : 'Input groups', value: inputWords },
     { label: 'Input characters', value: inputCharacters },
@@ -391,53 +408,66 @@ export default function MorseTranslator({
           <div className="flex-1 rounded-xl border border-[#e0e5ff] bg-[#f5f7ff] text-[#0b1f3a] p-4 overflow-y-auto min-h-[5rem] md:min-h-[6rem]">
             {output || <span className="text-[#8a94b7]">Translation will appear here…</span>}
           </div>
-          <div className="flex flex-wrap items-center gap-2">
-            <CopyButton
-              text={output}
-              label="Copy"
-              className="self-start"
-              eventProps={toolEventProps}
-            />
-            {!output && (
-              <span className="text-xs text-[#8a94b7]">Enter text to enable</span>
-            )}
-            {showAudio && (
-              <button
-                onClick={handlePlayAudio}
-                data-action-unavailable={!output || isPlaying}
-                className="btn-primary text-sm px-4 py-2"
-                type="button"
-                title={!output ? 'Enter text first to play audio' : undefined}
-              >
-                {isPlaying ? 'Playing…' : 'Play Audio'}
-              </button>
-            )}
-            {showDownload && (
-              <button
-                onClick={handleDownloadAudio}
-                data-action-unavailable={!output || isGenerating}
-                className="btn-primary text-sm px-4 py-2 bg-[#0058a3] text-white shadow-[#0058a3]/40 hover:bg-[#0a6fd0]"
-                type="button"
-                title={!output ? 'Enter text first to download WAV' : undefined}
-              >
-                {isGenerating ? 'Generating…' : 'Download WAV'}
-              </button>
-            )}
-            <button
-              onClick={handleShareOutput}
-              data-action-unavailable={!output}
-              className="btn-ghost text-sm px-4 py-2"
-              type="button"
-              title={!output ? 'Enter text first to share output' : undefined}
-            >
-              Share
-            </button>
-          </div>
-          <div className="grid grid-cols-3 gap-2 rounded-xl border border-[#d9e1f7] bg-white/70 p-2 text-[11px] font-semibold text-[#0b1f3a]">
-            <span>1 Translate</span>
-            <span>2 Listen</span>
-            <span>3 Copy / WAV / Share</span>
-          </div>
+          {output ? (
+            <div className="rounded-2xl border border-[#d9e1f7] bg-white/75 p-3 space-y-3">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#4b587c]">Next action</p>
+              <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:items-center">
+                <CopyButton
+                  text={output}
+                  label="Copy result"
+                  className="justify-center sm:justify-start"
+                  eventProps={toolEventProps}
+                />
+                {showAudio && (
+                  <button
+                    onClick={handlePlayAudio}
+                    className="btn-primary text-sm px-4 py-2 justify-center"
+                    type="button"
+                  >
+                    {isPlaying ? 'Playing…' : 'Play audio'}
+                  </button>
+                )}
+                {showDownload && (
+                  <button
+                    onClick={handleDownloadAudio}
+                    className="btn-primary text-sm px-4 py-2 bg-[#0058a3] text-white shadow-[#0058a3]/40 hover:bg-[#0a6fd0] justify-center"
+                    type="button"
+                  >
+                    {isGenerating ? 'Generating…' : 'Download WAV'}
+                  </button>
+                )}
+                <button
+                  onClick={handleShareOutput}
+                  className="btn-ghost text-sm px-4 py-2 justify-center"
+                  type="button"
+                >
+                  Share output
+                </button>
+              </div>
+              <div className="grid grid-cols-3 gap-2 text-[11px] font-semibold text-[#0b1f3a]">
+                <span className="rounded-lg bg-[#edf2ff] px-2 py-1">1 Translate</span>
+                <span className="rounded-lg bg-[#fff8d6] px-2 py-1">2 Listen</span>
+                <span className="rounded-lg bg-[#edf2ff] px-2 py-1">3 Copy / WAV / Share</span>
+              </div>
+            </div>
+          ) : (
+            <div className="rounded-2xl border border-[#d9e1f7] bg-white/75 p-3 space-y-3">
+              <p className="text-sm font-semibold text-[#0b1f3a]">Need a result first?</p>
+              <p className="text-xs text-[#4b587c]">Type in the input box or load a sample. Result actions appear only after translation, which cuts empty clicks and keeps the task path clear.</p>
+              <div className="grid gap-2 sm:grid-cols-2">
+                {quickExamples.map((example) => (
+                  <button
+                    key={`empty-${example.label}`}
+                    onClick={() => handleGuidedSample(example, 'empty_result_panel')}
+                    className="rounded-xl border border-[#0058a3]/20 bg-[#f5f7ff] px-3 py-2 text-left text-sm font-semibold text-[#0b1f3a] hover:border-[#0058a3]/50 hover:bg-white transition-colors"
+                    type="button"
+                  >
+                    {example.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
@@ -488,7 +518,7 @@ export default function MorseTranslator({
       </div>
       {!input && !output && (
         <p className="text-xs text-white/50 mt-2">
-          Enter text or pick a sample above to enable Copy, Play, and Download.
+          Enter text or pick a sample above; result actions appear after the first translation.
         </p>
       )}
     </div>

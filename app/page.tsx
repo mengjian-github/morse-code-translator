@@ -313,6 +313,31 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="glass-panel p-5 md:p-6" aria-labelledby="morse-code-translator-answer">
+          <div className="grid gap-5 lg:grid-cols-[1.25fr,0.75fr] items-start">
+            <div className="space-y-3">
+              <p className="text-xs font-semibold tracking-[0.4em] text-[#ffd800] uppercase">Quick answer</p>
+              <h2 id="morse-code-translator-answer" className="text-2xl md:text-3xl font-bold text-white">
+                What is the fastest way to translate Morse code online?
+              </h2>
+              <p className="text-white/80 text-base leading-relaxed">
+                Use this free Morse Code Translator to convert text to Morse code, decode Morse back to English, play the result as audio, copy it, or download a WAV file. Everything runs locally in the browser, so quick classroom checks, HAM practice, and signal tests do not require sign-up.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-white/15 bg-white/5 p-4 space-y-3 text-sm text-white/80">
+              <p className="font-semibold text-white">Best for today</p>
+              <ul className="space-y-2">
+                <li>• Convert plain text ↔ Morse in real time.</li>
+                <li>• Listen at 5–45 WPM with custom tone and waveform.</li>
+                <li>• Copy, share, or download the translated signal after output appears.</li>
+              </ul>
+              <Link href="/#translator" className="btn-primary text-sm" data-analytics-event="answer_block_try_translator_click">
+                Open the translator
+              </Link>
+            </div>
+          </div>
+        </section>
+
         {/* Control deck preview */}
         <section className="grid gap-6 lg:grid-cols-4">
           {cockpitPanels.map((panel) => (
