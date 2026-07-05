@@ -1,7 +1,22 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import BinaryToMorseConverter from '../components/BinaryToMorseConverter';
-import { absoluteUrl, buildOpenGraphMeta } from '@/app/utils/seo';
+import { SITE_NAME, absoluteUrl, buildOpenGraphMeta } from '@/app/utils/seo';
+
+const binaryFaqs = [
+  {
+    question: 'How does binary to Morse conversion work?',
+    answer: 'The converter reads 8-bit binary groups as ASCII text, then converts each decoded character into International Morse code.',
+  },
+  {
+    question: 'What binary format should I paste?',
+    answer: 'Use bytes separated by spaces, such as 01001000 01000101 01001100 01001100 01001111 for HELLO.',
+  },
+  {
+    question: 'Can I copy the Morse output?',
+    answer: 'Yes. After conversion, use Copy Morse Code to save the final dots, dashes, and spaces for homework, radio drills, or puzzles.',
+  },
+];
 
 export const metadata: Metadata = {
   title: {
@@ -22,8 +37,53 @@ export const metadata: Metadata = {
 };
 
 export default function BinaryToMorsePage() {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebApplication',
+        '@id': `${absoluteUrl('/binary-to-morse')}#webapplication`,
+        name: 'Binary to Morse Converter',
+        url: absoluteUrl('/binary-to-morse'),
+        description: 'Free binary to Morse converter that decodes 8-bit binary into text and Morse code in the browser.',
+        applicationCategory: 'EducationalApplication',
+        applicationSubCategory: 'EncodingApplication',
+        operatingSystem: 'Web',
+        isAccessibleForFree: true,
+        publisher: {
+          '@type': 'Organization',
+          name: SITE_NAME,
+          url: absoluteUrl('/'),
+        },
+        featureList: ['Binary to ASCII conversion', 'ASCII to Morse conversion', 'Copy Morse output', 'Example input'],
+        offers: { '@type': 'Offer', price: '0.00', priceCurrency: 'USD' },
+      },
+      {
+        '@type': 'FAQPage',
+        '@id': `${absoluteUrl('/binary-to-morse')}#faq`,
+        mainEntity: binaryFaqs.map((faq) => ({
+          '@type': 'Question',
+          name: faq.question,
+          acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+        })),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${absoluteUrl('/binary-to-morse')}#breadcrumb`,
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: absoluteUrl('/') },
+          { '@type': 'ListItem', position: 2, name: 'Binary to Morse Converter', item: absoluteUrl('/binary-to-morse') },
+        ],
+      },
+    ],
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="text-center mb-12">
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
           Binary to <span className="text-primary-600 dark:text-primary-400">Morse Code Converter</span>

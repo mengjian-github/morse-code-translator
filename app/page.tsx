@@ -128,27 +128,27 @@ const serpFaqs = [
   {
     question: 'How does the Morse Code Translator convert text to CW so fast?',
     answer:
-      'A streaming parser keeps everything in-memory so the Morse Code Translator responds as you type, and the Morse Code Translator pre-buffers audio envelopes for repeated practice runs.',
+      'A streaming parser keeps conversion in memory, so the tool responds as you type and pre-buffers audio envelopes for repeated practice runs.',
   },
   {
     question: 'Can the Morse Code Translator generate audio I can download?',
     answer:
-      'Yes—the Morse Code Translator exports clean WAV files with your tone, waveform, and WPM preferences so you can share drills or embed the Morse Code Translator output in lessons.',
+      'Yes. You can export clean WAV files with your tone, waveform, and WPM preferences, then share drills or embed the output in lessons.',
   },
   {
     question: 'Is the Morse Code Translator safe for classrooms and HAM exams?',
     answer:
-      'The conversion runs in your browser, the Morse Code Translator is free to use, and teachers can set speed and tone before playing practice audio.',
+      'The conversion runs in your browser, the tool is free to use, and teachers can set speed and tone before playing practice audio.',
   },
   {
     question: 'Can I share Morse Code Translator output with students or teammates?',
     answer:
-      'Yes—the Morse Code Translator keeps Copy, Play Audio, Download WAV, and Share next to the translated result so you can move from translation to listening, saving, or sending without hunting for controls.',
+      'Yes. Copy, Play Audio, Download WAV, and Share sit next to the translated result, so you can move from translation to listening, saving, or sending without hunting for controls.',
   },
   {
     question: 'What accessibility support does the Morse Code Translator include?',
     answer:
-      'Large targets, keyboard-first navigation, and adjustable audio controls make the Morse Code Translator easier to use for practice and accessibility workflows.',
+      'Large targets, keyboard-first navigation, and adjustable audio controls make practice and accessibility workflows easier.',
   },
 ];
 
@@ -357,21 +357,21 @@ export default function Home() {
 
       {/* SEO + SERP primer */}
         <section className="glass-panel p-6 space-y-4">
-          <h2 className="text-3xl font-bold text-white">Why This Morse Code Translator Wins Clicks</h2>
+          <h2 className="text-3xl font-bold text-white">Why This Converter Wins Clicks</h2>
           <p className="text-base text-white/80">
-            The Morse Code Translator on morsecodetranslator.app puts the free text-to-Morse and Morse-to-text tool first, then keeps audio, copy, and download actions close to the result.
+            morsecodetranslator.app puts the free text-to-Morse and Morse-to-text tool first, then keeps audio, copy, and download actions close to the result.
           </p>
           <p className="text-base text-white/80">
-            By pairing tone, waveform, and noise sliders, the Morse Code Translator covers the controls contest operators and STEM coaches expect while keeping the browser workflow simple.
+            Tone, waveform, and noise sliders cover the controls contest operators and STEM coaches expect while keeping the browser workflow simple.
           </p>
           <p className="text-base text-white/80">
-            Learners, teachers, and radio hobbyists get a Morse Code Translator with cheat sheets, downloadable WAVs, and practical guides without account setup.
+            Learners, teachers, and radio hobbyists get cheat sheets, downloadable WAVs, and practical guides without account setup.
           </p>
           <p className="text-base text-white/80">
-            FAQ schema, sitelinks, and descriptive meta titles help the Morse Code Translator grab more of the SERP above the fold while promising practical outcomes—ham readiness, classroom confidence, and maker demos.
+            FAQ schema, sitelinks, and descriptive meta titles help the page grab more of the SERP above the fold while promising practical outcomes—ham readiness, classroom confidence, and maker demos.
           </p>
           <p className="text-base text-white/80">
-            Start a practice sprint, copy the translated output, or download audio; the Morse Code Translator keeps the next action obvious with clear CTAs and transparent pricing (free). If your workflow extends beyond plain text, jump into the <Link href="/binary-to-morse" className="text-[#ffd800] underline underline-offset-4">binary to Morse converter</Link>, <Link href="/beeper-code" className="text-[#ffd800] underline underline-offset-4">beeper code translator</Link>, <Link href="/word-decoder" className="text-[#ffd800] underline underline-offset-4">word decoder</Link>, or <Link href="/cryptic-code-translator" className="text-[#ffd800] underline underline-offset-4">cryptic code translator</Link> for deeper practice contexts.
+            Start a practice sprint, copy the translated output, or download audio; the next action stays obvious with clear CTAs and transparent pricing (free). If your workflow extends beyond plain text, jump into the <Link href="/binary-to-morse" className="text-[#ffd800] underline underline-offset-4">binary to Morse converter</Link>, <Link href="/beeper-code" className="text-[#ffd800] underline underline-offset-4">beeper code translator</Link>, <Link href="/word-decoder" className="text-[#ffd800] underline underline-offset-4">word decoder</Link>, or <Link href="/cryptic-code-translator" className="text-[#ffd800] underline underline-offset-4">cryptic code translator</Link> for deeper practice contexts.
           </p>
           <div className="grid gap-4 md:grid-cols-2 text-sm text-white/80">
             <div className="rounded-2xl border border-white/15 bg-white/5 p-4 space-y-2">

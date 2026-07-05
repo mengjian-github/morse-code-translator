@@ -3,12 +3,18 @@
 import { useState, useEffect } from 'react';
 import { binaryToText, textToMorse } from '../utils/morseCode';
 import CopyButton from './CopyButton';
+import { trackEvent } from '@/lib/analytics';
 
 export default function BinaryToMorseConverter() {
   const [binaryInput, setBinaryInput] = useState('');
   const [textOutput, setTextOutput] = useState('');
   const [morseOutput, setMorseOutput] = useState('');
   const [error, setError] = useState('');
+
+  const eventProps = {
+    tool_name: 'binary_to_morse_converter',
+    input_direction: 'binary_to_morse',
+  };
 
   useEffect(() => {
     if (!binaryInput.trim()) {
@@ -32,18 +38,38 @@ export default function BinaryToMorseConverter() {
       setTextOutput(text);
       setMorseOutput(textToMorse(text));
       setError('');
+      trackEvent('tool_result', {
+        ...eventProps,
+        input_length: binaryInput.length,
+        output_length: text.length,
+      });
     } catch (err) {
       setError('Error converting binary. Please check your input format.');
       setTextOutput('');
       setMorseOutput('');
+      trackEvent('tool_error', {
+        ...eventProps,
+        input_length: binaryInput.length,
+        reason: 'conversion_error',
+      });
     }
   }, [binaryInput]);
 
   const handleExample = () => {
+    trackEvent('sample_click', {
+      ...eventProps,
+      sample_label: 'HELLO_BINARY',
+      location: 'binary_to_morse_converter',
+    });
     setBinaryInput('01001000 01000101 01001100 01001100 01001111');
   };
 
   const handleClear = () => {
+    trackEvent('clear_click', {
+      ...eventProps,
+      had_input: Boolean(binaryInput),
+      had_output: Boolean(morseOutput),
+    });
     setBinaryInput('');
     setTextOutput('');
     setMorseOutput('');
@@ -63,7 +89,16 @@ export default function BinaryToMorseConverter() {
         </label>
         <textarea
           value={binaryInput}
-          onChange={(e) => setBinaryInput(e.target.value)}
+          onChange={(e) => {
+            const nextValue = e.target.value;
+            if (!binaryInput.trim() && nextValue.trim()) {
+              trackEvent('tool_start', {
+                ...eventProps,
+                input_length: nextValue.length,
+              });
+            }
+            setBinaryInput(nextValue);
+          }}
           placeholder="01001000 01000101 01001100 01001100 01001111"
           className="w-full h-32 p-4 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-slate-900 text-gray-900 dark:text-white font-mono focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
         />
@@ -94,7 +129,7 @@ export default function BinaryToMorseConverter() {
 
       {/* Action Buttons */}
       <div className="flex flex-wrap gap-3">
-        <CopyButton text={morseOutput} label="Copy Morse Code" />
+        <CopyButton text={morseOutput} label="Copy Morse Code" eventProps={eventProps} />
         <button
           onClick={handleClear}
           className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-all"

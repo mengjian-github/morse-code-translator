@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo, useRef } from 'react';
+import Link from 'next/link';
 import { textToMorse, morseToText, isValidMorse } from '../utils/morseCode';
 import { playMorseCode, generateMorseAudio, downloadAudio, calculateTransmissionDuration } from '../utils/audioUtils';
 import CopyButton from './CopyButton';
@@ -12,6 +13,24 @@ const waveformOptions: { value: OscillatorType; label: string; description: stri
   { value: 'square', label: 'Square', description: 'Sharper envelope that cuts through contest noise.' },
   { value: 'triangle', label: 'Triangle', description: 'Soft ramp for accessibility or therapy sessions.' },
   { value: 'sawtooth', label: 'Sawtooth', description: 'Retro radio feel for demos and classroom talks.' },
+];
+
+const resultRelatedTools = [
+  {
+    href: '/morse-code-audio',
+    label: 'Audio translator',
+    description: 'Tune WPM and WAV output for listening drills.',
+  },
+  {
+    href: '/binary-to-morse',
+    label: 'Binary to Morse',
+    description: 'Convert 8-bit binary into text, then Morse.',
+  },
+  {
+    href: '/word-decoder',
+    label: 'Word decoder',
+    description: 'Check hidden text before translating signals.',
+  },
 ];
 
 interface MorseTranslatorProps {
@@ -448,6 +467,24 @@ export default function MorseTranslator({
                 <span className="rounded-lg bg-[#edf2ff] px-2 py-1">1 Translate</span>
                 <span className="rounded-lg bg-[#fff8d6] px-2 py-1">2 Listen</span>
                 <span className="rounded-lg bg-[#edf2ff] px-2 py-1">3 Copy / WAV / Share</span>
+              </div>
+              <div className="rounded-xl border border-[#e0e5ff] bg-[#f5f7ff] p-3">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#4b587c]">Related tools after result</p>
+                <div className="mt-2 grid gap-2 sm:grid-cols-3">
+                  {resultRelatedTools.map((tool) => (
+                    <Link
+                      key={tool.href}
+                      href={tool.href}
+                      className="rounded-lg border border-[#0058a3]/15 bg-white px-3 py-2 text-left hover:border-[#0058a3]/45 hover:shadow-sm transition-all"
+                      data-analytics-event="related_tool_click"
+                      data-analytics-prop-tool={tool.label}
+                      data-analytics-prop-location="translator_result_panel"
+                    >
+                      <span className="block text-xs font-bold text-[#0b1f3a]">{tool.label}</span>
+                      <span className="mt-1 block text-[11px] leading-snug text-[#4b587c]">{tool.description}</span>
+                    </Link>
+                  ))}
+                </div>
               </div>
             </div>
           ) : (
