@@ -168,9 +168,9 @@ const howToSteps = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Morse Code Translator - Free Online Morse Code Converter',
+  title: 'Morse Code Translator with Audio & WAV Download',
   description:
-    'Free Morse Code Translator to convert text to Morse, decode Morse to English, play audio, download WAV, and work privately in your browser with no signup.',
+    'Free Morse Code Translator: convert text to Morse, decode Morse to English, play audio, download WAV, copy results, and work privately with no signup.',
   keywords: [
     'morse code translator',
     'morse code converter',
@@ -185,9 +185,9 @@ export const metadata: Metadata = {
     canonical: absoluteUrl('/'),
   },
   openGraph: buildOpenGraphMeta({
-    title: 'Morse Code Translator - Free Online Morse Code Converter',
+    title: 'Morse Code Translator with Audio & WAV Download',
     description:
-      'Free Morse Code Translator to convert text to Morse, decode Morse to English, play audio, download WAV, and work privately in your browser with no signup.',
+      'Free Morse Code Translator: convert text to Morse, decode Morse to English, play audio, download WAV, copy results, and work privately with no signup.',
     url: absoluteUrl('/'),
   }),
 };
@@ -229,6 +229,11 @@ export default function Home() {
         browserRequirements: 'Requires a modern browser with JavaScript and Web Audio support.',
         isAccessibleForFree: true,
         featureList: ['Text to Morse conversion', 'Morse to text decoding', 'Audio playback', 'Copy output', 'Download WAV audio', 'Share translated output'],
+        potentialAction: [
+          { '@type': 'UseAction', name: 'Translate text to Morse code', target: absoluteUrl('/#translator') },
+          { '@type': 'UseAction', name: 'Play Morse code audio', target: absoluteUrl('/morse-code-audio') },
+          { '@type': 'UseAction', name: 'Download Morse code as WAV', target: absoluteUrl('/morse-code-audio#translator') },
+        ],
         offers: { '@type': 'Offer', price: '0.00', priceCurrency: 'USD' },
       },
       {
@@ -301,7 +306,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="hidden sm:flex flex-wrap gap-3">
-                <Link href="/#translator" className="btn-primary" data-analytics-event="hero_try_now_click">
+                <Link href="/#translator" className="btn-primary" data-analytics-event="hero_cta_click" data-analytics-prop-cta="try_it_now">
                   Try it now
                 </Link>
               </div>
@@ -330,6 +335,7 @@ export default function Home() {
                 <li>• Convert plain text ↔ Morse in real time.</li>
                 <li>• Listen at 5–45 WPM with custom tone and waveform.</li>
                 <li>• Copy, share, or download the translated signal after output appears.</li>
+                <li>• Need audio first? Open the <Link href="/morse-code-audio" className="text-[#ffd800] underline underline-offset-4">Morse Code Audio Translator</Link> for playback and WAV practice.</li>
               </ul>
               <Link href="/#translator" className="btn-primary text-sm" data-analytics-event="answer_block_try_translator_click">
                 Open the translator

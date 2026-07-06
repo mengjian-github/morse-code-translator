@@ -20,6 +20,21 @@ const faqs = [
   },
 ];
 
+const howToSteps = [
+  {
+    name: 'Enter text or Morse',
+    text: 'Paste a word, classroom prompt, call sign, or dots and dashes into the translator panel.',
+  },
+  {
+    name: 'Tune the sidetone',
+    text: 'Set WPM, carrier frequency, waveform, and light noise so the audio matches your practice target.',
+  },
+  {
+    name: 'Play, copy, or download WAV',
+    text: 'Use the result actions to hear the signal, copy the translation, share it, or save a WAV file.',
+  },
+];
+
 export const metadata: Metadata = {
   title: {
     absolute: 'Morse Code Audio Translator | Play and Download WAV',
@@ -69,6 +84,18 @@ export default function MorseCodeAudioPage() {
           '@type': 'Question',
           name: faq.question,
           acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+        })),
+      },
+      {
+        '@type': 'HowTo',
+        '@id': `${PAGE_URL}#howto`,
+        name: 'How to create Morse code audio online',
+        description: 'Convert text or Morse code into playable audio, then download a WAV file for practice.',
+        step: howToSteps.map((step, index) => ({
+          '@type': 'HowToStep',
+          position: index + 1,
+          name: step.name,
+          text: step.text,
         })),
       },
       {
@@ -139,6 +166,23 @@ export default function MorseCodeAudioPage() {
           ))}
         </section>
 
+        <section id="howto" className="glass-panel p-6 space-y-4">
+          <div className="flex items-center gap-3">
+            <span className="text-xs font-semibold tracking-[0.4em] text-white/60">HOW TO</span>
+            <div className="h-px flex-1 bg-white/15" />
+          </div>
+          <h2 className="text-3xl font-bold text-white">How to play and download Morse code audio</h2>
+          <ol className="grid gap-4 md:grid-cols-3">
+            {howToSteps.map((step, index) => (
+              <li key={step.name} className="rounded-2xl border border-white/15 bg-white/5 p-4">
+                <span className="metric-pill mb-3 inline-flex">Step {index + 1}</span>
+                <h3 className="text-lg font-semibold text-white mb-2">{step.name}</h3>
+                <p className="text-sm text-white/80">{step.text}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
+
         <section className="glass-panel p-6 space-y-4">
           <h2 className="text-3xl font-bold text-white">Morse audio translator FAQ</h2>
           <div className="grid gap-4 md:grid-cols-3">
@@ -158,6 +202,7 @@ export default function MorseCodeAudioPage() {
             <Link href="/" className="btn-primary">Main translator</Link>
             <Link href="/beeper-code" className="btn-ghost">Beeper code</Link>
             <Link href="/word-decoder" className="btn-ghost">Word decoder</Link>
+            <Link href="/binary-to-morse" className="btn-ghost">Binary to Morse</Link>
           </div>
         </section>
       </div>
