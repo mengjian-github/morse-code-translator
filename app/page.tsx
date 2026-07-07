@@ -168,9 +168,9 @@ const howToSteps = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Morse Code Translator with Audio & WAV Download',
+  title: 'Free Morse Code Translator: Audio, Copy & WAV',
   description:
-    'Free Morse Code Translator: convert text to Morse, decode Morse to English, play audio, download WAV, copy results, and work privately with no signup.',
+    'Free Morse Code Translator with no signup: convert text to Morse, decode Morse to English, play audio, copy results, or download a WAV file.',
   keywords: [
     'morse code translator',
     'morse code converter',
@@ -185,9 +185,9 @@ export const metadata: Metadata = {
     canonical: absoluteUrl('/'),
   },
   openGraph: buildOpenGraphMeta({
-    title: 'Morse Code Translator with Audio & WAV Download',
+    title: 'Free Morse Code Translator: Audio, Copy & WAV',
     description:
-      'Free Morse Code Translator: convert text to Morse, decode Morse to English, play audio, download WAV, copy results, and work privately with no signup.',
+      'Free Morse Code Translator with no signup: convert text to Morse, decode Morse to English, play audio, copy results, or download a WAV file.',
     url: absoluteUrl('/'),
   }),
 };
@@ -290,10 +290,10 @@ export default function Home() {
                 Free browser-based Morse translator
               </div>
               <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-white leading-tight">
-                Free bidirectional Morse Code Translator with audio playback, copy, and WAV download.
+                Free Morse Code Translator: text to Morse, Morse to text, audio, copy, and WAV.
               </h1>
-              <p className="hidden sm:block text-base md:text-lg text-white/80 max-w-2xl">
-                Translate text to Morse or decode Morse back to text in your browser. Use the local converter, play audio, copy the output, or download a WAV for practice and lessons.
+              <p className="text-sm sm:text-base md:text-lg text-white/80 max-w-2xl">
+                Translate text to Morse or decode Morse back to English in your browser. No signup, no upload, and the next actions—copy, play audio, download WAV—stay beside the result.
               </p>
               <div className="hidden sm:grid grid-cols-2 gap-2 text-xs sm:text-sm text-white/80">
                 <div className="rounded-xl border border-white/15 bg-white/5 p-3">
@@ -305,9 +305,12 @@ export default function Home() {
                   <p className="font-semibold text-white">Conversion runs locally</p>
                 </div>
               </div>
-              <div className="hidden sm:flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-3">
                 <Link href="/#translator" className="btn-primary" data-analytics-event="hero_cta_click" data-analytics-prop-cta="try_it_now">
-                  Try it now
+                  Translate Morse now
+                </Link>
+                <Link href="/morse-code-audio" className="btn-ghost" data-analytics-event="hero_cta_click" data-analytics-prop-cta="audio_wav_path">
+                  Audio + WAV tool
                 </Link>
               </div>
             </div>

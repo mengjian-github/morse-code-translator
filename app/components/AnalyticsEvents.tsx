@@ -5,6 +5,9 @@ import { trackEvent } from '@/lib/analytics';
 
 export default function AnalyticsEvents() {
   useEffect(() => {
+    const depthMarks = [25, 50, 75, 90];
+    const firedDepthMarks = new Set<number>();
+
     const handleClick = (event: MouseEvent) => {
       const target = event.target as Element | null;
       const element = target?.closest<HTMLElement>('[data-analytics-event]');
@@ -26,8 +29,29 @@ export default function AnalyticsEvents() {
       trackEvent(eventName, props);
     };
 
+    const handleScroll = () => {
+      const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (scrollableHeight <= 0) return;
+
+      const depth = Math.round((window.scrollY / scrollableHeight) * 100);
+      const nextMark = depthMarks.find((mark) => depth >= mark && !firedDepthMarks.has(mark));
+      if (!nextMark) return;
+
+      firedDepthMarks.add(nextMark);
+      trackEvent('page_scroll_depth', {
+        depth_percent: nextMark,
+        event_scope: 'engagement_depth',
+      });
+    };
+
     document.addEventListener('click', handleClick, true);
-    return () => document.removeEventListener('click', handleClick, true);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+
+    return () => {
+      document.removeEventListener('click', handleClick, true);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   return null;

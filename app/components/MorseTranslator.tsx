@@ -121,6 +121,10 @@ export default function MorseTranslator({
       toolResultKeys.current.add(resultKey);
       trackEvent('tool_result', eventProps);
       trackEvent('tool_success', eventProps);
+      trackEvent('result_action_panel_view', {
+        ...eventProps,
+        available_actions: showDownload && showAudio ? 'copy_audio_download_share_related' : 'copy_share_related',
+      });
     }
 
     if (resultUpdateTimer.current) {
@@ -145,7 +149,7 @@ export default function MorseTranslator({
         resultUpdateTimer.current = null;
       }
     };
-  }, [input, mode, output, toolEventProps, validationMessage, variant]);
+  }, [input, mode, output, showAudio, showDownload, toolEventProps, validationMessage, variant]);
 
   const morseSignal = useMemo(() => (mode === 'textToMorse' ? output : input), [input, output, mode]);
   const transmissionSeconds = useMemo(() => {
