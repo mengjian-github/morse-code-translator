@@ -62,6 +62,7 @@ export default function MorseTranslator({
   const [actionHint, setActionHint] = useState<string | null>(null);
   const toolStartKeys = useRef<Set<string>>(new Set());
   const toolResultKeys = useRef<Set<string>>(new Set());
+  const inputFocusTracked = useRef(false);
   const resultUpdateTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const resultUpdateSequence = useRef(0);
 
@@ -359,6 +360,15 @@ export default function MorseTranslator({
     setTimeout(() => setActionHint(null), 2500);
   };
 
+  const handleInputFocus = () => {
+    if (inputFocusTracked.current) return;
+    inputFocusTracked.current = true;
+    trackEvent('input_focus', {
+      ...toolEventProps,
+      location: variant === 'full' ? 'home_translator' : 'compact_translator',
+    });
+  };
+
   const statCards = [
     { label: mode === 'textToMorse' ? 'Input words' : 'Input groups', value: inputWords },
     { label: 'Input characters', value: inputCharacters },
@@ -410,6 +420,7 @@ export default function MorseTranslator({
           <textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
+            onFocus={handleInputFocus}
             placeholder={mode === 'textToMorse' ? 'Type or paste text...' : 'Type morse (., - and /)'}
             className="w-full h-24 md:h-36 p-4 rounded-xl border border-[#e0e5ff] bg-white text-[#0b1f3a] focus:outline-none focus:ring-2 focus:ring-[#0058a3]"
           />

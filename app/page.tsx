@@ -168,9 +168,9 @@ const howToSteps = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Free Morse Code Translator: Audio, Copy & WAV',
+  title: 'Morse Code Translator: Free Audio, Copy & WAV',
   description:
-    'Free Morse Code Translator with no signup: convert text to Morse, decode Morse to English, play audio, copy results, or download a WAV file.',
+    'Morse Code Translator converts text to Morse or Morse to text with audio playback, copy, share, and WAV download. Free, instant, no signup.',
   keywords: [
     'morse code translator',
     'morse code converter',
@@ -185,9 +185,9 @@ export const metadata: Metadata = {
     canonical: absoluteUrl('/'),
   },
   openGraph: buildOpenGraphMeta({
-    title: 'Free Morse Code Translator: Audio, Copy & WAV',
+    title: 'Morse Code Translator: Free Audio, Copy & WAV',
     description:
-      'Free Morse Code Translator with no signup: convert text to Morse, decode Morse to English, play audio, copy results, or download a WAV file.',
+      'Morse Code Translator converts text to Morse or Morse to text with audio playback, copy, share, and WAV download. Free, instant, no signup.',
     url: absoluteUrl('/'),
   }),
 };
@@ -229,6 +229,7 @@ export default function Home() {
         browserRequirements: 'Requires a modern browser with JavaScript and Web Audio support.',
         isAccessibleForFree: true,
         featureList: ['Text to Morse conversion', 'Morse to text decoding', 'Audio playback', 'Copy output', 'Download WAV audio', 'Share translated output'],
+        sameAs: [absoluteUrl('/morse-code-audio'), absoluteUrl('/binary-to-morse'), absoluteUrl('/word-decoder')],
         potentialAction: [
           { '@type': 'UseAction', name: 'Translate text to Morse code', target: absoluteUrl('/#translator') },
           { '@type': 'UseAction', name: 'Play Morse code audio', target: absoluteUrl('/morse-code-audio') },
@@ -295,6 +296,10 @@ export default function Home() {
               <p className="text-sm sm:text-base md:text-lg text-white/80 max-w-2xl">
                 Translate text to Morse or decode Morse back to English in your browser. No signup, no upload, and the next actions—copy, play audio, download WAV—stay beside the result.
               </p>
+              <div className="rounded-2xl border border-[#ffd800]/25 bg-[#ffd800]/10 p-3 text-sm text-white/85">
+                <p className="font-semibold text-white">Fast path: paste text, get Morse, then use Copy, Play audio, Download WAV, or Share from the result panel.</p>
+                <p className="mt-1 text-white/65">This keeps the main task on one screen and reduces empty clicks before a translation exists.</p>
+              </div>
               <div className="hidden sm:grid grid-cols-2 gap-2 text-xs sm:text-sm text-white/80">
                 <div className="rounded-xl border border-white/15 bg-white/5 p-3">
                   <p className="text-white/60 uppercase tracking-[0.28em]">Use path</p>
