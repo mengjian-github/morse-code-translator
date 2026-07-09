@@ -2,12 +2,24 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { blogArticles } from '@/lib/blog/articles';
-import { absoluteUrl, buildOpenGraphMeta } from '@/app/utils/seo';
+import { SITE_NAME, SITE_URL, absoluteUrl, buildOpenGraphMeta } from '@/app/utils/seo';
 
 export async function generateStaticParams() {
   return blogArticles.map((article) => ({
     slug: article.slug,
   }));
+}
+
+function parseArticleDate(dateStr: string): string {
+  const parsed = new Date(dateStr);
+  if (!isNaN(parsed.getTime())) {
+    return parsed.toISOString().split('T')[0];
+  }
+  const fallback = new Date(Date.parse(dateStr));
+  if (!isNaN(fallback.getTime())) {
+    return fallback.toISOString().split('T')[0];
+  }
+  return new Date().toISOString().split('T')[0];
 }
 
 export async function generateMetadata({
@@ -34,10 +46,16 @@ export async function generateMetadata({
       absolute: canonicalTitle,
     },
     description: article.excerpt,
-    keywords: [article.category.toLowerCase(), 'morse code', article.slug.replace(/-/g, ' ')],
+    keywords: [
+      article.category.toLowerCase(),
+      'morse code',
+      article.slug.replace(/-/g, ' '),
+      'morse code translator',
+    ],
     alternates: {
       canonical: canonicalUrl,
     },
+    authors: [{ name: SITE_NAME, url: SITE_URL }],
     openGraph: buildOpenGraphMeta({
       title: openGraphTitle,
       description: article.excerpt,
@@ -83,31 +101,104 @@ export default async function BlogArticle({
   }
 
   const relatedArticles = getRelatedArticles(article.slug, article.category);
+  const pageUrl = absoluteUrl(`/blog/${article.slug}`);
+  const publishDate = parseArticleDate(article.date);
+  const coverImageUrl = absoluteUrl(article.coverImage);
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Organization',
+        '@id': `${SITE_URL}#organization`,
+        name: SITE_NAME,
+        url: SITE_URL,
+        logo: {
+          '@type': 'ImageObject',
+          url: absoluteUrl('/logo.png'),
+          width: 512,
+          height: 512,
+        },
+      },
+      {
+        '@type': 'BlogPosting',
+        '@id': `${pageUrl}#article`,
+        mainEntityOfPage: {
+          '@type': 'WebPage',
+          '@id': pageUrl,
+        },
+        headline: article.title,
+        description: article.excerpt,
+        image: {
+          '@type': 'ImageObject',
+          url: coverImageUrl,
+          width: 1200,
+          height: 630,
+        },
+        author: {
+          '@type': 'Organization',
+          name: SITE_NAME,
+          url: SITE_URL,
+        },
+        publisher: {
+          '@type': 'Organization',
+          name: SITE_NAME,
+          url: SITE_URL,
+          logo: {
+            '@type': 'ImageObject',
+            url: absoluteUrl('/logo.png'),
+            width: 512,
+            height: 512,
+          },
+        },
+        datePublished: publishDate,
+        dateModified: publishDate,
+        articleSection: article.category,
+        keywords: [article.category, 'morse code', 'morse code translator'],
+        inLanguage: 'en',
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${pageUrl}#breadcrumb`,
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
+          { '@type': 'ListItem', position: 2, name: 'Blog', item: absoluteUrl('/blog') },
+          { '@type': 'ListItem', position: 3, name: article.title, item: pageUrl },
+        ],
+      },
+    ],
+  };
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Breadcrumbs */}
-      <nav className="mb-8 text-sm">
-        <Link href="/" className="text-primary-600 dark:text-primary-400 hover:underline">
+      <nav aria-label="Breadcrumb" className="mb-8 text-sm text-white/60">
+        <Link href="/" className="underline decoration-dotted underline-offset-4">
           Home
         </Link>
-        <span className="mx-2 text-gray-400">/</span>
-        <Link href="/blog" className="text-primary-600 dark:text-primary-400 hover:underline">
+        <span className="mx-2">/</span>
+        <Link href="/blog" className="underline decoration-dotted underline-offset-4">
           Blog
         </Link>
-        <span className="mx-2 text-gray-400">/</span>
-        <span className="text-gray-600 dark:text-gray-400">{article.title}</span>
+        <span className="mx-2">/</span>
+        <span className="text-white/80">{article.title}</span>
       </nav>
 
       <article className="max-w-4xl mx-auto">
         <header className="mb-8">
-          <div className="flex items-center gap-3 mb-4">
+          <div className="flex flex-wrap items-center gap-3 mb-4">
             <span className="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-900 dark:text-primary-100 rounded-full text-sm font-semibold">
               {article.category}
             </span>
             <span className="text-gray-500 dark:text-gray-400">{article.readTime}</span>
             <span className="text-gray-500 dark:text-gray-400">•</span>
-            <time className="text-gray-500 dark:text-gray-400">{article.date}</time>
+            <time className="text-gray-500 dark:text-gray-400" dateTime={publishDate}>
+              {article.date}
+            </time>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
             {article.title}
@@ -132,6 +223,7 @@ export default async function BlogArticle({
             <Link
               href="/blog"
               className="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-semibold"
+              data-analytics-event="blog_back_to_list_click"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -151,6 +243,9 @@ export default async function BlogArticle({
                 key={related.slug}
                 href={`/blog/${related.slug}`}
                 className="bg-white dark:bg-slate-800 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+                data-analytics-event="blog_related_article_click"
+                data-analytics-prop-article={related.slug}
+                data-analytics-prop-category={related.category}
               >
                 <img
                   src={related.coverImage}

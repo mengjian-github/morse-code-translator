@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next';
-import { articles } from './blog/articles';
+import { blogArticles } from '@/lib/blog/articles';
 
 const siteUrl = 'https://morsecodetranslator.app';
 
@@ -22,18 +22,18 @@ const staticPaths = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
+  const buildDate = new Date('2026-07-09T00:00:00.000Z');
 
   const staticEntries = staticPaths.map((path) => ({
     url: `${siteUrl}${path || '/'}`,
-    lastModified: now,
+    lastModified: buildDate,
   }));
 
-  const blogEntries = articles.map((article) => {
+  const blogEntries = blogArticles.map((article) => {
     const parsedDate = new Date(article.date);
     return {
       url: `${siteUrl}/blog/${article.slug}`,
-      lastModified: isNaN(parsedDate.getTime()) ? now : parsedDate,
+      lastModified: isNaN(parsedDate.getTime()) ? buildDate : parsedDate,
     };
   });
 

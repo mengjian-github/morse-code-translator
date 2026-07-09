@@ -73,11 +73,24 @@ export default function Footer() {
                   {col.links.map((link) => (
                     <li key={link.href}>
                       {isCurrent(link.href) ? (
-                        <span className="text-white/40 cursor-default" aria-current="page">
-                          {link.label} <span className="text-[10px] uppercase tracking-wider opacity-60">· Current</span>
+                        <span
+                          className="text-white/40 cursor-default select-none"
+                          aria-current="page"
+                          title={`${link.label} · current page`}
+                        >
+                          {link.label}{' '}
+                          <span className="text-[10px] uppercase tracking-wider opacity-60">
+                            · Current
+                          </span>
                         </span>
                       ) : (
-                        <Link href={link.href} className="hover:text-white transition-colors">
+                        <Link
+                          href={link.href}
+                          className="hover:text-white transition-colors"
+                          data-analytics-event="footer_nav_click"
+                          data-analytics-prop-section={col.title}
+                          data-analytics-prop-label={link.label}
+                        >
                           {link.label}
                         </Link>
                       )}

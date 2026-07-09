@@ -7,6 +7,8 @@ export default function AnalyticsEvents() {
   useEffect(() => {
     const depthMarks = [25, 50, 75, 90];
     const firedDepthMarks = new Set<number>();
+    const engagementTimers = [10, 30, 60, 120, 180, 300];
+    const firedEngagementMarks = new Set<number>();
 
     const handleClick = (event: MouseEvent) => {
       const target = event.target as Element | null;
@@ -44,6 +46,18 @@ export default function AnalyticsEvents() {
       });
     };
 
+    const engagementInterval = setInterval(() => {
+      const secondsOnPage = Math.floor(performance.now() / 1000);
+      const nextMark = engagementTimers.find((mark) => secondsOnPage >= mark && !firedEngagementMarks.has(mark));
+      if (!nextMark) return;
+
+      firedEngagementMarks.add(nextMark);
+      trackEvent('page_engagement_time', {
+        engagement_seconds: nextMark,
+        event_scope: 'engagement_time',
+      });
+    }, 1000);
+
     document.addEventListener('click', handleClick, true);
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
@@ -51,6 +65,7 @@ export default function AnalyticsEvents() {
     return () => {
       document.removeEventListener('click', handleClick, true);
       window.removeEventListener('scroll', handleScroll);
+      clearInterval(engagementInterval);
     };
   }, []);
 

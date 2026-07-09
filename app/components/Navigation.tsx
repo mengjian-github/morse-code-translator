@@ -1,11 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMoreOpen, setIsMoreOpen] = useState(false);
+  const moreContainerRef = useRef<HTMLDivElement>(null);
 
   const navLinks = [
     { href: '/', label: 'Translator' },
@@ -20,6 +21,31 @@ export default function Navigation() {
     { href: '/translator-maker-guide', label: 'Maker Guide' },
     { href: '/blog', label: 'Blog' },
   ];
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        moreContainerRef.current &&
+        !moreContainerRef.current.contains(event.target as Node)
+      ) {
+        setIsMoreOpen(false);
+      }
+    };
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsMoreOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleEscape);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, []);
 
   return (
     <nav className="sticky top-0 z-50 backdrop-blur-xl bg-[rgba(2,13,30,0.92)] border-b border-white/10 shadow-[0_20px_60px_rgba(3,22,50,0.45)]">
@@ -45,11 +71,14 @@ export default function Navigation() {
                 key={link.href}
                 href={link.href}
                 className="px-3 py-2 text-sm font-medium text-white/70 hover:text-white transition-colors"
+                data-analytics-event="nav_main_click"
+                data-analytics-prop-label={link.label}
               >
                 {link.label}
               </Link>
             ))}
             <div
+              ref={moreContainerRef}
               className="relative group"
               onMouseEnter={() => setIsMoreOpen(true)}
               onMouseLeave={() => setIsMoreOpen(false)}
@@ -59,16 +88,23 @@ export default function Navigation() {
                 type="button"
                 aria-expanded={isMoreOpen}
                 aria-controls="more-navigation-menu"
+                aria-haspopup="menu"
                 onClick={() => setIsMoreOpen((open) => !open)}
                 data-analytics-event="nav_more_click"
               >
                 More
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className={`w-4 h-4 transition-transform ${isMoreOpen ? 'rotate-180' : ''}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
               <div
                 id="more-navigation-menu"
+                role="menu"
                 className={`absolute right-0 mt-2 w-60 rounded-2xl bg-[rgba(3,14,30,0.95)] border border-white/10 shadow-xl transition-all ${
                   isMoreOpen
                     ? 'opacity-100 translate-y-0 pointer-events-auto'
@@ -82,6 +118,9 @@ export default function Navigation() {
                       href={link.href}
                       className="block px-4 py-2 text-sm text-white/70 hover:text-white hover:bg-white/5"
                       onClick={() => setIsMoreOpen(false)}
+                      data-analytics-event="nav_more_item_click"
+                      data-analytics-prop-label={link.label}
+                      role="menuitem"
                     >
                       {link.label}
                     </Link>
@@ -104,8 +143,8 @@ export default function Navigation() {
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="lg:hidden inline-flex items-center justify-center p-2 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#ffd800]/70"
             aria-expanded={isMenuOpen}
+            aria-label={isMenuOpen ? 'Close main menu' : 'Open main menu'}
           >
-            <span className="sr-only">Open main menu</span>
             {isMenuOpen ? (
               <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -128,6 +167,8 @@ export default function Navigation() {
                 href={link.href}
                 className="block px-3 py-2 rounded-md text-base font-medium text-white/80 hover:bg-white/10"
                 onClick={() => setIsMenuOpen(false)}
+                data-analytics-event="mobile_nav_click"
+                data-analytics-prop-label={link.label}
               >
                 {link.label}
               </Link>
