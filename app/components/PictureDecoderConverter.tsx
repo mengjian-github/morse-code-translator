@@ -3,12 +3,18 @@
 import { useState, useEffect } from 'react';
 import { morseToText, isValidMorse } from '../utils/morseCode';
 import CopyButton from './CopyButton';
+import { trackEvent } from '@/lib/analytics';
 
 export default function PictureDecoderConverter() {
   const [imagePreview, setImagePreview] = useState<string>('');
   const [morseInput, setMorseInput] = useState('');
   const [decodedText, setDecodedText] = useState('');
   const [error, setError] = useState('');
+
+  const eventProps = {
+    tool_name: 'picture_decoder',
+    input_direction: 'image_or_morse_to_text',
+  };
 
   useEffect(() => {
     if (!morseInput.trim()) {
@@ -27,9 +33,19 @@ export default function PictureDecoderConverter() {
       const decoded = morseToText(morseInput);
       setDecodedText(decoded);
       setError('');
+      trackEvent('tool_result', {
+        ...eventProps,
+        input_length: morseInput.length,
+        output_length: decoded.length,
+      });
     } catch (err) {
       setError('Error decoding morse code. Please check your input.');
       setDecodedText('');
+      trackEvent('tool_error', {
+        ...eventProps,
+        input_length: morseInput.length,
+        reason: 'decode_exception',
+      });
     }
   }, [morseInput]);
 
@@ -39,6 +55,10 @@ export default function PictureDecoderConverter() {
 
     if (!file.type.startsWith('image/')) {
       setError('Please upload a valid image file.');
+      trackEvent('image_upload_rejected', {
+        ...eventProps,
+        reason: 'invalid_file_type',
+      });
       return;
     }
 
@@ -46,11 +66,22 @@ export default function PictureDecoderConverter() {
     reader.onload = (event) => {
       setImagePreview(event.target?.result as string);
       setError('');
+      trackEvent('image_upload_preview', {
+        ...eventProps,
+        file_type: file.type,
+        file_size: file.size,
+      });
     };
     reader.readAsDataURL(file);
   };
 
   const handleClear = () => {
+    trackEvent('clear_click', {
+      ...eventProps,
+      had_image: Boolean(imagePreview),
+      had_input: Boolean(morseInput),
+      had_output: Boolean(decodedText),
+    });
     setImagePreview('');
     setMorseInput('');
     setDecodedText('');
@@ -58,6 +89,10 @@ export default function PictureDecoderConverter() {
   };
 
   const handleExample = () => {
+    trackEvent('sample_click', {
+      ...eventProps,
+      location: 'picture_decoder_converter',
+    });
     setMorseInput('.... . .-.. .-.. --- / .-- --- .-. .-.. -..'); // "HELLO WORLD"
   };
 
@@ -127,7 +162,7 @@ export default function PictureDecoderConverter() {
       </div>
 
       <div className="flex flex-wrap gap-3">
-        <CopyButton text={decodedText} label="Copy Decoded Text" />
+        <CopyButton text={decodedText} label="Copy Decoded Text" eventProps={eventProps} />
         <button
           onClick={handleClear}
           className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-all"

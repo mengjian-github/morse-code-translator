@@ -126,6 +126,11 @@ const cockpitPanels = [
 
 const serpFaqs = [
   {
+    question: 'What can I do with this Morse Code Translator after it converts my message?',
+    answer:
+      'After the result appears, keep working from the same panel: copy the translated output, play it as audio, download a WAV file, share it, or open a related tool such as Morse Code Audio, Binary to Morse, or Word Decoder.',
+  },
+  {
     question: 'How does the Morse Code Translator convert text to CW so fast?',
     answer:
       'A streaming parser keeps conversion in memory, so the tool responds as you type and pre-buffers audio envelopes for repeated practice runs.',
@@ -215,6 +220,11 @@ export default function Home() {
         url: absoluteUrl('/'),
         inLanguage: 'en',
         publisher: { '@id': `${absoluteUrl('/')}#organization` },
+        potentialAction: {
+          '@type': 'SearchAction',
+          target: `${absoluteUrl('/')}?q={search_term_string}#translator`,
+          'query-input': 'required name=search_term_string',
+        },
       },
       {
         '@type': 'WebApplication',
@@ -229,6 +239,11 @@ export default function Home() {
         browserRequirements: 'Requires a modern browser with JavaScript and Web Audio support.',
         isAccessibleForFree: true,
         featureList: ['Text to Morse conversion', 'Morse to text decoding', 'Audio playback', 'Copy output', 'Download WAV audio', 'Share translated output'],
+        audience: [
+          { '@type': 'Audience', audienceType: 'students' },
+          { '@type': 'Audience', audienceType: 'amateur radio operators' },
+          { '@type': 'Audience', audienceType: 'teachers' },
+        ],
         sameAs: [absoluteUrl('/morse-code-audio'), absoluteUrl('/binary-to-morse'), absoluteUrl('/word-decoder')],
         potentialAction: [
           { '@type': 'UseAction', name: 'Translate text to Morse code', target: absoluteUrl('/#translator') },

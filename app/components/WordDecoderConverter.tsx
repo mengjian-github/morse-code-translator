@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { morseToText, caesarEncode, caesarDecode, textToMorse, isValidMorse } from '../utils/morseCode';
 import CopyButton from './CopyButton';
+import { trackEvent } from '@/lib/analytics';
 
 export default function WordDecoderConverter() {
   const [decoderType, setDecoderType] = useState<'morse' | 'caesar' | 'substitution'>('morse');
@@ -10,6 +11,11 @@ export default function WordDecoderConverter() {
   const [outputText, setOutputText] = useState('');
   const [caesarShift, setCaesarShift] = useState(3);
   const [error, setError] = useState('');
+
+  const eventProps = {
+    tool_name: 'word_decoder',
+    decoder_type: decoderType,
+  };
 
   useEffect(() => {
     if (!inputText.trim()) {
@@ -36,19 +42,38 @@ export default function WordDecoderConverter() {
 
       setOutputText(result);
       setError('');
+      trackEvent('tool_result', {
+        ...eventProps,
+        input_length: inputText.length,
+        output_length: result.length,
+      });
     } catch (err) {
       setError('Error decoding. Please check your input.');
       setOutputText('');
+      trackEvent('tool_error', {
+        ...eventProps,
+        input_length: inputText.length,
+        reason: 'decode_exception',
+      });
     }
   }, [inputText, decoderType, caesarShift]);
 
   const handleClear = () => {
+    trackEvent('clear_click', {
+      ...eventProps,
+      had_input: Boolean(inputText),
+      had_output: Boolean(outputText),
+    });
     setInputText('');
     setOutputText('');
     setError('');
   };
 
   const handleExample = () => {
+    trackEvent('sample_click', {
+      ...eventProps,
+      location: 'word_decoder_converter',
+    });
     if (decoderType === 'morse') {
       setInputText('.... . .-.. .-.. --- / .-- --- .-. .-.. -..'); // HELLO WORLD
     } else if (decoderType === 'caesar') {
@@ -61,6 +86,10 @@ export default function WordDecoderConverter() {
 
   const testAllShifts = () => {
     if (decoderType !== 'caesar') return;
+    trackEvent('caesar_test_all_shifts_click', {
+      ...eventProps,
+      input_length: inputText.length,
+    });
     let results = 'Testing all Caesar cipher shifts:\n\n';
     for (let i = 1; i <= 25; i++) {
       const decoded = caesarDecode(inputText, i);
@@ -168,7 +197,7 @@ export default function WordDecoderConverter() {
       </div>
 
       <div className="flex flex-wrap gap-3">
-        <CopyButton text={outputText} label="Copy Decoded Text" />
+        <CopyButton text={outputText} label="Copy Decoded Text" eventProps={eventProps} />
         <button
           onClick={handleClear}
           className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-all"

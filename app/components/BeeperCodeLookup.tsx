@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import { trackEvent } from '@/lib/analytics';
 
 const beeperCodes: Record<string, string> = {
   '911': 'Emergency / Call me now',
@@ -46,6 +47,11 @@ export default function BeeperCodeLookup() {
   const [input, setInput] = useState('');
   const [mode, setMode] = useState<'lookup' | 'encode'>('lookup');
 
+  const eventProps = {
+    tool_name: 'beeper_code_lookup',
+    mode,
+  };
+
   const lookupResult = useMemo(() => {
     const trimmed = input.trim();
     if (!trimmed) return null;
@@ -63,7 +69,10 @@ export default function BeeperCodeLookup() {
     <div className="space-y-4">
       <div className="flex gap-3">
         <button
-          onClick={() => setMode('lookup')}
+          onClick={() => {
+            trackEvent('mode_toggle', { ...eventProps, new_mode: 'lookup' });
+            setMode('lookup');
+          }}
           className={`px-4 py-2 rounded-lg font-medium transition-all ${
             mode === 'lookup'
               ? 'bg-primary-600 text-white'
@@ -73,7 +82,10 @@ export default function BeeperCodeLookup() {
           Code Lookup
         </button>
         <button
-          onClick={() => setMode('encode')}
+          onClick={() => {
+            trackEvent('mode_toggle', { ...eventProps, new_mode: 'encode' });
+            setMode('encode');
+          }}
           className={`px-4 py-2 rounded-lg font-medium transition-all ${
             mode === 'encode'
               ? 'bg-primary-600 text-white'
@@ -87,7 +99,16 @@ export default function BeeperCodeLookup() {
       <input
         type="text"
         value={input}
-        onChange={(e) => setInput(e.target.value)}
+        onChange={(e) => {
+          const nextValue = e.target.value;
+          if (!input.trim() && nextValue.trim()) {
+            trackEvent('tool_start', {
+              ...eventProps,
+              input_length: nextValue.length,
+            });
+          }
+          setInput(nextValue);
+        }}
         placeholder={mode === 'lookup' ? 'Enter beeper code (e.g., 143)' : 'Enter text to convert'}
         className="w-full p-4 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-slate-900 text-gray-900 dark:text-white font-mono focus:ring-2 focus:ring-primary-500"
       />
@@ -119,6 +140,11 @@ export default function BeeperCodeLookup() {
           <button
             key={code}
             onClick={() => {
+              trackEvent('sample_click', {
+                ...eventProps,
+                sample_label: code,
+                location: 'beeper_code_grid',
+              });
               setMode('lookup');
               setInput(code);
             }}
